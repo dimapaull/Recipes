@@ -24,6 +24,7 @@ final class AppCoordinator: BaseCoodinator {
         } else {
             goT​oAuth​()
         }
+        goToMain()
     }
 
     private func goToMain() {
