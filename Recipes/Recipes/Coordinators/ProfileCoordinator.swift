@@ -28,6 +28,4 @@ final class ProfileCoordinator: BaseCoodinator {
         let pofileView = ProfileView()
         rootController.pushViewController(pofileView, animated: true)
     }
-    
-    
 }
