@@ -9,6 +9,7 @@ final class AppCoordinator: BaseCoodinator {
 
     private enum Constants {
         static let adminLoginText = "admin"
+        static let adminValidateText = "user"
     }
 
     // MARK: - Private Properties
@@ -19,7 +20,7 @@ final class AppCoordinator: BaseCoodinator {
     // MARK: - Private Methods
 
     override func start() {
-        if Constants.adminLoginText == Constants.adminLoginText + "ss" {
+        if Constants.adminLoginText == Constants.adminValidateText {
             goToMain()
         } else {
             goT​oAuth​()
