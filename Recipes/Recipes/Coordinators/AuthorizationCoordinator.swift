@@ -31,7 +31,7 @@ final class AuthorizationCoordinator: BaseCoodinator {
         self.rootController = rootController
     }
 
-    func nextVC() {
+    func showAuthorizationView() {
         let authorizationView = AuthorizationView()
         rootController?.pushViewController(authorizationView, animated: true)
     }

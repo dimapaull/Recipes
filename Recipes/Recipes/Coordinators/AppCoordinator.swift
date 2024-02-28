@@ -14,7 +14,7 @@ final class AppCoordinator: BaseCoodinator {
 
     // MARK: - Private Properties
 
-    private var tabBarViewController: MainTabBarViewController?
+    private var mainBarViewController: MainTabBarViewController?
     private var appBuilder = ModuleBuilder()
 
     // MARK: - Private Methods
@@ -29,7 +29,7 @@ final class AppCoordinator: BaseCoodinator {
     }
 
     private func goToMain() {
-        tabBarViewController = MainTabBarViewController()
+        mainBarViewController = MainTabBarViewController()
         /// Установка экрана с рецептами
         let recipeModuleView = appBuilder.makeRecipeModule()
         let recipeCoordinator = RecipeCoordinator(rootController: recipeModuleView)
@@ -51,15 +51,15 @@ final class AppCoordinator: BaseCoodinator {
         profileCoordinator.onFinishFlow = { [weak self] in
             self?.remove(coordinator: recipeCoordinator)
             self?.remove(coordinator: profileCoordinator)
-            self?.tabBarViewController = nil
+            self?.mainBarViewController = nil
             self?.goT​oAuth​()
         }
 
-        tabBarViewController?.setViewControllers(
+        mainBarViewController?.setViewControllers(
             [recipeCoordinator.rootController, favoritiesCoordinator.rootController, profileCoordinator.rootController],
             animated: true
         )
-        setAsRoot​(​_​: tabBarViewController ?? UITabBarController())
+        setAsRoot​(​_​: mainBarViewController ?? UITabBarController())
     }
 
     private func goT​oAuth​() {

@@ -14,7 +14,7 @@ final class AuthorizationPresenter {
 
     // MARK: - Visual Components
 
-    private weak var view: AuthorizationViewProtocol?
+    weak var view: AuthorizationViewProtocol?
 
     // MARK: - Public Properties
 
@@ -53,12 +53,7 @@ final class AuthorizationPresenter {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue else { return }
         let keyboardHeight = keyboardSize.height
-
-        if isKeyboardWillShow {
-            view?.moveLoginButton(-keyboardHeight)
-        } else {
-            view?.moveLoginButton(Constants.bottomConstantForLogin)
-        }
+        view?.moveLoginButton(isKeyboardWillShow ? -keyboardHeight :  Constants.bottomConstantForLogin)
     }
 }
 
