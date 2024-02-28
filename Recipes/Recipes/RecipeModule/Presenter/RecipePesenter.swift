@@ -5,17 +5,15 @@ import UIKit
 
 /// Презентер для экрана с рецептами
 class RecipePresenter {
-    // MARK: - Public Properties
-
-    weak var recipeCoordinator: RecipeCoordinator?
-
     // MARK: - Private Properties
 
     private weak var view: UIViewController?
+    private weak var recipeCoordinator: RecipeCoordinator?
 
     // MARK: - Initializers
 
-    required init(view: UIViewController) {
+    required init(view: UIViewController, recipeCoordinator: RecipeCoordinator) {
         self.view = view
+        self.recipeCoordinator = recipeCoordinator
     }
 }

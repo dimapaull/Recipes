@@ -5,9 +5,8 @@ import UIKit
 
 /// Экран профиля пользователя
 final class BonusesView: UIViewController {
-    
     // MARK: - Constants
-    
+
     enum Constants {
         static let dieImage = UIImage(named: "die")
         static let titleText = "Your bonuses"
@@ -18,16 +17,16 @@ final class BonusesView: UIViewController {
         static let bigStarImage = UIImage(named: "bigStar")
         static let oneHundredImage = UIImage(named: "100")
     }
-    
+
     // MARK: - Visual Components
-    
+
     private let dieImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.image = Constants.dieImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.text = Constants.titleText
@@ -37,36 +36,36 @@ final class BonusesView: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var closeButton: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.setImage(Constants.closeButtonImage, for: .normal)
         button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    
+
     private let presentImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.presentImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let starImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.bigStarImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let oneHundredImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.oneHundredImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -74,9 +73,9 @@ final class BonusesView: UIViewController {
         setupView()
         setupConstraints()
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func setupView() {
         view.backgroundColor = .white
         view.addSubview(dieImageView)
@@ -86,7 +85,7 @@ final class BonusesView: UIViewController {
         view.addSubview(starImageView)
         view.addSubview(oneHundredImageView)
     }
-    
+
     private func setupConstraints() {
         setupDieViewImageConstraints()
         setupTitleLabelConstraints()
@@ -95,21 +94,21 @@ final class BonusesView: UIViewController {
         setupStarImageViewConstraints()
         setupOneHundredImageViewConstraints()
     }
-    
+
     private func setupDieViewImageConstraints() {
         dieImageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 17).isActive = true
         dieImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         dieImageView.heightAnchor.constraint(equalToConstant: 5).isActive = true
         dieImageView.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
-    
+
     private func setupTitleLabelConstraints() {
         titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 45).isActive = true
         titleLabel.widthAnchor.constraint(equalToConstant: 350).isActive = true
         titleLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
     }
-    
+
     private func setupCloseButtonConstraints() {
         closeButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25).isActive = true
         closeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -15).isActive = true
@@ -123,23 +122,29 @@ final class BonusesView: UIViewController {
         presentImageView.heightAnchor.constraint(equalToConstant: 136).isActive = true
         presentImageView.widthAnchor.constraint(equalToConstant: 150).isActive = true
     }
-    
+
     private func setupStarImageViewConstraints() {
         starImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 143).isActive = true
         starImageView.topAnchor.constraint(equalTo: presentImageView.bottomAnchor, constant: 31.45).isActive = true
         starImageView.heightAnchor.constraint(equalToConstant: 27.71).isActive = true
         starImageView.widthAnchor.constraint(equalToConstant: 29.17).isActive = true
     }
-    
+
     private func setupOneHundredImageViewConstraints() {
-        oneHundredImageView.leadingAnchor.constraint(equalTo: starImageView.trailingAnchor, 
-                                                     constant: 14).isActive = true
-        oneHundredImageView.topAnchor.constraint(equalTo: presentImageView.bottomAnchor, 
-                                                 constant: 34).isActive = true
+        oneHundredImageView.leadingAnchor.constraint(
+            equalTo: starImageView.trailingAnchor,
+
+            constant: 14
+        ).isActive = true
+        oneHundredImageView.topAnchor.constraint(
+            equalTo: presentImageView.bottomAnchor,
+
+            constant: 34
+        ).isActive = true
         oneHundredImageView.widthAnchor.constraint(equalToConstant: 70).isActive = true
         oneHundredImageView.heightAnchor.constraint(equalToConstant: 23).isActive = true
     }
-    
+
     @objc private func closeButtonTapped() {
         dismiss(animated: true)
     }

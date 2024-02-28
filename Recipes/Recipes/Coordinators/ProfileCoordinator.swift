@@ -7,18 +7,14 @@ import UIKit
 final class ProfileCoordinator: BaseCoodinator {
     // MARK: - Public Properties
 
-    var rootController: UINavigationController
-    var onFinishFlow: (() -> ())?
-
-    // MARK: - Private Properties
-
-    // MARK: - Initializers
-
-    init(rootController: UIViewController) {
-        self.rootController = UINavigationController(rootViewController: rootController)
-    }
+    var rootController: UINavigationController?
+    var onFinishFlow: VoidHandler?
 
     // MARK: - Public Methods
+
+    func setRootViewController(view: UIViewController) {
+        rootController = UINavigationController(rootViewController: view)
+    }
 
     func logOut() {
         onFinishFlow?()
@@ -26,6 +22,6 @@ final class ProfileCoordinator: BaseCoodinator {
 
     func pushProfileView() {
         let pofileView = ProfileView()
-        rootController.pushViewController(pofileView, animated: true)
+        rootController?.pushViewController(pofileView, animated: true)
     }
 }

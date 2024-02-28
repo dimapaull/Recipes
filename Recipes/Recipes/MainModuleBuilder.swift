@@ -1,10 +1,10 @@
-// ModuleBuilder.swift
+// MainModuleBuilder.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Билдер всего приложения
-final class ModuleBuilder {
+final class MainModuleBuilder {
     // MARK: - Constants
 
     private enum Constants {
@@ -15,36 +15,36 @@ final class ModuleBuilder {
 
     // MARK: - Private Methods
 
-    func makeRecipeModule() -> RecipeView {
+    func makeRecipeModule(coordinator: RecipeCoordinator) -> RecipeView {
         let view = RecipeView()
-        let recipePresenter = RecipePresenter(view: view)
+        let recipePresenter = RecipePresenter(view: view, recipeCoordinator: coordinator)
         view.presenter = recipePresenter
         view.tabBarItem = UITabBarItem(title: Constants.recipeTabBarTitle, image: .recipeBar, tag: 0)
         view.tabBarItem.selectedImage = .currentRecipeBar
         return view
     }
 
-    func makeFavoritesModule() -> FavoritiesView {
+    func makeFavoritesModule(coordinator: FavoritiesCoordinator) -> FavoritiesView {
         let view = FavoritiesView()
-        let favoritiesPresenter = FavoritiesPresenter(view: view)
+        let favoritiesPresenter = FavoritiesPresenter(view: view, favoritiesCoordinator: coordinator)
         view.presenter = favoritiesPresenter
         view.tabBarItem = UITabBarItem(title: Constants.favoritiesTabBarTitle, image: .favoritesBar, tag: 1)
         view.tabBarItem.selectedImage = .currentFavoritesBar
         return view
     }
 
-    func makeProfileModule() -> ProfileView {
+    func makeProfileModule(coordinator: ProfileCoordinator) -> ProfileView {
         let view = ProfileView()
-        let profilePresenter = ProfilePresenter(view: view)
+        let profilePresenter = ProfilePresenter(view: view, profileCoordinator: coordinator)
         view.presenter = profilePresenter
         view.tabBarItem = UITabBarItem(title: Constants.profileTabBarTitle, image: .profileBar, tag: 1)
         view.tabBarItem.selectedImage = .currentProfileBar
         return view
     }
 
-    func makeAuthorizationModule() -> AuthorizationView {
+    func makeAuthorizationModule(coordinator: AuthorizationCoordinator) -> AuthorizationView {
         let view = AuthorizationView()
-        let authorizationPresenter = AuthorizationPresenter(view: view)
+        let authorizationPresenter = AuthorizationPresenter(view: view, authorizationCoordinator: coordinator)
         view.presenter = authorizationPresenter
         return view
     }

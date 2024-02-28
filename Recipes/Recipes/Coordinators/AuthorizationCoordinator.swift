@@ -8,9 +8,13 @@ final class AuthorizationCoordinator: BaseCoodinator {
     // MARK: - Public Properties
 
     var rootController: UINavigationController?
-    var onFinishFlow: (() -> ())?
+    var onFinishFlow: VoidHandler?
 
     // MARK: - Public Methods
+
+    func setRootViewController(view: UIViewController) {
+        rootController = UINavigationController(rootViewController: view)
+    }
 
     override func start() {
         showLogin()
@@ -22,9 +26,8 @@ final class AuthorizationCoordinator: BaseCoodinator {
 
     func showLogin() {
         let authorizationView = AuthorizationView()
-        let authorizationPresenter = AuthorizationPresenter(view: authorizationView)
+        let authorizationPresenter = AuthorizationPresenter(view: authorizationView, authorizationCoordinator: self)
         authorizationView.presenter = authorizationPresenter
-        authorizationPresenter.authorizationCoordinator = self
 
         let rootController = UINavigationController(rootViewController: authorizationView)
         setAsRoot​(​_​: rootController)

@@ -5,17 +5,15 @@ import UIKit
 
 /// Презентер для профиля
 final class ProfilePresenter {
-    // MARK: - Public Properties
-
-    weak var profileCoordinator: ProfileCoordinator?
-
     // MARK: - Private Properties
 
     private weak var view: UIViewController?
+    private weak var profileCoordinator: ProfileCoordinator?
 
     // MARK: - Initializers
 
-    required init(view: UIViewController) {
+    required init(view: UIViewController, profileCoordinator: ProfileCoordinator) {
         self.view = view
+        self.profileCoordinator = profileCoordinator
     }
 }

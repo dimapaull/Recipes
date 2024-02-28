@@ -5,9 +5,8 @@ import UIKit
 
 /// Экран профиля пользователя
 final class ProfileView: UIViewController {
-
     // MARK: - Constants
-    
+
     enum Constants {
         static let alertTitle = "Are you sure you want to log out?"
         static let yesAlert = "Yes"
@@ -16,7 +15,7 @@ final class ProfileView: UIViewController {
         static let titleAlert = "Change your name and surname"
         static let placeholderText = "Name Surname"
     }
-    
+
     enum TypeCells {
         case profileAvatar
         case profileBonuses
@@ -25,9 +24,9 @@ final class ProfileView: UIViewController {
     }
 
     // MARK: - Visual Components
-    
+
     private let tableView: UITableView = {
-       let tableView = UITableView()
+        let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
@@ -37,7 +36,7 @@ final class ProfileView: UIViewController {
     var presenter: ProfilePresenter?
 
     // MARK: - Private Properties
-    
+
     private let typeCells: [TypeCells] = [.profileAvatar, .profileBonuses, .profilePolicy, .profileLogOut]
 
     // MARK: - Life Cycle
@@ -49,7 +48,7 @@ final class ProfileView: UIViewController {
     }
 
     // MARK: - Private Methods
-    
+
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.rowHeight = UITableView.automaticDimension
@@ -58,26 +57,25 @@ final class ProfileView: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(
-            ProfileAvatarTableViewCell.self, 
-            forCellReuseIdentifier: 
-                ProfileAvatarTableViewCell.Constants.identifier
+            ProfileAvatarTableViewCell.self,
+            forCellReuseIdentifier:
+            ProfileAvatarTableViewCell.Constants.identifier
         )
         tableView.register(
             ProfileBonusesTableViewCell.self,
             forCellReuseIdentifier:
-                ProfileBonusesTableViewCell.Constants.identifier
+            ProfileBonusesTableViewCell.Constants.identifier
         )
         tableView.register(
             ProfilePolicyTableViewCell.self,
             forCellReuseIdentifier:
-                ProfilePolicyTableViewCell.Constants.identifier
+            ProfilePolicyTableViewCell.Constants.identifier
         )
         tableView.register(
             LogOutTableViewCell.self,
             forCellReuseIdentifier:
-                LogOutTableViewCell.Constants.identifier
+            LogOutTableViewCell.Constants.identifier
         )
-        
     }
 
     private func configureUI() {
@@ -87,7 +85,7 @@ final class ProfileView: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
-    
+
     private func logOutAlert() {
         let alert = UIAlertController(title: Constants.alertTitle, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Constants.yesAlert, style: .default)
@@ -104,48 +102,51 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         4
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cells = typeCells[indexPath.section]
         switch cells {
         case .profileAvatar:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileAvatarTableViewCell.Constants.identifier,
-                for: indexPath)
-                    as? ProfileAvatarTableViewCell else { return UITableViewCell() }
+                for: indexPath
+            )
+                as? ProfileAvatarTableViewCell else { return UITableViewCell() }
             cell.delegate = self
             return cell
         case .profileBonuses:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileBonusesTableViewCell.Constants.identifier,
-                for: indexPath)
-                    as? ProfileBonusesTableViewCell else { return UITableViewCell() }
+                for: indexPath
+            )
+                as? ProfileBonusesTableViewCell else { return UITableViewCell() }
             return cell
         case .profilePolicy:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfilePolicyTableViewCell.Constants.identifier,
-                for: indexPath)
-                    as? ProfilePolicyTableViewCell else { return UITableViewCell() }
+                for: indexPath
+            )
+                as? ProfilePolicyTableViewCell else { return UITableViewCell() }
             return cell
         case .profileLogOut:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: LogOutTableViewCell.Constants.identifier,
-                for: indexPath)
-                    as? LogOutTableViewCell else { return UITableViewCell() }
+                for: indexPath
+            )
+                as? LogOutTableViewCell else { return UITableViewCell() }
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
         let cells = typeCells[indexPath.section]
         switch cells {
-            
         case .profileAvatar:
             print("profileAvatar")
         case .profileBonuses:
@@ -164,7 +165,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             logOutAlert()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cells = typeCells[indexPath.section]
         switch cells {
@@ -181,6 +182,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
 }
 
 // MARK: - Расширение класса для вывода аллерта
+
 extension ProfileView: Alertable {
     func alertShow() {
         let alert = UIAlertController(title: Constants.titleAlert, message: nil, preferredStyle: .alert)

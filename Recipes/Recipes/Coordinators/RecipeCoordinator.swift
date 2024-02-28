@@ -7,16 +7,14 @@ import UIKit
 final class RecipeCoordinator: BaseCoodinator {
     // MARK: - Public Properties
 
-    var rootController: UINavigationController
-    var onFinishFlow: (() -> ())?
-
-    // MARK: - Initializers
-
-    init(rootController: UIViewController) {
-        self.rootController = UINavigationController(rootViewController: rootController)
-    }
+    var rootController: UINavigationController?
+    var onFinishFlow: VoidHandler?
 
     // MARK: - Public Methods
+
+    func setRootViewController(view: UIViewController) {
+        rootController = UINavigationController(rootViewController: view)
+    }
 
     func logOut() {
         onFinishFlow?()
@@ -24,6 +22,6 @@ final class RecipeCoordinator: BaseCoodinator {
 
     func pushRecipeView() {
         let recipeView = RecipeView()
-        rootController.pushViewController(recipeView, animated: true)
+        rootController?.pushViewController(recipeView, animated: true)
     }
 }

@@ -3,6 +3,8 @@
 
 /// Описание профиля
 struct Profile {
+    /// Имя пользователя
     var userName: String
+    /// Количество бонусов пользователя
     var bonuses: Int
 }

@@ -7,18 +7,16 @@ import UIKit
 final class FavoritiesCoordinator: BaseCoodinator {
     // MARK: - Public Properties
 
-    var rootController: UINavigationController
-    var onFinishFlow: (() -> ())?
+    var rootController: UINavigationController?
+    var onFinishFlow: VoidHandler?
 
     // MARK: - Private Properties
 
-    // MARK: - Initializers
-
-    init(rootController: UIViewController) {
-        self.rootController = UINavigationController(rootViewController: rootController)
-    }
-
     // MARK: - Public Methods
+
+    func setRootViewController(view: UIViewController) {
+        rootController = UINavigationController(rootViewController: view)
+    }
 
     func logOut() {
         onFinishFlow?()
@@ -26,6 +24,6 @@ final class FavoritiesCoordinator: BaseCoodinator {
 
     func pushFavoritiesView() {
         let favoritiesView = FavoritiesView()
-        rootController.pushViewController(favoritiesView, animated: true)
+        rootController?.pushViewController(favoritiesView, animated: true)
     }
 }

@@ -12,22 +12,17 @@ final class AuthorizationPresenter {
         static let bottomConstantForLogin = -43.0
     }
 
-    // MARK: - Visual Components
-
-    weak var view: AuthorizationViewProtocol?
-
-    // MARK: - Public Properties
-
-    weak var authorizationCoordinator: AuthorizationCoordinator?
-
     // MARK: - Private Properties
 
     private var validateUserData = ValidateUserData()
+    private weak var view: AuthorizationViewProtocol?
+    private weak var authorizationCoordinator: AuthorizationCoordinator?
 
     // MARK: - Initializers
 
-    required init(view: AuthorizationViewProtocol) {
+    required init(view: AuthorizationViewProtocol, authorizationCoordinator: AuthorizationCoordinator) {
         self.view = view
+        self.authorizationCoordinator = authorizationCoordinator
         validateUserData.delegate = self
     }
 
@@ -53,7 +48,7 @@ final class AuthorizationPresenter {
         guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?
             .cgRectValue else { return }
         let keyboardHeight = keyboardSize.height
-        view?.moveLoginButton(isKeyboardWillShow ? -keyboardHeight :  Constants.bottomConstantForLogin)
+        view?.moveLoginButton(isKeyboardWillShow ? -keyboardHeight : Constants.bottomConstantForLogin)
     }
 }
 
