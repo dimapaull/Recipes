@@ -20,21 +20,22 @@ final class AppCoordinator: BaseCoodinator {
     // MARK: - Private Methods
 
     override func start() {
-//        if Constants.adminLoginText == Constants.adminValidateText {
-//            goToMain()
-//        } else {
-//            goT​oAuth​()
-//        }
-        goToMain()
+        if Constants.adminLoginText == Constants.adminLoginText {
+            goToMain()
+        } else {
+            goT​oAuth​()
+        }
     }
 
     private func goToMain() {
         mainBarViewController = MainTabBarViewController()
         /// Установка экрана с рецептами
         let recipeCoordinator = RecipeCoordinator()
-        let recipeModuleView = appBuilder.makeRecipeModule(coordinator: recipeCoordinator)
-        recipeCoordinator.setRootViewController(view: recipeModuleView)
+        let recipeView = appBuilder.makeRecipeModule(coordinator: recipeCoordinator)
+        recipeCoordinator.setRootViewController(view: recipeView)
         add(coordinator: recipeCoordinator)
+
+        guard let recipeModule = recipeCoordinator.rootController else { return }
 
         /// Установка экрана с избранными  рецептами
         let favoritiesCoordinator = FavoritiesCoordinator()
@@ -42,15 +43,16 @@ final class AppCoordinator: BaseCoodinator {
         favoritiesCoordinator.setRootViewController(view: favoritiesView)
         add(coordinator: favoritiesCoordinator)
 
-        guard let favoritiesView = favoritiesCoordinator.rootController else { return }
+        guard let favoritiesModule = favoritiesCoordinator.rootController else { return }
 
         /// Устновка экрана профиля пользователя
         let profileCoordinator = ProfileCoordinator()
         let profileView = appBuilder.makeProfileModule(coordinator: profileCoordinator)
         profileCoordinator.setRootViewController(view: profileView)
 
+        guard let profileModule = profileCoordinator.rootController else { return }
+
         add(coordinator: profileCoordinator)
-        guard let profileView = profileCoordinator.rootController else { return }
 
         profileCoordinator.onFinishFlow = { [weak self] in
             self?.remove(coordinator: recipeCoordinator)
@@ -60,7 +62,7 @@ final class AppCoordinator: BaseCoodinator {
         }
 
         mainBarViewController?.setViewControllers(
-            [recipeModuleView, favoritiesView, profileView],
+            [recipeModule, favoritiesModule, profileModule],
             animated: true
         )
         setAsRoot​(​_​: mainBarViewController ?? UITabBarController())

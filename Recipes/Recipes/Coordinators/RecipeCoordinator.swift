@@ -20,8 +20,11 @@ final class RecipeCoordinator: BaseCoodinator {
         onFinishFlow?()
     }
 
-    func pushRecipeView() {
-        let recipeView = RecipeCategoryView()
-        rootController?.pushViewController(recipeView, animated: true)
+    func pushCategoryView() {
+        let categoryView = CategoryView()
+        let categoryCoordinator = CategoryCoordinator()
+        let categoryPresenter = CategoryPresenter(view: categoryView, categoryCoordinator: categoryCoordinator)
+        categoryView.presenter = categoryPresenter
+        rootController?.pushViewController(categoryView, animated: true)
     }
 }

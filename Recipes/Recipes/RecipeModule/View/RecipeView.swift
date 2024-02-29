@@ -11,6 +11,13 @@ final class RecipeView: UIViewController {
 
     // MARK: - Visual Components
 
+    private lazy var button = {
+        let button = UIButton(frame: CGRect(x: 100, y: 200, width: 100, height: 100))
+        button.backgroundColor = .brown
+        button.addTarget(self, action: #selector(btntap), for: .touchUpInside)
+        return button
+    }()
+
     // MARK: - Public Properties
 
     var presenter: RecipePresenter?
@@ -23,10 +30,14 @@ final class RecipeView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .brown
+        view.addSubview(button)
     }
 
     // MARK: - Public Methods
 
     // MARK: - Private Methods
+
+    @objc private func btntap() {
+        presenter?.chooseRecipe()
+    }
 }

@@ -16,8 +16,8 @@ class RecipePresenter {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
     }
-    
-    func openWindow() {
-        
+
+    func chooseRecipe() {
+        recipeCoordinator?.pushCategoryView()
     }
 }

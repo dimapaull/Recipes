@@ -1,10 +1,10 @@
-// ProfileCoordinator.swift
+// CategoryCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Координатор профиля
-final class ProfileCoordinator: BaseCoodinator {
+/// Координатор категории рецептов
+final class CategoryCoordinator: BaseCoodinator {
     // MARK: - Public Properties
 
     var rootController: UINavigationController?
@@ -20,9 +20,8 @@ final class ProfileCoordinator: BaseCoodinator {
         onFinishFlow?()
     }
 
-    func pushProfileView() {
-        let pofileView = ProfileView()
-
-        rootController?.pushViewController(pofileView, animated: true)
+    func pushFavoritiesView() {
+        let categoryView = CategoryView()
+        rootController?.pushViewController(categoryView, animated: true)
     }
 }
