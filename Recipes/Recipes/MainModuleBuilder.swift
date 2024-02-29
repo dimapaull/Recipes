@@ -24,6 +24,13 @@ final class MainModuleBuilder {
         return view
     }
 
+    func makeCategoryModule(coordinator: CategoryCoordinator) -> CategoryView {
+        let view = CategoryView()
+        let categoryPresenter = CategoryPresenter(view: view, categoryCoordinator: coordinator)
+        view.presenter = categoryPresenter
+        return view
+    }
+
     func makeFavoritesModule(coordinator: FavoritiesCoordinator) -> FavoritiesView {
         let view = FavoritiesView()
         let favoritiesPresenter = FavoritiesPresenter(view: view, favoritiesCoordinator: coordinator)

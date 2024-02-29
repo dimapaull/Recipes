@@ -1,10 +1,10 @@
-// RecipeCoordinator.swift
+// CategoryCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-/// Координатор рецептов
-final class RecipeCoordinator: BaseCoodinator {
+/// Координатор категории рецептов
+final class CategoryCoordinator: BaseCoodinator {
     // MARK: - Public Properties
 
     var rootController: UINavigationController?
@@ -20,7 +20,7 @@ final class RecipeCoordinator: BaseCoodinator {
         onFinishFlow?()
     }
 
-    func pushCategoryView() {
+    func pushFavoritiesView() {
         let categoryView = CategoryView()
         rootController?.pushViewController(categoryView, animated: true)
     }
