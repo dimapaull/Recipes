@@ -21,7 +21,7 @@ final class RecipeCoordinator: BaseCoodinator {
     }
 
     func pushRecipeView() {
-        let recipeView = RecipeView()
+        let recipeView = RecipeCategoryView()
         rootController?.pushViewController(recipeView, animated: true)
     }
 }

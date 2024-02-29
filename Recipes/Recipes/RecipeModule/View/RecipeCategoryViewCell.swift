@@ -22,6 +22,7 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
     let recipeCategoryImage = {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 22
         return imageView
     }()
     
@@ -59,7 +60,7 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("not implemnted")
+        super.init(frame: .zero)
         setupViews()
         setupConstraints()
     }
