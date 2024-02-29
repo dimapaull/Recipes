@@ -10,17 +10,23 @@ protocol FilterControlViewDataSource {
     func filterControlTitle(_ dayPicker: FilterControlView, indexPath: IndexPath) -> String
 }
 
+protocol FilterableDelegate: AnyObject {
+    /// Выбранный фильтр, возвращает обработанное состояние, нажата ли выбранная кнопка, индекс отжатой
+    func choosedFilter(currentState: FilterType, tag: Int, complition: @escaping (FilterType, Bool, Int?) -> ())
+}
+
+/// Состояния фильтра
+enum FilterType {
+    /// Отключен
+    case off
+    /// От большего к меньшему
+    case less
+    /// От меньшего к большему
+    case more
+}
+
 final class FilterControlView: UIView {
     // MARK: - Types
-
-    enum FilterType {
-        /// Отключен
-        case off
-        /// От большего к меньшему
-        case less
-        /// От меньшего к большему
-        case more
-    }
 
     // MARK: - Visual Components
 
@@ -45,6 +51,10 @@ final class FilterControlView: UIView {
 
     private var filterState: FilterType = .off
 
+    // MARK: - Public Properties
+
+    weak var delagate: FilterableDelegate?
+
     // MARK: - Public Methods
 
     override func layoutSubviews() {
@@ -57,7 +67,6 @@ final class FilterControlView: UIView {
 
     private func setupView() {
         guard let countOfItems = dataSource?.filterControlCount(self) else { return }
-
         for item in 0 ..< countOfItems {
             let indexPath = IndexPath(row: item, section: 0)
             let title = dataSource?.filterControlTitle(self, indexPath: indexPath)
@@ -78,32 +87,15 @@ final class FilterControlView: UIView {
     }
 
     @objc private func filterButtonPressed(_ sender: AutoAddPaddingButtton) {
-        switch filterState {
-        case .off:
-            filterButtons[sender.tag].buttonState = true
-            if sender.tag == 0 {
-                filterState = .more
-            } else {
-                filterState = .less
+        delagate?.choosedFilter(
+            currentState: filterState,
+            tag: sender.tag,
+            complition: { filterState, isPressed, unpressIndex in
+                self.filterState = filterState
+                self.filterButtons[sender.tag].buttonState = isPressed
+                guard let index = unpressIndex else { return }
+                self.filterButtons[index].buttonState = false
             }
-        case .less:
-            if sender.tag == 1 {
-                filterState = .off
-                filterButtons[sender.tag].buttonState = false
-            } else {
-                filterState = .more
-                filterButtons[1].buttonState = false
-                filterButtons[sender.tag].buttonState = true
-            }
-        case .more:
-            if sender.tag == 0 {
-                filterState = .off
-                filterButtons[sender.tag].buttonState = false
-            } else {
-                filterState = .less
-                filterButtons[0].buttonState = false
-                filterButtons[sender.tag].buttonState = true
-            }
-        }
+        )
     }
 }

@@ -32,6 +32,7 @@ final class CategoryView: UIViewController {
     private lazy var filterControlView = {
         let controlView = FilterControlView()
         controlView.dataSource = self
+        controlView.delagate = presenter
         return controlView
     }()
 

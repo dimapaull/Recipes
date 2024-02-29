@@ -25,8 +25,6 @@ final class AutoAddPaddingButtton: UIButton {
         }
     }
 
-    // MARK: - Private Properties
-
     // MARK: - Initializers
 
     required init(buttonState: Bool = false) {

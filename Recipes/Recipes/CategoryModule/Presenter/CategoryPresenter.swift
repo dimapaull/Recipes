@@ -33,3 +33,30 @@ final class CategoryPresenter {
         Category(name: "Chilli and Tomato Fish", imageName: "chillAndTomato", minuteTime: 100, foodSuply: 174)
     ]
 }
+
+//MARK: - CategoryPresenter + FilterableDelegate
+
+extension CategoryPresenter: FilterableDelegate {
+    func choosedFilter(currentState: FilterType, tag: Int, complition: @escaping (FilterType, Bool, Int?) -> ()) {
+        switch currentState {
+        case .off:
+            if tag == 0 {
+                complition(.more, true, nil)
+            } else {
+                complition(.less, true, nil)
+            }
+        case .less:
+            if tag == 1 {
+                complition(.off, false, nil)
+            } else {
+                complition(.more, true, 1)
+            }
+        case .more:
+            if tag == 0 {
+                complition(.off, false, nil)
+            } else {
+                complition(.less, true, 0)
+            }
+        }
+    }
+}
