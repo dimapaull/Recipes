@@ -46,6 +46,10 @@
 		C45B61DC2B8EA04400C80F92 /* BonusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61DB2B8EA04400C80F92 /* BonusesView.swift */; };
 		C45B61DE2B90CC4200C80F92 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61DD2B90CC4200C80F92 /* Recipe.swift */; };
 		C45B61E02B90CD8D00C80F92 /* RecipeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61DF2B90CD8D00C80F92 /* RecipeViewCell.swift */; };
+		C45B61E22B90FC2B00C80F92 /* RecipeCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61E12B90FC2B00C80F92 /* RecipeCategory.swift */; };
+		C45B61E42B90FCEB00C80F92 /* RecipeCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61E32B90FCEB00C80F92 /* RecipeCategoryView.swift */; };
+		C45B61E62B90FD7A00C80F92 /* RecipeCategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61E52B90FD7A00C80F92 /* RecipeCategoryViewCell.swift */; };
+		C45B61E82B91003000C80F92 /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61E72B91003000C80F92 /* UIView + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +94,10 @@
 		C45B61DB2B8EA04400C80F92 /* BonusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusesView.swift; sourceTree = "<group>"; };
 		C45B61DD2B90CC4200C80F92 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Recipe.swift; path = Recipes/ProfileModule/View/Recipe.swift; sourceTree = SOURCE_ROOT; };
 		C45B61DF2B90CD8D00C80F92 /* RecipeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewCell.swift; sourceTree = "<group>"; };
+		C45B61E12B90FC2B00C80F92 /* RecipeCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RecipeCategory.swift; path = Recipes/RecipeModule/View/RecipeCategory.swift; sourceTree = SOURCE_ROOT; };
+		C45B61E32B90FCEB00C80F92 /* RecipeCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCategoryView.swift; sourceTree = "<group>"; };
+		C45B61E52B90FD7A00C80F92 /* RecipeCategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCategoryViewCell.swift; sourceTree = "<group>"; };
+		C45B61E72B91003000C80F92 /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +138,7 @@
 			isa = PBXGroup;
 			children = (
 				C45B61DD2B90CC4200C80F92 /* Recipe.swift */,
+				C45B61E12B90FC2B00C80F92 /* RecipeCategory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +148,8 @@
 			children = (
 				0E2DE65D2B8D4C17007D448C /* RecipeView.swift */,
 				C45B61DF2B90CD8D00C80F92 /* RecipeViewCell.swift */,
+				C45B61E32B90FCEB00C80F92 /* RecipeCategoryView.swift */,
+				C45B61E52B90FD7A00C80F92 /* RecipeCategoryViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -311,6 +322,7 @@
 			children = (
 				0E6FDB912B8E19C5005A7D10 /* UIFont+Extension.swift */,
 				0EAC5B8A2B8EAA70000108E2 /* String+Extension.swift */,
+				C45B61E72B91003000C80F92 /* UIView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -454,10 +466,13 @@
 				0E2DE65C2B8D4C0A007D448C /* RecipePesenter.swift in Sources */,
 				0E2DE6602B8D5008007D448C /* MainTabBarViewController.swift in Sources */,
 				C45B61DC2B8EA04400C80F92 /* BonusesView.swift in Sources */,
+				C45B61E82B91003000C80F92 /* UIView + Extension.swift in Sources */,
+				C45B61E42B90FCEB00C80F92 /* RecipeCategoryView.swift in Sources */,
 				0E2DE6542B8D45BB007D448C /* RecipeCoordinator.swift in Sources */,
 				0E4F2C3D2B8CF7C800EDF359 /* Profile.swift in Sources */,
 				0E2DE64E2B8D4513007D448C /* AppCoordinator.swift in Sources */,
 				C45B61DA2B8E91A600C80F92 /* PolicyView.swift in Sources */,
+				C45B61E62B90FD7A00C80F92 /* RecipeCategoryViewCell.swift in Sources */,
 				C45B61D82B8E55DC00C80F92 /* LogOutTableViewCell.swift in Sources */,
 				0E2DE6522B8D45A9007D448C /* ProfileCoordinator.swift in Sources */,
 				0E4F2C0A2B8CAB8400EDF359 /* AppDelegate.swift in Sources */,
@@ -469,6 +484,7 @@
 				0E4F2C3B2B8CF7BD00EDF359 /* ProfileView.swift in Sources */,
 				C45B61D62B8E55B300C80F92 /* ProfilePolicyTableViewCell.swift in Sources */,
 				0E4F2C0C2B8CAB8400EDF359 /* SceneDelegate.swift in Sources */,
+				C45B61E22B90FC2B00C80F92 /* RecipeCategory.swift in Sources */,
 				0E4F2C352B8CE9AD00EDF359 /* MainModuleBuilder.swift in Sources */,
 				0E6FDB842B8DE918005A7D10 /* FavoritiesView.swift in Sources */,
 				0EAC5B8D2B8FA495000108E2 /* SwiftLintEdits.swift in Sources */,
