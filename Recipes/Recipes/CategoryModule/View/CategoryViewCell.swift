@@ -1,37 +1,34 @@
-// RecipeView.swift
+// CategoryViewCell.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Ячейка с рецептом
-final class RecipeViewCell: UITableViewCell {
-    
+final class CategoryViewCell: UITableViewCell {
     // MARK: - Constants
-    
+
     private enum Constants {
         static let timerRecipeImage = UIImage(named: "timerRecipeImage")
         static let kalRecipeImage = UIImage(named: "kalRecipeImage")
-        static let pointerImage = UIImage(named: "pointerImage")
+        static let pointerImage = UIImage(named: "largePointer")
         static let verdanaSize14 = UIFont(name: "Verdana", size: 14)
         static let verdanaSize12 = UIFont(name: "Verdana", size: 12)
+        static let timeText = "min"
+        static let foodSuplyText = "kkal"
     }
-    
-    // MARK: - Public Properties
-    
-    static let identifier = "RecipeViewCell"
-    
+
     // MARK: - Visual Components
-    
+
     let photoRecipeImage = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .red
         imageView.layer.cornerRadius = 12
         return imageView
     }()
-    
+
     let titleRecipeLabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.font = Constants.verdanaSize14
         label.textAlignment = .left
         label.numberOfLines = 2
@@ -39,68 +36,73 @@ final class RecipeViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     let timerRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.timerRecipeImage
-         imageView.translatesAutoresizingMaskIntoConstraints = false
-         return imageView
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
-    
+
     let timeRecipeLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize12
         label.textAlignment = .left
-         label.translatesAutoresizingMaskIntoConstraints = false
-         return label
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
-    
+
     let kalRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.kalRecipeImage
-         imageView.translatesAutoresizingMaskIntoConstraints = false
-         return imageView
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
-    
+
     let kalRecipeLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize12
         label.textAlignment = .left
-         label.translatesAutoresizingMaskIntoConstraints = false
-         return label
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
-    
+
     let pointerRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.pointerImage
-         imageView.translatesAutoresizingMaskIntoConstraints = false
-         return imageView
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
     }()
-    
+
     // MARK: - Public Methods
-    
-    func configureCell(info: Recipe) {
-        photoRecipeImage.image = UIImage(named: info.recipeImage)
-        titleRecipeLabel.text = info.recipeTitle
-        timeRecipeLabel.text = info.recipeTimeCook
-        kalRecipeLabel.text = info.recipeKilocalories
-    }
-    
-    // MARK: - Life Cycle
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupViews()
-        setupConstraints()
+    func configureCell(info: Category?) {
+        photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
+        titleRecipeLabel.text = info?.name
+        timeRecipeLabel.text = "\(info?.minuteTime ?? 0) \(Constants.timeText)"
+        kalRecipeLabel.text = "\(info?.foodSuply ?? 0) \(Constants.timeText)"
     }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        setupViews()
-        setupConstraints()
+    // MARK: - Initializators
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureUI()
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureUI()
     }
 
     // MARK: - Private Methods
+
+    private func configureUI() {
+        contentView.backgroundColor = .blue
+        setupViews()
+        setupConstraints()
+    }
 
     private func setupViews() {
         contentView.backgroundColor = .appLightGray
@@ -113,7 +115,7 @@ final class RecipeViewCell: UITableViewCell {
         contentView.addSubview(kalRecipeLabel)
         contentView.addSubview(pointerRecipeImage)
     }
-    
+
     private func setupConstraints() {
         setupPhotoRecipeImageConstraints()
         setupTitleRecipeLabelConstraints()
@@ -123,7 +125,7 @@ final class RecipeViewCell: UITableViewCell {
         setupKalRecipeLabelConstraints()
         setupPointerRecipeImageConstraints()
     }
-    
+
     private func setupPhotoRecipeImageConstraints() {
         NSLayoutConstraint.activate([
             photoRecipeImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
@@ -133,52 +135,52 @@ final class RecipeViewCell: UITableViewCell {
             photoRecipeImage.widthAnchor.constraint(equalToConstant: 80)
         ])
     }
-    
+
     private func setupTitleRecipeLabelConstraints() {
         NSLayoutConstraint.activate([
             titleRecipeLabel.leadingAnchor.constraint(equalTo: photoRecipeImage.trailingAnchor, constant: 20),
             titleRecipeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 22),
             titleRecipeLabel.heightAnchor.constraint(equalToConstant: 32),
-            titleRecipeLabel.widthAnchor.constraint(equalToConstant: 197)
+            titleRecipeLabel.widthAnchor.constraint(equalToConstant: 190)
         ])
     }
-    
+
     private func setupTimerRecipeImageConstraints() {
         NSLayoutConstraint.activate([
             timerRecipeImage.leadingAnchor.constraint(equalTo: photoRecipeImage.trailingAnchor, constant: 20),
-            timerRecipeImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -25),
+            timerRecipeImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
             timerRecipeImage.heightAnchor.constraint(equalToConstant: 15),
             timerRecipeImage.widthAnchor.constraint(equalToConstant: 15)
         ])
     }
-    
+
     private func setupTimeRecipeLabelConstraints() {
         NSLayoutConstraint.activate([
-            timeRecipeLabel.leadingAnchor.constraint(equalTo: timerRecipeImage.trailingAnchor, constant: 10),
+            timeRecipeLabel.leadingAnchor.constraint(equalTo: timerRecipeImage.trailingAnchor, constant: 4),
             timeRecipeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
             timeRecipeLabel.heightAnchor.constraint(equalToConstant: 15),
             timeRecipeLabel.widthAnchor.constraint(equalToConstant: 55)
         ])
     }
-    
+
     private func setupKalRecipeImageConstraints() {
         NSLayoutConstraint.activate([
-            kalRecipeImage.trailingAnchor.constraint(equalTo: kalRecipeLabel.leadingAnchor, constant: -10),
+            kalRecipeImage.trailingAnchor.constraint(equalTo: kalRecipeLabel.leadingAnchor, constant: -5),
             kalRecipeImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
             kalRecipeImage.heightAnchor.constraint(equalToConstant: 15),
             kalRecipeImage.widthAnchor.constraint(equalToConstant: 15)
         ])
     }
-    
+
     private func setupKalRecipeLabelConstraints() {
         NSLayoutConstraint.activate([
-            kalRecipeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -65),
+            kalRecipeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
             kalRecipeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
             kalRecipeLabel.heightAnchor.constraint(equalToConstant: 15),
             kalRecipeLabel.widthAnchor.constraint(equalToConstant: 72)
         ])
     }
-    
+
     private func setupPointerRecipeImageConstraints() {
         NSLayoutConstraint.activate([
             pointerRecipeImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.42),

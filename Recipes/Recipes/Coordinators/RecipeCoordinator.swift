@@ -22,6 +22,9 @@ final class RecipeCoordinator: BaseCoodinator {
 
     func pushCategoryView() {
         let categoryView = CategoryView()
+        let categoryCoordinator = CategoryCoordinator()
+        let categoryPresenter = CategoryPresenter(view: categoryView, categoryCoordinator: categoryCoordinator)
+        categoryView.presenter = categoryPresenter
         rootController?.pushViewController(categoryView, animated: true)
     }
 }

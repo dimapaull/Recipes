@@ -45,10 +45,6 @@ final class FilterControlView: UIView {
 
     private var filterState: FilterType = .off
 
-    // MARK: - Initializers
-
-    // MARK: - Life Cycle
-
     // MARK: - Public Methods
 
     override func layoutSubviews() {

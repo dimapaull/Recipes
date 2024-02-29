@@ -51,7 +51,7 @@
 		C45B61DA2B8E91A600C80F92 /* PolicyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61D92B8E91A600C80F92 /* PolicyView.swift */; };
 		C45B61DC2B8EA04400C80F92 /* BonusesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61DB2B8EA04400C80F92 /* BonusesView.swift */; };
 		C45B61DE2B90CC4200C80F92 /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61DD2B90CC4200C80F92 /* Recipe.swift */; };
-		C45B61E02B90CD8D00C80F92 /* RecipeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61DF2B90CD8D00C80F92 /* RecipeViewCell.swift */; };
+		C45B61E02B90CD8D00C80F92 /* CategoryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61DF2B90CD8D00C80F92 /* CategoryViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,7 +101,7 @@
 		C45B61D92B8E91A600C80F92 /* PolicyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolicyView.swift; sourceTree = "<group>"; };
 		C45B61DB2B8EA04400C80F92 /* BonusesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusesView.swift; sourceTree = "<group>"; };
 		C45B61DD2B90CC4200C80F92 /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Recipe.swift; path = Recipes/ProfileModule/View/Recipe.swift; sourceTree = SOURCE_ROOT; };
-		C45B61DF2B90CD8D00C80F92 /* RecipeViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeViewCell.swift; sourceTree = "<group>"; };
+		C45B61DF2B90CD8D00C80F92 /* CategoryViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,7 +151,6 @@
 			isa = PBXGroup;
 			children = (
 				0E2DE65D2B8D4C17007D448C /* RecipeView.swift */,
-				C45B61DF2B90CD8D00C80F92 /* RecipeViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -359,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				0EAC5B8F2B908B9D000108E2 /* CategoryView.swift */,
+				C45B61DF2B90CD8D00C80F92 /* CategoryViewCell.swift */,
 				0E5FD6CE2B90B8EB00124D9B /* FilterControlView.swift */,
 				0E744DF52B90C55B00EF101F /* AutoPaddingButton.swift */,
 			);
@@ -498,7 +498,7 @@
 			files = (
 				0E6FDB822B8DE900005A7D10 /* FavoritiesPresenter.swift in Sources */,
 				0E4F2C0E2B8CAB8400EDF359 /* AuthorizationView.swift in Sources */,
-				C45B61E02B90CD8D00C80F92 /* RecipeViewCell.swift in Sources */,
+				C45B61E02B90CD8D00C80F92 /* CategoryViewCell.swift in Sources */,
 				0E2DE64C2B8D4484007D448C /* BaseCoordinator.swift in Sources */,
 				C45B61D42B8E552200C80F92 /* ProfileBonusesTableViewCell.swift in Sources */,
 				0E2DE65C2B8D4C0A007D448C /* RecipePesenter.swift in Sources */,

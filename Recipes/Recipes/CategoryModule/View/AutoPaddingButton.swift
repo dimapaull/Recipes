@@ -5,6 +5,16 @@ import UIKit
 
 /// Кнопка имеющая внутрение отступы
 final class AutoAddPaddingButtton: UIButton {
+    // MARK: - Public Properties
+
+    override var intrinsicContentSize: CGSize {
+        let baseSize = super.intrinsicContentSize
+        return CGSize(
+            width: baseSize.width + 24,
+            height: baseSize.height
+        )
+    }
+
     var buttonState: Bool {
         didSet {
             if buttonState {
@@ -15,13 +25,9 @@ final class AutoAddPaddingButtton: UIButton {
         }
     }
 
-    override var intrinsicContentSize: CGSize {
-        let baseSize = super.intrinsicContentSize
-        return CGSize(
-            width: baseSize.width + 24,
-            height: baseSize.height
-        )
-    }
+    // MARK: - Private Properties
+
+    // MARK: - Initializers
 
     required init(buttonState: Bool = false) {
         self.buttonState = buttonState

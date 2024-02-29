@@ -13,6 +13,7 @@ final class CategoryView: UIViewController {
         static let searchBarPlaceholderText = "Search recipes"
         static let caloriesText = "Calories"
         static let timeText = "Time"
+        static let separateHeight = 5.0
     }
 
     // MARK: - Visual Components
@@ -37,28 +38,21 @@ final class CategoryView: UIViewController {
     private lazy var recipeTableView = {
         let tableView = UITableView()
         tableView.dataSource = self
+        tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .red
+        tableView.showsVerticalScrollIndicator = false
+        tableView.register(CategoryViewCell.self, forCellReuseIdentifier: String(describing: CategoryViewCell.self))
         return tableView
     }()
 
     // MARK: - Public Properties
 
-    weak var presenter: CategoryPresenter?
+    var presenter: CategoryPresenter?
+    var backNavigationTitle = String()
 
     // MARK: - Private Properties
 
     private let filterStates = [Constants.caloriesText, Constants.timeText]
-
-    private let categories = [
-        Category(name: "Simple Fish And Corn", imageName: "chicken", minuteTime: 60, foodSuply: 274),
-        Category(name: "Simple Fish And Corn", imageName: "chicken", minuteTime: 60, foodSuply: 274),
-        Category(name: "Simple Fish And Corn", imageName: "chicken", minuteTime: 60, foodSuply: 274),
-        Category(name: "Simple Fish And Corn", imageName: "chicken", minuteTime: 60, foodSuply: 274),
-        Category(name: "Simple Fish And Corn", imageName: "chicken", minuteTime: 60, foodSuply: 274)
-    ]
-
-    // MARK: - Initializers
 
     // MARK: - Life Cycle
 
@@ -69,8 +63,6 @@ final class CategoryView: UIViewController {
         tabBarController?.tabBar.isHidden = true
     }
 
-    // MARK: - Public Methods
-
     // MARK: - Private Methods
 
     private func configureNavigationBar() {
@@ -80,7 +72,7 @@ final class CategoryView: UIViewController {
         backImage.contentMode = .scaleAspectFit
 
         let backLabel = UILabel()
-        backLabel.text = "Fish"
+        backLabel.text = backNavigationTitle
         backLabel.font = .verdanaBold(ofSize: 28)
 
         let backStackView = UIStackView(arrangedSubviews: [backImage, backLabel])
@@ -127,7 +119,7 @@ final class CategoryView: UIViewController {
     }
 
     private func setupRecipeTableViewConstraints() {
-        recipeTableView.topAnchor.constraint(equalTo: filterControlView.bottomAnchor, constant: 20).isActive = true
+        recipeTableView.topAnchor.constraint(equalTo: filterControlView.bottomAnchor, constant: 10).isActive = true
         recipeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
         recipeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
             .isActive = true
@@ -141,13 +133,31 @@ final class CategoryView: UIViewController {
 
 // MARK: - CategoryView + UITableViewDataSource
 
-extension CategoryView: UITableViewDataSource {
+extension CategoryView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        categories.count
+        1
+    }
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        presenter?.recipes.count ?? 0
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        Constants.separateHeight
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = UIView()
+        headerView.backgroundColor = UIColor.clear
+        return headerView
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        guard let cell = recipeTableView
+            .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
+        else { return UITableViewCell() }
+        cell.configureCell(info: presenter?.recipes[indexPath.section])
+        return cell
     }
 }
 
