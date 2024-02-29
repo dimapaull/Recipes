@@ -8,7 +8,8 @@ final class HeaderRecipeCategoryViewCell: UICollectionViewCell {
     
     private let textLabel = {
        let label = UILabel()
-        label.text = "Header"
+        label.text = "Recipes"
+        label.font = UIFont(name: "Verdana-Bold", size: 28)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -18,7 +19,6 @@ final class HeaderRecipeCategoryViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(textLabel)
-        contentView.backgroundColor = .systemBlue
         NSLayoutConstraint.activate([
             textLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             textLabel.topAnchor.constraint(equalTo: contentView.topAnchor),

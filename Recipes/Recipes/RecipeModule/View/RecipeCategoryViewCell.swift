@@ -68,7 +68,7 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
     // MARK: - Private Methods
 
     private func setupViews() {
-        contentView.backgroundColor = .appLightGray
+
         contentView.layer.cornerRadius = 18
         contentView.makeShadow()
         contentView.addSubview(recipeCategoryImage)

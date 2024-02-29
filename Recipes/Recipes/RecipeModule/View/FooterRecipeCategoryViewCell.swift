@@ -8,7 +8,7 @@ final class FooterRecipeCategoryViewCell: UICollectionViewCell {
     
     private let textLabel = {
        let label = UILabel()
-        label.text = "Footer"
+        label.text = ""
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -16,12 +16,6 @@ final class FooterRecipeCategoryViewCell: UICollectionViewCell {
     // MARK: - Public Properties
     
     static let footerReuseidentifier = "FooterRecipeCategoryViewCell"
-    
-    // MARK: - Visual Components
-    
-    // MARK: - Public Methods
-    
-    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -37,6 +31,4 @@ final class FooterRecipeCategoryViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
     }
-
-    // MARK: - Private Methods
 }

@@ -23,6 +23,18 @@ final class RecipeCategoryView: UIViewController {
     var presenter: RecipePresenter?
 
     // MARK: - Private Properties
+    
+    let recipes: [RecipeCategory] = [
+        RecipeCategory(recipeCategoryImage: "salad", recipeCategoryTitle: "Salad"),
+        RecipeCategory(recipeCategoryImage: "soup", recipeCategoryTitle: "Soup"),
+        RecipeCategory(recipeCategoryImage: "chicken", recipeCategoryTitle: "Chicken"),
+        RecipeCategory(recipeCategoryImage: "meat", recipeCategoryTitle: "Meat"),
+        RecipeCategory(recipeCategoryImage: "fish", recipeCategoryTitle: "Fish"),
+        RecipeCategory(recipeCategoryImage: "sidedish", recipeCategoryTitle: "Side dish"),
+        RecipeCategory(recipeCategoryImage: "drinks", recipeCategoryTitle: "Drinks"),
+        RecipeCategory(recipeCategoryImage: "pancakes", recipeCategoryTitle: "Pancake"),
+        RecipeCategory(recipeCategoryImage: "desserts", recipeCategoryTitle: "Desserts")
+    ]
 
     // MARK: - Initializers
 
@@ -91,12 +103,17 @@ extension RecipeCategoryView: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: RecipeCategoryViewCell.identifier,
             for: indexPath) as? RecipeCategoryViewCell else { return UICollectionViewCell() }
-        cell.titleRecipeCategoryLabel.text = String(indexPath.row + 1)
+        cell.configureCell(info: recipes[indexPath.row])
         return cell
     }
 }
 
-extension RecipeCategoryView: UICollectionViewDelegate {}
+extension RecipeCategoryView: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = indexPath.row
+        presenter.
+    }
+}
 
  extension RecipeCategoryView: UICollectionViewDelegateFlowLayout {
     func collectionView(
