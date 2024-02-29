@@ -4,6 +4,7 @@
 import UIKit
 
 final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    private var appCoordinator: AppCoordinator?
     var window: UIWindow?
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
@@ -13,8 +14,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func configueWindow(_ scene: UIWindowScene) {
         window = UIWindow(windowScene: scene)
-        window?.windowScene = scene
-        window?.makeKeyAndVisible()
-        window?.rootViewController = ViewController()
+        if let window {
+            window.makeKeyAndVisible()
+            appCoordinator = AppCoordinator()
+            appCoordinator?.start()
+        }
     }
 }
