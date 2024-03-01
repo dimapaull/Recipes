@@ -21,6 +21,5 @@ final class RecipePresenter {
 
     func chooseRecipe(title: String) {
         recipeCoordinator?.pushCategoryView(title: title)
-        let title = title
     }
 }

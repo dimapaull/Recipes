@@ -151,6 +151,5 @@ final class BonusesView: UIViewController {
 
     @objc private func closeButtonTapped() {
         profilePresenter?.bonusesButtonCloseTapped(view: self)
-        print(profilePresenter)
     }
 }

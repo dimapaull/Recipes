@@ -195,7 +195,7 @@ extension ProfileView: AlertableProtocol {
     func alertShow() {
         let alert = UIAlertController(title: Constants.titleAlert, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Constants.okAlert, style: .cancel) { [weak self] _ in
-            guard var fullName = alert.textFields?.first?.text else { return }
+            guard let fullName = alert.textFields?.first?.text else { return }
             self?.presenter?.allertChangeFullName(title: fullName)
         }
         let actionCancel = UIAlertAction(title: Constants.cancelAlert, style: .default)
