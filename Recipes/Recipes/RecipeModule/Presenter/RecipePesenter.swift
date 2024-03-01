@@ -5,7 +5,6 @@ import UIKit
 
 /// Презентер для экрана с рецептами
 final class RecipePresenter {
-    
     // MARK: - Private Properties
 
     private weak var view: UIViewController?
@@ -17,7 +16,7 @@ final class RecipePresenter {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
     }
-    
+
     // MARK: - Public Methods
 
     func chooseRecipe(title: String) {

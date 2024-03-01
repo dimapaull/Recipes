@@ -6,6 +6,7 @@ import UIKit
 protocol ChangebleTitleProtocol: AnyObject {
     func changeTitleFullName(title: String)
 }
+
 /// Экран профиля пользователя
 final class ProfileView: UIViewController {
     // MARK: - Constants
@@ -50,7 +51,6 @@ final class ProfileView: UIViewController {
         super.viewDidLoad()
         setupTableView()
         configureUI()
-        
     }
 
     // MARK: - Private Methods

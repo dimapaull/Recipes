@@ -20,12 +20,11 @@ final class AppCoordinator: BaseCoodinator {
     // MARK: - Private Methods
 
     override func start() {
-//        if Constants.adminLoginText == Constants.adminLoginText {
-//            goToMain()
-//        } else {
-//            goT​oAuth​()
-//        }
-        goToMain()
+        if Constants.adminLoginText == Constants.adminLoginText {
+            goToMain()
+        } else {
+            goT​oAuth​()
+        }
     }
 
     private func goToMain() {

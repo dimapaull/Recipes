@@ -10,7 +10,6 @@ protocol AlertableProtocol: AnyObject {
 
 /// Ячейка с аватаркой пользователя
 final class ProfileAvatarTableViewCell: UITableViewCell {
-    
     // MARK: - Public Properties
 
     weak var delegate: AlertableProtocol?

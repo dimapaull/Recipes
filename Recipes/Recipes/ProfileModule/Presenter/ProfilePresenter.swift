@@ -17,13 +17,12 @@ final class ProfilePresenter {
         self.view = view
         self.profileCoordinator = profileCoordinator
     }
-    
+
     func bonusesButtonCloseTapped(view: BonusesView) {
         view.dismiss(animated: true)
     }
-    
+
     func allertChangeFullName(title: String) {
         cellDelegate?.changeTitleFullName(title: title)
-        
     }
 }

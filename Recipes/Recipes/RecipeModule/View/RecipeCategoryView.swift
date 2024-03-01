@@ -1,13 +1,12 @@
-// RecipeView.swift
+// RecipeCategoryView.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Экран с категориями рецептов
 final class RecipeCategoryView: UIViewController {
-
     // MARK: - Constants
-    
+
     private enum Constants {
         static let zero = 0
         static let one = 1
@@ -17,12 +16,12 @@ final class RecipeCategoryView: UIViewController {
         static let ten = 10
         static let forty = 40
         static let eighty = 80
-        
+
         static let defaultAssertText = "Unexpected element kind"
     }
 
     // MARK: - Visual Components
-    
+
     private let recipeCollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.showsVerticalScrollIndicator = false
@@ -33,7 +32,7 @@ final class RecipeCategoryView: UIViewController {
     // MARK: - Public Properties
 
     var presenter: RecipePresenter?
-    
+
     let recipes: [RecipeCategory] = [
         RecipeCategory(recipeCategoryImage: "salad", recipeCategoryTitle: "Salad"),
         RecipeCategory(recipeCategoryImage: "soup", recipeCategoryTitle: "Soup"),
@@ -54,7 +53,7 @@ final class RecipeCategoryView: UIViewController {
         setupConstraints()
         setupRecipeCollectionView()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
@@ -63,32 +62,33 @@ final class RecipeCategoryView: UIViewController {
     // MARK: - Public Methods
 
     // MARK: - Private Methods
-    
+
     private func setupRecipeCollectionView() {
         recipeCollectionView.dataSource = self
         recipeCollectionView.delegate = self
         recipeCollectionView.register(
-            RecipeCategoryViewCell.self, 
+            RecipeCategoryViewCell.self,
             forCellWithReuseIdentifier: RecipeCategoryViewCell.identifier
         )
         recipeCollectionView.register(
             HeaderRecipeCategoryViewCell.self,
             forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-            withReuseIdentifier: HeaderRecipeCategoryViewCell.headerReuseidentifier)
+            withReuseIdentifier: HeaderRecipeCategoryViewCell.headerReuseidentifier
+        )
         recipeCollectionView.register(
             FooterRecipeCategoryViewCell.self,
-            forSupplementaryViewOfKind: 
-                UICollectionView.elementKindSectionFooter, 
+            forSupplementaryViewOfKind:
+            UICollectionView.elementKindSectionFooter,
             withReuseIdentifier:
-                FooterRecipeCategoryViewCell.footerReuseidentifier
+            FooterRecipeCategoryViewCell.footerReuseidentifier
         )
     }
-    
+
     private func setupViews() {
         view.backgroundColor = .white
         view.addSubview(recipeCollectionView)
     }
-    
+
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             recipeCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 9),
@@ -104,18 +104,19 @@ extension RecipeCategoryView: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         Constants.one
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         recipes.count
     }
-    
+
     func collectionView(
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: RecipeCategoryViewCell.identifier,
-            for: indexPath) as? RecipeCategoryViewCell else { return UICollectionViewCell() }
+            for: indexPath
+        ) as? RecipeCategoryViewCell else { return UICollectionViewCell() }
         cell.configureCell(info: recipes[indexPath.row])
         return cell
     }
@@ -130,62 +131,67 @@ extension RecipeCategoryView: UICollectionViewDelegate {
 }
 
 /// RecipeCategoryView + UICollectionViewDelegateFlowLayout
- extension RecipeCategoryView: UICollectionViewDelegateFlowLayout {
+extension RecipeCategoryView: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
-        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
         var cellSize = CGFloat()
-            let cellNumber = indexPath.item % Constants.seven
-        
+        let cellNumber = indexPath.item % Constants.seven
+
         switch cellNumber {
         case 0, 1:
             cellSize = (view.frame.width - 30) / 2
         case 2, 6:
             cellSize = view.frame.width * 240 / 380
-        case 3...5:
+        case 3 ... 5:
             cellSize = (view.frame.width - 40) / 3
         default:
             cellSize = CGFloat(Constants.ten)
         }
         return CGSize(width: cellSize, height: cellSize)
     }
-     
-     func collectionView(_ collectionView: UICollectionView,
-                         viewForSupplementaryElementOfKind kind: String,
-                         at indexPath: IndexPath) -> UICollectionReusableView {
-         
-         switch kind {
-         case UICollectionView.elementKindSectionHeader:
-             guard let headerCell = collectionView.dequeueReusableSupplementaryView(
-                 ofKind: kind,
-                 withReuseIdentifier: HeaderRecipeCategoryViewCell.headerReuseidentifier,
-                 for: indexPath) as? HeaderRecipeCategoryViewCell else { return UICollectionViewCell() }
-             return headerCell
-         case UICollectionView.elementKindSectionFooter:
-             guard let footerCell = collectionView.dequeueReusableSupplementaryView(
-                 ofKind: kind,
-                 withReuseIdentifier: FooterRecipeCategoryViewCell.footerReuseidentifier,
-                 for: indexPath) as? FooterRecipeCategoryViewCell else { return UICollectionViewCell() }
-             return footerCell
-         default:
-             assert(false, Constants.defaultAssertText)
-         }
-     }
-     
-     func collectionView(
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        viewForSupplementaryElementOfKind kind: String,
+        at indexPath: IndexPath
+    ) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let headerCell = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: HeaderRecipeCategoryViewCell.headerReuseidentifier,
+                for: indexPath
+            ) as? HeaderRecipeCategoryViewCell else { return UICollectionViewCell() }
+            return headerCell
+        case UICollectionView.elementKindSectionFooter:
+            guard let footerCell = collectionView.dequeueReusableSupplementaryView(
+                ofKind: kind,
+                withReuseIdentifier: FooterRecipeCategoryViewCell.footerReuseidentifier,
+                for: indexPath
+            ) as? FooterRecipeCategoryViewCell else { return UICollectionViewCell() }
+            return footerCell
+        default:
+            assertionFailure(Constants.defaultAssertText)
+        }
+        return UICollectionReusableView()
+    }
+
+    func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForHeaderInSection section: Int
-     ) -> CGSize {
-         return CGSize(width: Constants.zero, height: Constants.eighty)
-     }
-     
-     func collectionView(
+    ) -> CGSize {
+        CGSize(width: Constants.zero, height: Constants.eighty)
+    }
+
+    func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForFooterInSection section: Int
-     ) -> CGSize {
-         return CGSize(width: Constants.zero, height: Constants.forty)
-     }
- }
+    ) -> CGSize {
+        CGSize(width: Constants.zero, height: Constants.forty)
+    }
+}

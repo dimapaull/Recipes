@@ -5,7 +5,6 @@ import UIKit
 
 /// Ячейка с переходом на окно "Бонусы"
 final class ProfileBonusesTableViewCell: UITableViewCell {
-    
     // MARK: - Constants
 
     enum Constants {

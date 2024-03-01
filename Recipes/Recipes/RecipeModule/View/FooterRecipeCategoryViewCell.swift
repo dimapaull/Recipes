@@ -5,22 +5,21 @@ import UIKit
 
 /// Ячейка с категорией рецептов
 final class FooterRecipeCategoryViewCell: UICollectionViewCell {
-    
     // MARK: - Visual Components
-    
+
     private let textLabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.text = ""
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     // MARK: - Public Properties
-    
+
     static let footerReuseidentifier = "FooterRecipeCategoryViewCell"
-    
+
     // MARK: - Life Cycle
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.addSubview(textLabel)
@@ -31,7 +30,7 @@ final class FooterRecipeCategoryViewCell: UICollectionViewCell {
             textLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(frame: .zero)
     }

@@ -17,9 +17,9 @@ final class BonusesView: UIViewController {
         static let bigStarImage = UIImage(named: "bigStar")
         static let oneHundredImage = UIImage(named: "100")
     }
-    
+
     // MARK: - Public Properties
-    
+
     var profilePresenter: ProfilePresenter?
 
     // MARK: - Visual Components
