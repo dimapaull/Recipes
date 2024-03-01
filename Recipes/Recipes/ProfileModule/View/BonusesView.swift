@@ -18,6 +18,10 @@ final class BonusesView: UIViewController {
         static let oneHundredImage = UIImage(named: "100")
     }
 
+    // MARK: - Public Properties
+
+    var profilePresenter: ProfilePresenter?
+
     // MARK: - Visual Components
 
     private let dieImageView: UIImageView = {
@@ -146,6 +150,6 @@ final class BonusesView: UIViewController {
     }
 
     @objc private func closeButtonTapped() {
-        dismiss(animated: true)
+        profilePresenter?.bonusesButtonCloseTapped(view: self)
     }
 }

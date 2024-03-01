@@ -15,12 +15,19 @@ final class MainModuleBuilder {
 
     // MARK: - Private Methods
 
-    func makeRecipeModule(coordinator: RecipeCoordinator) -> RecipeView {
-        let view = RecipeView()
+    func makeRecipeModule(coordinator: RecipeCoordinator) -> RecipeCategoryView {
+        let view = RecipeCategoryView()
         let recipePresenter = RecipePresenter(view: view, recipeCoordinator: coordinator)
         view.presenter = recipePresenter
         view.tabBarItem = UITabBarItem(title: Constants.recipeTabBarTitle, image: .recipeBar, tag: 0)
         view.tabBarItem.selectedImage = .currentRecipeBar
+        return view
+    }
+
+    func makeCategoryModule(coordinator: CategoryCoordinator) -> CategoryView {
+        let view = CategoryView()
+        let categoryPresenter = CategoryPresenter(view: view, categoryCoordinator: coordinator)
+        view.presenter = categoryPresenter
         return view
     }
 

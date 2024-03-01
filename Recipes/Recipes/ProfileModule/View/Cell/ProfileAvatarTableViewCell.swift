@@ -4,7 +4,7 @@
 import UIKit
 
 /// Протокол для показа всплывающего сообщения
-protocol Alertable: AnyObject {
+protocol AlertableProtocol: AnyObject {
     func alertShow()
 }
 
@@ -12,7 +12,7 @@ protocol Alertable: AnyObject {
 final class ProfileAvatarTableViewCell: UITableViewCell {
     // MARK: - Public Properties
 
-    weak var delegate: Alertable?
+    weak var delegate: AlertableProtocol?
 
     // MARK: - Constants
 
@@ -83,7 +83,6 @@ final class ProfileAvatarTableViewCell: UITableViewCell {
     private func setupProfileImageViewConstraints() {
         profileImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 30).isActive = true
         profileImageView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor).isActive = true
-
         profileImageView.heightAnchor.constraint(equalToConstant: 160).isActive = true
         profileImageView.widthAnchor.constraint(equalToConstant: 160).isActive = true
     }
@@ -108,5 +107,11 @@ final class ProfileAvatarTableViewCell: UITableViewCell {
 
     @objc private func pencilButtonTapped() {
         delegate?.alertShow()
+    }
+}
+
+extension ProfileAvatarTableViewCell: ChangebleTitleProtocol {
+    func changeTitleFullName(title: String) {
+        profileFullNameLabel.text = title
     }
 }

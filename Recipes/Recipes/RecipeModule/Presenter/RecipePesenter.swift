@@ -4,7 +4,7 @@
 import UIKit
 
 /// Презентер для экрана с рецептами
-class RecipePresenter {
+final class RecipePresenter {
     // MARK: - Private Properties
 
     private weak var view: UIViewController?
@@ -15,5 +15,11 @@ class RecipePresenter {
     required init(view: UIViewController, recipeCoordinator: RecipeCoordinator) {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
+    }
+
+    // MARK: - Public Methods
+
+    func chooseRecipe(title: String) {
+        recipeCoordinator?.pushCategoryView(title: title)
     }
 }

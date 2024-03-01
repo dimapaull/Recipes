@@ -4,7 +4,7 @@
 import Foundation
 
 /// Валидация введенных данных пользователя
-protocol DataValidable: AnyObject {
+protocol DataValidableProtocol: AnyObject {
     /// Метод, возвращающий булевое значение, указывающее на валидность логина и пароля
     func dataValidChangeTo(isMailValid: Bool, isPasswordValid: Bool)
 }
@@ -53,7 +53,7 @@ final class ValidateUserData {
         return true
     }
 
-    weak var delegate: DataValidable?
+    weak var delegate: DataValidableProtocol?
 
     // MARK: - Private Properties
 

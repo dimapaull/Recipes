@@ -54,7 +54,7 @@ final class AuthorizationPresenter {
 
 // MARK: - AuthorizationPresenter + DataValidable
 
-extension AuthorizationPresenter: DataValidable {
+extension AuthorizationPresenter: DataValidableProtocol {
     func dataValidChangeTo(isMailValid: Bool, isPasswordValid: Bool) {
         if isMailValid {
             view?.setupCorrectEmail()
