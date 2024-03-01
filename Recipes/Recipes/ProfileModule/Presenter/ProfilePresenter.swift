@@ -9,11 +9,21 @@ final class ProfilePresenter {
 
     private weak var view: UIViewController?
     private weak var profileCoordinator: ProfileCoordinator?
+    weak var cellDelegate: ChangebleTitleProtocol?
 
     // MARK: - Initializers
 
     required init(view: UIViewController, profileCoordinator: ProfileCoordinator) {
         self.view = view
         self.profileCoordinator = profileCoordinator
+    }
+    
+    func bonusesButtonCloseTapped(view: BonusesView) {
+        view.dismiss(animated: true)
+    }
+    
+    func allertChangeFullName(title: String) {
+        cellDelegate?.changeTitleFullName(title: title)
+        
     }
 }

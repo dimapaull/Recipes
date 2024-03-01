@@ -11,6 +11,9 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
     private enum Constants {
         static let bottomStripeImage = UIImage(named: "bottomStripe")
         static let verdanaSize20 = UIFont(name: "Verdana", size: 20)
+        static let twentyTwo = 22
+        static let one = 1
+        static let eighteen = 18
     }
     
     // MARK: - Public Properties
@@ -22,7 +25,7 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
     let recipeCategoryImage = {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.cornerRadius = 22
+        imageView.layer.cornerRadius = CGFloat(Constants.twentyTwo)
         return imageView
     }()
     
@@ -38,7 +41,7 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
         label.font = Constants.verdanaSize20
         label.textAlignment = .center
         label.textColor = .white
-        label.numberOfLines = 1
+        label.numberOfLines = Constants.one
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -69,7 +72,7 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
 
     private func setupViews() {
 
-        contentView.layer.cornerRadius = 18
+        contentView.layer.cornerRadius = CGFloat(Constants.eighteen)
         contentView.makeShadow()
         contentView.addSubview(recipeCategoryImage)
         recipeCategoryImage.addSubview(bottomStripeImage)

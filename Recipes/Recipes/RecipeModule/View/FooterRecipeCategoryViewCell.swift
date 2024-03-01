@@ -6,6 +6,8 @@ import UIKit
 /// Ячейка с категорией рецептов
 final class FooterRecipeCategoryViewCell: UICollectionViewCell {
     
+    // MARK: - Visual Components
+    
     private let textLabel = {
        let label = UILabel()
         label.text = ""
@@ -16,6 +18,8 @@ final class FooterRecipeCategoryViewCell: UICollectionViewCell {
     // MARK: - Public Properties
     
     static let footerReuseidentifier = "FooterRecipeCategoryViewCell"
+    
+    // MARK: - Life Cycle
     
     override init(frame: CGRect) {
         super.init(frame: frame)

@@ -5,9 +5,6 @@ import UIKit
 
 /// Экран с рецептами
 final class RecipeView: UIViewController {
-    // MARK: - Types
-
-    // MARK: - Constants
 
     // MARK: - Visual Components
 
@@ -22,10 +19,6 @@ final class RecipeView: UIViewController {
 
     var presenter: RecipePresenter?
 
-    // MARK: - Private Properties
-
-    // MARK: - Initializers
-
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -33,11 +26,9 @@ final class RecipeView: UIViewController {
         view.addSubview(button)
     }
 
-    // MARK: - Public Methods
-
     // MARK: - Private Methods
 
     @objc private func btntap() {
-        presenter?.chooseRecipe()
+//        presenter?.chooseRecipe()
     }
 }
