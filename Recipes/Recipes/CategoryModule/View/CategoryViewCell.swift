@@ -80,7 +80,7 @@ final class CategoryViewCell: UITableViewCell {
         photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
         titleRecipeLabel.text = info?.name
         timeRecipeLabel.text = "\(info?.minuteTime ?? 0) \(Constants.timeText)"
-        kalRecipeLabel.text = "\(info?.foodSuply ?? 0) \(Constants.timeText)"
+        kalRecipeLabel.text = "\(info?.foodSuply ?? 0) \(Constants.foodSuplyText)"
     }
 
     // MARK: - Initializators
