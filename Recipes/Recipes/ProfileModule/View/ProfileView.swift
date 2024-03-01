@@ -3,6 +3,9 @@
 
 import UIKit
 
+protocol ChangebleTitleProtocol: AnyObject {
+    func changeTitleFullName(title: String)
+}
 /// Экран профиля пользователя
 final class ProfileView: UIViewController {
     // MARK: - Constants
@@ -14,6 +17,8 @@ final class ProfileView: UIViewController {
         static let okAlert = "Ok"
         static let titleAlert = "Change your name and surname"
         static let placeholderText = "Name Surname"
+        static let twoHundredSeventy = 270
+        static let seventy = 70
     }
 
     enum TypeCells {
@@ -45,6 +50,7 @@ final class ProfileView: UIViewController {
         super.viewDidLoad()
         setupTableView()
         configureUI()
+        
     }
 
     // MARK: - Private Methods
@@ -117,6 +123,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             )
                 as? ProfileAvatarTableViewCell else { return UITableViewCell() }
             cell.delegate = self
+            presenter?.cellDelegate = cell
             return cell
         case .profileBonuses:
             guard let cell = tableView.dequeueReusableCell(
@@ -151,6 +158,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             print("profileAvatar")
         case .profileBonuses:
             let bonusesView = BonusesView()
+            bonusesView.profilePresenter = presenter
             if let sheet = bonusesView.sheetPresentationController {
                 sheet.detents = [.medium()]
                 sheet.preferredCornerRadius = 30
@@ -170,23 +178,26 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
         let cells = typeCells[indexPath.section]
         switch cells {
         case .profileAvatar:
-            return 270
+            return CGFloat(Constants.twoHundredSeventy)
         case .profileBonuses:
-            return 70
+            return CGFloat(Constants.seventy)
         case .profilePolicy:
-            return 70
+            return CGFloat(Constants.seventy)
         case .profileLogOut:
-            return 70
+            return CGFloat(Constants.seventy)
         }
     }
 }
 
 // MARK: - Расширение класса для вывода аллерта
 
-extension ProfileView: Alertable {
+extension ProfileView: AlertableProtocol {
     func alertShow() {
         let alert = UIAlertController(title: Constants.titleAlert, message: nil, preferredStyle: .alert)
-        let okAction = UIAlertAction(title: Constants.okAlert, style: .cancel)
+        let okAction = UIAlertAction(title: Constants.okAlert, style: .cancel) { [weak self] _ in
+            guard var fullName = alert.textFields?.first?.text else { return }
+            self?.presenter?.allertChangeFullName(title: fullName)
+        }
         let actionCancel = UIAlertAction(title: Constants.cancelAlert, style: .default)
         alert.addTextField { textField in
             textField.placeholder = Constants.placeholderText
