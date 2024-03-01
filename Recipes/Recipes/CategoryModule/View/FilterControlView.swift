@@ -26,8 +26,6 @@ enum FilterType {
 }
 
 final class FilterControlView: UIView {
-    // MARK: - Types
-
     // MARK: - Visual Components
 
     private let mainStackView = {

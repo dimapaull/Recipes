@@ -15,6 +15,8 @@ final class CategoryViewCell: UITableViewCell {
         static let verdanaSize12 = UIFont(name: "Verdana", size: 12)
         static let timeText = "min"
         static let foodSuplyText = "kkal"
+        static let protoRecipeCornerRadius = 12.0
+        static let titleRecipeLinesCount = 2
     }
 
     // MARK: - Visual Components
@@ -23,7 +25,7 @@ final class CategoryViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .red
-        imageView.layer.cornerRadius = 12
+        imageView.layer.cornerRadius = Constants.protoRecipeCornerRadius
         return imageView
     }()
 
@@ -31,7 +33,7 @@ final class CategoryViewCell: UITableViewCell {
         let label = UILabel()
         label.font = Constants.verdanaSize14
         label.textAlignment = .left
-        label.numberOfLines = 2
+        label.numberOfLines = Constants.titleRecipeLinesCount
         label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
