@@ -21,21 +21,21 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
 
     // MARK: - Visual Components
 
-    let recipeCategoryImage = {
+    private let recipeCategoryImage = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.cornerRadius = CGFloat(Constants.twentyTwo)
         return imageView
     }()
 
-    let bottomStripeImage = {
+    private let bottomStripeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.bottomStripeImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    let titleRecipeCategoryLabel = {
+    private let titleRecipeCategoryLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize20
         label.textAlignment = .center
@@ -48,9 +48,9 @@ final class RecipeCategoryViewCell: UICollectionViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeCategory) {
-        recipeCategoryImage.image = UIImage(named: info.recipeCategoryImage)
-        titleRecipeCategoryLabel.text = info.recipeCategoryTitle
+    func configureCell(info: RecipeCategory?) {
+        recipeCategoryImage.image = UIImage(named: info?.recipeCategoryImage ?? "")
+        titleRecipeCategoryLabel.text = info?.recipeCategoryTitle
     }
 
     // MARK: - Life Cycle

@@ -3,6 +3,8 @@
 
 import UIKit
 
+protocol ProfileViewProtocol: AnyObject {}
+
 protocol ChangebleTitleProtocol: AnyObject {
     func changeTitleFullName(title: String)
 }
@@ -11,7 +13,7 @@ protocol ChangebleTitleProtocol: AnyObject {
 final class ProfileView: UIViewController {
     // MARK: - Constants
 
-    enum Constants {
+    private enum Constants {
         static let alertTitle = "Are you sure you want to log out?"
         static let yesAlert = "Yes"
         static let cancelAlert = "Cancel"
@@ -20,18 +22,24 @@ final class ProfileView: UIViewController {
         static let placeholderText = "Name Surname"
         static let twoHundredSeventy = 270
         static let seventy = 70
+        static let one = 1
+        static let four = 4
     }
 
-    enum TypeCells {
+    private enum CellTypes {
+        /// Ячейка с аватаром профиля
         case profileAvatar
+        /// Ячейка с разделом "Бонусы"
         case profileBonuses
+        /// Ячейка с политикой конфиденциальности
         case profilePolicy
+        /// Ячейка с выходом из профиля
         case profileLogOut
     }
 
     // MARK: - Visual Components
 
-    private let tableView: UITableView = {
+    private let tableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
@@ -43,7 +51,7 @@ final class ProfileView: UIViewController {
 
     // MARK: - Private Properties
 
-    private let typeCells: [TypeCells] = [.profileAvatar, .profileBonuses, .profilePolicy, .profileLogOut]
+    private let cellTypes: [CellTypes] = [.profileAvatar, .profileBonuses, .profilePolicy, .profileLogOut]
 
     // MARK: - Life Cycle
 
@@ -51,6 +59,8 @@ final class ProfileView: UIViewController {
         super.viewDidLoad()
         setupTableView()
         configureUI()
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "Profile"
     }
 
     // MARK: - Private Methods
@@ -106,22 +116,23 @@ final class ProfileView: UIViewController {
 
 extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        1
+        Constants.one
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        4
+        Constants.four
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cells = typeCells[indexPath.section]
+        let cells = cellTypes[indexPath.section]
         switch cells {
         case .profileAvatar:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfileAvatarTableViewCell.Constants.identifier,
                 for: indexPath
             )
-                as? ProfileAvatarTableViewCell else { return UITableViewCell() }
+                    as? ProfileAvatarTableViewCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
             cell.delegate = self
             presenter?.cellDelegate = cell
             return cell
@@ -130,29 +141,32 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: ProfileBonusesTableViewCell.Constants.identifier,
                 for: indexPath
             )
-                as? ProfileBonusesTableViewCell else { return UITableViewCell() }
+                    as? ProfileBonusesTableViewCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
             return cell
         case .profilePolicy:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: ProfilePolicyTableViewCell.Constants.identifier,
                 for: indexPath
             )
-                as? ProfilePolicyTableViewCell else { return UITableViewCell() }
+                    as? ProfilePolicyTableViewCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
             return cell
         case .profileLogOut:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: LogOutTableViewCell.Constants.identifier,
                 for: indexPath
             )
-                as? LogOutTableViewCell else { return UITableViewCell() }
+                    as? LogOutTableViewCell else { return UITableViewCell() }
+            cell.selectionStyle = .none
             return cell
         }
     }
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        let cells = typeCells[indexPath.section]
+        
+        let cells = cellTypes[indexPath.section]
         switch cells {
         case .profileAvatar:
             print("profileAvatar")
@@ -173,9 +187,9 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             logOutAlert()
         }
     }
-
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let cells = typeCells[indexPath.section]
+        let cells = cellTypes[indexPath.section]
         switch cells {
         case .profileAvatar:
             return CGFloat(Constants.twoHundredSeventy)
@@ -207,3 +221,5 @@ extension ProfileView: AlertableProtocol {
         present(alert, animated: true)
     }
 }
+
+extension ProfileView: ProfileViewProtocol {}

@@ -5,6 +5,7 @@ import UIKit
 
 /// Протокол для показа всплывающего сообщения
 protocol AlertableProtocol: AnyObject {
+    /// Метод вызова аллерта
     func alertShow()
 }
 
@@ -26,14 +27,14 @@ final class ProfileAvatarTableViewCell: UITableViewCell {
 
     // MARK: - Private Properties
 
-    private let profileImageView: UIImageView = {
+    private let profileImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.avatarImage
         return imageView
     }()
 
-    private let profileFullNameLabel: UILabel = {
+    private let profileFullNameLabel = {
         let label = UILabel()
         label.textColor = .black
         label.text = Constants.profilelabelText
@@ -44,7 +45,7 @@ final class ProfileAvatarTableViewCell: UITableViewCell {
         return label
     }()
 
-    private lazy var pencilButton: UIButton = {
+    private lazy var pencilButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(Constants.pencilButtonImage, for: .normal)

@@ -18,21 +18,21 @@ final class ProfileBonusesTableViewCell: UITableViewCell {
 
     // MARK: - Private Properties
 
-    private let lightGrayImageView: UIImageView = {
+    private let lightGrayImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = Constants.lightGrayImage
         return view
     }()
 
-    private let starImageView: UIImageView = {
+    private let starImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.starImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private let bonusesLabel: UILabel = {
+    private let bonusesLabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Constants.bonusesText
@@ -41,14 +41,14 @@ final class ProfileBonusesTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let pointerImageView: UIImageView = {
+    private let pointerImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.pointerImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private let lineView: UIView = {
+    private let lineView = {
         let view = UIView()
         view.backgroundColor = .appLightGray
         view.translatesAutoresizingMaskIntoConstraints = false

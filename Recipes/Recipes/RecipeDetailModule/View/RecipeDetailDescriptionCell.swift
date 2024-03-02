@@ -6,6 +6,8 @@ import UIKit
 /// Ячейка с подробным описанием приготовления рецепта
 final class RecipeDetailDescriptionCell: UITableViewCell {
     
+    static let identifier = "RecipeDetailDescriptionCell"
+    
     // MARK: - Constants
 
     private enum Constants {

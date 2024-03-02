@@ -8,12 +8,12 @@ final class RecipeDetailPresenter {
     
     // MARK: - Private Properties
 
-    private weak var view: UIViewController?
+    private weak var view: RecipeDetailViewProtocol?
     private weak var recipeDetailCoordinator: RecipeDetailCoordinator?
 
     // MARK: - Initializers
 
-    required init(view: UIViewController, recipeDetailCoordinator: RecipeDetailCoordinator) {
+    required init(view: RecipeDetailViewProtocol, recipeDetailCoordinator: RecipeDetailCoordinator) {
         self.view = view
         self.recipeDetailCoordinator = recipeDetailCoordinator
     }

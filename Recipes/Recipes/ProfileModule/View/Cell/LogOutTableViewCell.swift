@@ -18,21 +18,21 @@ final class LogOutTableViewCell: UITableViewCell {
 
     // MARK: - Private Properties
 
-    private let lightGrayImageView: UIImageView = {
+    private let lightGrayImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = Constants.lightGrayImage
         return view
     }()
 
-    private let logOutImageView: UIImageView = {
+    private let logOutImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.logOutImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private let logOutLabel: UILabel = {
+    private let logOutLabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Constants.logoutText
@@ -41,14 +41,14 @@ final class LogOutTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let pointerImageView: UIImageView = {
+    private let pointerImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.pointerImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private let lineView: UIView = {
+    private let lineView = {
         let view = UIView()
         view.backgroundColor = .appLightGray
         view.translatesAutoresizingMaskIntoConstraints = false

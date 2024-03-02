@@ -3,6 +3,8 @@
 
 import UIKit
 
+protocol RecipeDetailViewProtocol: AnyObject {}
+
 /// Экран с подробным описанием рецепта
 final class RecipeDetailView: UIViewController {
     
@@ -14,27 +16,24 @@ final class RecipeDetailView: UIViewController {
         static let timeText = "Time"
         static let separateHeight = 5.0
     }
+    
+    enum CellsType {
+        /// Фото блюда
+        case recipeImage
+        /// Информация о пищевой ценности
+        case recipeInfo
+        /// Подробное описание рецепта
+        case recipeDescription
+    }
 
     // MARK: - Visual Components
 
-    private let recipeSearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .minimal
-        searchBar.barStyle = .default
-        searchBar.searchTextField.backgroundColor = .appSoftBlue
-        searchBar.backgroundImage = nil
-        searchBar.backgroundColor = .clear
-        searchBar.placeholder = Constants.searchBarPlaceholderText
-        return searchBar
-    }()
-
-    private lazy var recipeTableView = {
+    private lazy var recipeDetailTableView = {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
-        tableView.register(CategoryViewCell.self, forCellReuseIdentifier: String(describing: CategoryViewCell.self))
         return tableView
     }()
 
@@ -45,7 +44,7 @@ final class RecipeDetailView: UIViewController {
 
     // MARK: - Private Properties
 
-    private let filterStates = [Constants.caloriesText, Constants.timeText]
+    private let cellsType: [CellsType] = [.recipeImage, .recipeInfo, .recipeDescription]
 
     // MARK: - Life Cycle
 
@@ -80,24 +79,38 @@ final class RecipeDetailView: UIViewController {
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backStackView)
     }
+    
+    private func setupTableView() {
+        recipeDetailTableView.rowHeight = UITableView.automaticDimension
+        recipeDetailTableView.register(
+            RecipeDetailImageCell.self,
+            forCellReuseIdentifier: RecipeDetailImageCell.identifier)
+        recipeDetailTableView.register(
+            RecipeDetailCompoundCell.self,
+            forCellReuseIdentifier: RecipeDetailCompoundCell.identifier)
+        recipeDetailTableView.register(
+            RecipeDetailDescriptionCell.self,
+            forCellReuseIdentifier: RecipeDetailDescriptionCell.identifier)
+    }
 
     private func configureUI() {
         view.backgroundColor = .white
         addSubiews()
         setupRecipeTableViewConstraints()
+        setupTableView()
     }
 
     private func addSubiews() {
-            recipeTableView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(recipeTableView)
+            recipeDetailTableView.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(recipeDetailTableView)
     }
 
     private func setupRecipeTableViewConstraints() {
-        recipeTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
-        recipeTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        recipeTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
+        recipeDetailTableView.topAnchor.constraint(equalTo: view.topAnchor, constant: 10).isActive = true
+        recipeDetailTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        recipeDetailTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
             .isActive = true
-        recipeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        recipeDetailTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
     @objc private func backBarButtonPressed() {
@@ -113,39 +126,56 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.recipesDetails.count ?? 0
+        3
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        Constants.separateHeight
-    }
+//    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        Constants.separateHeight
+//    }
 
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
-        return headerView
-    }
+//    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = UIView()
+//        headerView.backgroundColor = UIColor.clear
+//        return headerView
+//    }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = recipeTableView
-            .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
-        else { return UITableViewCell() }
-        return cell
+        let cells = cellsType[indexPath.section]
+        switch cells {
+        case .recipeImage:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: RecipeDetailImageCell.identifier,
+                for: indexPath) as? RecipeDetailImageCell else {
+                return UITableViewCell()
+            }
+            return cell
+        case .recipeInfo:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: RecipeDetailCompoundCell.identifier,
+                for: indexPath) as? RecipeDetailCompoundCell else {
+                return UITableViewCell()
+            }
+            return cell
+        case .recipeDescription:
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: RecipeDetailDescriptionCell.identifier,
+                for: indexPath) as? RecipeDetailDescriptionCell else {
+                return UITableViewCell()
+            }
+            return cell
+        }
     }
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let cells = cellTypes[indexPath.section]
+//        switch cells {
+//        case .recipeImage:
+//            return CGFloat(Constants.twoHundredSeventy)
+//        case .recipeInfo:
+//            return CGFloat(Constants.seventy)
+//        case .recipeDescription:
+//            return CGFloat(Constants.seventy)
+//    }
 }
 
-// MARK: - CategoryView + CategoryViewProtocol
-
-extension RecipeDetailView: CategoryViewProtocol {}
-
-// MARK: - CategoryView + FilterControlViewDataSource
-
-extension RecipeDetailView: FilterControlViewDataSource {
-    func filterControlCount(_ dayPicker: FilterControlView) -> Int {
-        filterStates.count
-    }
-
-    func filterControlTitle(_ dayPicker: FilterControlView, indexPath: IndexPath) -> String {
-        filterStates[indexPath.row]
-    }
-}
+extension RecipeDetailView: RecipeDetailViewProtocol {}
