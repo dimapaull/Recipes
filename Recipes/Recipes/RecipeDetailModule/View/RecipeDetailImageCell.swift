@@ -16,7 +16,7 @@ final class RecipeDetailImageCell: UITableViewCell {
         static let potImage = UIImage(named: "pot")
         static let verdanaSize10 = UIFont(name: "Verdana", size: 10)
         static let timerBackgroundImage = UIImage(named: "timerBackground")
-        static let timerImage = UIImage(named: "timerRecipeImage")
+        static let timerImage = UIImage(named: "whiteTimer")
         static let cookingTime = "Cooking time"
         static let photoRecipeCornerRadius = 24.0
         static let cookingMinute = " min"
@@ -29,7 +29,6 @@ final class RecipeDetailImageCell: UITableViewCell {
         let label = UILabel()
         label.font = Constants.verdanaBoldSize20
         label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -58,9 +57,8 @@ final class RecipeDetailImageCell: UITableViewCell {
     private let potCountLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .white
-        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -82,7 +80,7 @@ final class RecipeDetailImageCell: UITableViewCell {
     private let cookingTimeLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .white
         label.text = Constants.cookingTime
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +90,7 @@ final class RecipeDetailImageCell: UITableViewCell {
     private let cookingCountLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -101,10 +99,10 @@ final class RecipeDetailImageCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configureCell(info: RecipeDetail) {
-        titleRecipeLabel.text = info.title
-        photoRecipeImageView.image = UIImage(named: info.imageName)
-        potCountLabel.text = String(info.dishWeight) + Constants.potChar
-        cookingCountLabel.text = String(info.cookingTime) + Constants.cookingMinute
+        titleRecipeLabel.text = info.title 
+        photoRecipeImageView.image = UIImage(named: info.imageName )
+        potCountLabel.text = info.dishWeight + Constants.potChar
+        cookingCountLabel.text = info.cookingTime + Constants.cookingMinute
     }
 
     // MARK: - Initializators
@@ -123,7 +121,6 @@ final class RecipeDetailImageCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func configureUI() {
-        contentView.backgroundColor = .blue
         setupViews()
         setupConstraints()
     }
@@ -157,7 +154,7 @@ final class RecipeDetailImageCell: UITableViewCell {
             titleRecipeLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             titleRecipeLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             titleRecipeLabel.widthAnchor.constraint(equalToConstant: 350),
-            titleRecipeLabel.heightAnchor.constraint(equalToConstant: 16)
+            titleRecipeLabel.heightAnchor.constraint(equalToConstant: 25)
         ])
     }
 
@@ -211,10 +208,10 @@ final class RecipeDetailImageCell: UITableViewCell {
     
     private func setupTimerImageViewConstraints() {
         NSLayoutConstraint.activate([
-            timerImageView.leadingAnchor.constraint(equalTo: timerBackgroundImageView.leadingAnchor, constant: 11.13),
+            timerImageView.leadingAnchor.constraint(equalTo: timerBackgroundImageView.leadingAnchor, constant: 8),
             timerImageView.centerYAnchor.constraint(equalTo: timerBackgroundImageView.centerYAnchor),
-            timerImageView.heightAnchor.constraint(equalToConstant: 18.75),
-            timerImageView.widthAnchor.constraint(equalToConstant: 18.75)
+            timerImageView.heightAnchor.constraint(equalToConstant: 25),
+            timerImageView.widthAnchor.constraint(equalToConstant: 25)
         ])
     }
     

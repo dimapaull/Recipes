@@ -10,17 +10,17 @@ struct RecipeDetail {
     /// Изображение рецепта
     let imageName: String
     /// Вес блюда
-    let dishWeight: Int
+    let dishWeight: String
     /// Время приготовления
-    let cookingTime: Int
+    let cookingTime: String
     /// Килокалории
-    let kilocalories: Int
+    let kilocalories: String
     /// Углеводы
-    let carbohydrates: Double
+    let carbohydrates: String
     /// Жиры
-    let fats: Double
+    let fats: String
     /// Протеины
-    let proteins: Double
+    let proteins: String
     /// Описание рецепта
     let description: String
 }

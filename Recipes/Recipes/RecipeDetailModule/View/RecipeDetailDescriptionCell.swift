@@ -12,6 +12,7 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
 
     private enum Constants {
         static let verdanaSize14 = UIFont(name: "Verdana", size: 14)
+        static let zero = 0
     }
 
     // MARK: - Visual Components
@@ -19,6 +20,7 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
     private let gradientView = {
        let view = UIView()
         view.layer.cornerRadius = 24
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -27,10 +29,15 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
         let label = UILabel()
         label.font = Constants.verdanaSize14
         label.textAlignment = .left
-        label.numberOfLines = 0
-        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = Constants.zero
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private let gradientLayer = {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [UIColor.appGradient.cgColor, UIColor.white.cgColor]
+        return gradientLayer
     }()
 
     // MARK: - Public Methods
@@ -40,6 +47,11 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
     }
 
     // MARK: - Initializators
+    
+    override func layoutSublayers(of layer: CALayer) {
+            super.layoutSublayers(of: layer)
+            gradientLayer.frame = gradientView.bounds
+        }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,22 +67,14 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func configureUI() {
-        contentView.backgroundColor = .white
-        addMainViewGradient()
         setupViews()
         setupConstraints()
     }
 
     private func setupViews() {
+        gradientView.layer.addSublayer(gradientLayer)
         contentView.addSubview(gradientView)
         contentView.addSubview(descriptionLabel)
-    }
-    
-    private func addMainViewGradient() {
-        let gradient = CAGradientLayer()
-        gradient.colors = [UIColor.white.cgColor, UIColor.appGradient.cgColor]
-        gradient.frame = contentView.bounds
-        contentView.layer.insertSublayer(gradient, at: 0)
     }
 
     private func setupConstraints() {
@@ -80,10 +84,10 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
 
     private func setupGradientViewConstraints() {
         NSLayoutConstraint.activate([
-            gradientView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            gradientView.topAnchor.constraint(equalTo: descriptionLabel.topAnchor, constant: -15),
             gradientView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             gradientView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 20)
         ])
     }
     
@@ -92,7 +96,7 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
             descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 27),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -27),
-            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40)
+            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -27)
         ])
     }
 }

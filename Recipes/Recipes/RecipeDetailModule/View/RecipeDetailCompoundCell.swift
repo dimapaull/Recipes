@@ -41,9 +41,8 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     private let enercKcalTitleLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .white
-        label.adjustsFontSizeToFitWidth = true
         label.text = Constants.enercKcalTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -52,9 +51,8 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     private let enercKcalLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .appLightBlue
-        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -76,9 +74,8 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     private let carbohydratesTitleLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .white
-        label.adjustsFontSizeToFitWidth = true
         label.text = Constants.carbohydratesTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -87,9 +84,8 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     private let carbohydratesLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .appLightBlue
-        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -111,9 +107,8 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     private let fatsTitleLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .white
-        label.adjustsFontSizeToFitWidth = true
         label.text = Constants.fatsTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -122,9 +117,8 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     private let fatsLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .appLightBlue
-        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -146,9 +140,8 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     private let proteinsTitleLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .white
-        label.adjustsFontSizeToFitWidth = true
         label.text = Constants.proteinsTitle
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -157,22 +150,34 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     private let proteinsLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
-        label.textAlignment = .left
+        label.textAlignment = .center
         label.textColor = .appLightBlue
-        label.adjustsFontSizeToFitWidth = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var elementsStackView = UIStackView()
+    private lazy var elementsStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [
+                enercKcalImageView,
+                carbohydratesImageView,
+                fatsImageView,
+                proteinsImageView]
+        )
+        stackView.spacing = 5
+        stackView.distribution = .fillEqually
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
 
     // MARK: - Public Methods
 
     func configureCell(info: RecipeDetail) {
-        enercKcalLabel.text = String(info.kilocalories) + Constants.kCal
-        carbohydratesLabel.text = String(info.carbohydrates) + Constants.potChar
-        fatsLabel.text = String(info.fats) + Constants.potChar
-        proteinsLabel.text = String(info.proteins) + Constants.potChar
+        enercKcalLabel.text = info.kilocalories + Constants.kCal
+        carbohydratesLabel.text = info.carbohydrates + Constants.potChar
+        fatsLabel.text = info.fats + Constants.potChar
+        proteinsLabel.text = info.proteins + Constants.potChar
     }
 
     // MARK: - Initializators
@@ -196,16 +201,6 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     }
 
     private func setupViews() {
-        elementsStackView = UIStackView(
-            arrangedSubviews: [
-                enercKcalImageView,
-                carbohydratesImageView,
-                fatsImageView,
-                proteinsImageView
-            ])
-        elementsStackView.axis = .horizontal
-        elementsStackView.spacing = 6
-        contentView.addSubview(elementsStackView)
         enercKcalImageView.addSubview(enercKcalTopImageView)
         enercKcalTopImageView.addSubview(enercKcalTitleLabel)
         enercKcalImageView.addSubview(enercKcalLabel)
@@ -218,6 +213,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         proteinsImageView.addSubview(proteinsTopImageView)
         proteinsTopImageView.addSubview(proteinsTitleLabel)
         proteinsImageView.addSubview(proteinsLabel)
+        contentView.addSubview(elementsStackView)
     }
 
     private func setupConstraints() {
@@ -238,10 +234,10 @@ final class RecipeDetailCompoundCell: UITableViewCell {
 
     private func setupElementsStackViewConstraints() {
         NSLayoutConstraint.activate([
-            elementsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            elementsStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
             elementsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 40),
             elementsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -40),
-            elementsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            elementsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
         ])
     }
 
