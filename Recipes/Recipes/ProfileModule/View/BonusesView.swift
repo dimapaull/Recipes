@@ -61,7 +61,7 @@ final class BonusesView: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private lazy var closeButton = {
         let button = UIButton()
         button.setImage(Constants.closeButtonImage, for: .normal)

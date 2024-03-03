@@ -5,7 +5,6 @@ import UIKit
 
 /// Ячейка с переходом на вкладку "Политики конфиденциальности"
 final class ProfilePolicyTableViewCell: UITableViewCell {
-    
     // MARK: - Constants
 
     enum Constants {

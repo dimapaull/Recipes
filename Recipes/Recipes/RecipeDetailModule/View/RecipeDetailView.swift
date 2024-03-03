@@ -7,7 +7,6 @@ protocol RecipeDetailViewProtocol: AnyObject {}
 
 /// Экран с подробным описанием рецепта
 final class RecipeDetailView: UIViewController {
-    
     // MARK: - Constants
 
     private enum Constants {
@@ -25,7 +24,7 @@ final class RecipeDetailView: UIViewController {
         static let seventyThree = 73
         static let sevenHundred = 700
     }
-    
+
     private enum CellsType {
         /// Фото блюда
         case recipeImage
@@ -45,7 +44,7 @@ final class RecipeDetailView: UIViewController {
         tableView.showsVerticalScrollIndicator = false
         return tableView
     }()
-    
+
     // MARK: - Private Properties
 
     private let cellsType: [CellsType] = [.recipeImage, .recipeInfo, .recipeDescription]
@@ -53,52 +52,6 @@ final class RecipeDetailView: UIViewController {
     // MARK: - Public Properties
 
     var presenter: RecipeDetailPresenter?
-    var backNavigationTitle = String()
-    var recipesDetails = RecipeDetail(
-        title: "Simple Fish And Corn",
-        imageName: "eat",
-        dishWeight: "793",
-        cookingTime: "60",
-        kilocalories: "1322",
-        carbohydrates: "10,78",
-        fats: "10,00",
-        proteins: "97,30",
-        description: """
-1/2 to 2 fish heads, depending on size, about 5 pounds total
-2 tablespoons vegetable oil
-1/4 cup red or green thai curry paste
-3 tablespoons fish sauce or anchovy sauce
-1 tablespoon sugar
-1 can coconut milk, about 12 ounces
-3 medium size asian eggplants, cut int 1 inch
-rounds
-Handful of bird's eye chilies
-1/2 cup thai basil leaves
-Juice of 3 limes
-1/2 to 2 fish heads, depending on size, about 5 pounds total
-2 tablespoons vegetable oil
-1/4 cup red or green thai curry paste
-3 tablespoons fish sauce or anchovy sauce
-1 tablespoon sugar
-1 can coconut milk, about 12 ounces
-3 medium size asian eggplants, cut int 1 inch
-rounds
-Handful of bird's eye chilies
-1/2 cup thai basil leaves
-Juice of 3 limes
-1/2 to 2 fish heads, depending on size, about 5 pounds total
-2 tablespoons vegetable oil
-1/4 cup red or green thai curry paste
-3 tablespoons fish sauce or anchovy sauce
-1 tablespoon sugar
-1 can coconut milk, about 12 ounces
-3 medium size asian eggplants, cut int 1 inch
-rounds
-Handful of bird's eye chilies
-1/2 cup thai basil leaves
-Juice of 3 limes
-"""
-    )
 
     // MARK: - Life Cycle
 
@@ -116,41 +69,45 @@ Juice of 3 limes
 
         let backImage = UIImageView(image: .backButton)
         backImage.contentMode = .scaleAspectFit
-        
+
         let shareButtonImage = UIImageView(image: Constants.shareButtonImage)
         let bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
         bookmarkButtonImage.isUserInteractionEnabled = true
         bookmarkButtonImage.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(bookmarkButtonImageTapped))
         )
-        
+
         let rightStackView = UIStackView(arrangedSubviews: [shareButtonImage, bookmarkButtonImage])
         rightStackView.distribution = .equalSpacing
         rightStackView.spacing = 10
         rightStackView.axis = .horizontal
-        
+
         navigationItem.leftItemsSupplementBackButton = true
-        
+
         backImage.addGestureRecognizer(UITapGestureRecognizer(
-                        target: self,
-                        action: #selector(backBarButtonPressed)
-                    ))
+            target: self,
+            action: #selector(backBarButtonPressed)
+        ))
 
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backImage)
         navigationItem.rightBarButtonItem = UIBarButtonItem(
-            customView: rightStackView)
+            customView: rightStackView
+        )
     }
-    
+
     private func setupTableView() {
         recipeDetailTableView.register(
             RecipeDetailImageCell.self,
-            forCellReuseIdentifier: RecipeDetailImageCell.identifier)
+            forCellReuseIdentifier: RecipeDetailImageCell.identifier
+        )
         recipeDetailTableView.register(
             RecipeDetailCompoundCell.self,
-            forCellReuseIdentifier: RecipeDetailCompoundCell.identifier)
+            forCellReuseIdentifier: RecipeDetailCompoundCell.identifier
+        )
         recipeDetailTableView.register(
             RecipeDetailDescriptionCell.self,
-            forCellReuseIdentifier: RecipeDetailDescriptionCell.identifier)
+            forCellReuseIdentifier: RecipeDetailDescriptionCell.identifier
+        )
         recipeDetailTableView.rowHeight = UITableView.automaticDimension
     }
 
@@ -162,8 +119,8 @@ Juice of 3 limes
     }
 
     private func addSubiews() {
-            recipeDetailTableView.translatesAutoresizingMaskIntoConstraints = false
-            view.addSubview(recipeDetailTableView)
+        recipeDetailTableView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(recipeDetailTableView)
     }
 
     private func setupRecipeTableViewConstraints() {
@@ -172,7 +129,7 @@ Juice of 3 limes
         recipeDetailTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         recipeDetailTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
-    
+
     private func alertBookmarkButton() {
         let alert = UIAlertController(title: Constants.titleAlert, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Constants.okAlert, style: .cancel)
@@ -183,7 +140,7 @@ Juice of 3 limes
     @objc private func backBarButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
-    
+
     @objc private func bookmarkButtonImageTapped() {
         alertBookmarkButton()
     }
@@ -195,43 +152,46 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         Constants.one
     }
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         Constants.three
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cells = cellsType[indexPath.section]
         switch cells {
         case .recipeImage:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: RecipeDetailImageCell.identifier,
-                for: indexPath) as? RecipeDetailImageCell else {
+                for: indexPath
+            ) as? RecipeDetailImageCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(info: recipesDetails)
+            cell.configureCell(info: presenter?.recipeDetailInfo)
             cell.selectionStyle = .none
             return cell
         case .recipeInfo:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: RecipeDetailCompoundCell.identifier,
-                for: indexPath) as? RecipeDetailCompoundCell else {
+                for: indexPath
+            ) as? RecipeDetailCompoundCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(info: recipesDetails)
+            cell.configureCell(info: presenter?.recipeDetailInfo)
             cell.selectionStyle = .none
             return cell
         case .recipeDescription:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: RecipeDetailDescriptionCell.identifier,
-                for: indexPath) as? RecipeDetailDescriptionCell else {
+                for: indexPath
+            ) as? RecipeDetailDescriptionCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(info: recipesDetails)
+            cell.configureCell(info: presenter?.recipeDetailInfo)
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cells = cellsType[indexPath.section]
         switch cells {

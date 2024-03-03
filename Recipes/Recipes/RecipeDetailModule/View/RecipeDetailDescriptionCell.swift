@@ -5,9 +5,8 @@ import UIKit
 
 /// Ячейка с подробным описанием приготовления рецепта
 final class RecipeDetailDescriptionCell: UITableViewCell {
-    
     static let identifier = "RecipeDetailDescriptionCell"
-    
+
     // MARK: - Constants
 
     private enum Constants {
@@ -16,9 +15,9 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
     }
 
     // MARK: - Visual Components
-    
+
     private let gradientView = {
-       let view = UIView()
+        let view = UIView()
         view.layer.cornerRadius = 24
         view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +32,7 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let gradientLayer = {
         let gradientLayer = CAGradientLayer()
         gradientLayer.colors = [UIColor.appGradient.cgColor, UIColor.white.cgColor]
@@ -42,16 +41,16 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetail) {
-        descriptionLabel.text = info.description
+    func configureCell(info: RecipeDetail?) {
+        descriptionLabel.text = info?.description
     }
 
     // MARK: - Initializators
-    
+
     override func layoutSublayers(of layer: CALayer) {
-            super.layoutSublayers(of: layer)
-            gradientLayer.frame = gradientView.bounds
-        }
+        super.layoutSublayers(of: layer)
+        gradientLayer.frame = gradientView.bounds
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -90,7 +89,7 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
             gradientView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 20)
         ])
     }
-    
+
     private func setupDescriptionLabelConstraints() {
         NSLayoutConstraint.activate([
             descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),

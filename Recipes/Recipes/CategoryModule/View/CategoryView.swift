@@ -160,9 +160,9 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         cell.configureCell(info: presenter?.recipes[indexPath.section])
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presenter?.selectionRow()
+        presenter?.selectionRow(in: indexPath.section)
     }
 }
 

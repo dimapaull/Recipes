@@ -16,9 +16,9 @@ final class RecipePresenter {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
     }
-    
+
     // MARK: - Public Properties
-    
+
     private(set) var recipes = [
         RecipeCategory(recipeCategoryImage: "salad", recipeCategoryTitle: "Salad"),
         RecipeCategory(recipeCategoryImage: "soup", recipeCategoryTitle: "Soup"),

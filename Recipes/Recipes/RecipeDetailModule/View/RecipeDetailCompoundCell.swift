@@ -5,9 +5,8 @@ import UIKit
 
 /// Ячейка с составом рецепта
 final class RecipeDetailCompoundCell: UITableViewCell {
-    
     static let identifier = "RecipeDetailCompoundCell"
-    
+
     // MARK: - Constants
 
     private enum Constants {
@@ -30,14 +29,14 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         imageView.image = Constants.backgroundImage
         return imageView
     }()
-    
+
     private let enercKcalTopImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.topBackgroundImage
         return imageView
     }()
-    
+
     private let enercKcalTitleLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
@@ -47,7 +46,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let enercKcalLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
@@ -56,21 +55,21 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let carbohydratesImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.backgroundImage
         return imageView
     }()
-    
+
     private let carbohydratesTopImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.topBackgroundImage
         return imageView
     }()
-    
+
     private let carbohydratesTitleLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
@@ -80,7 +79,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let carbohydratesLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
@@ -89,21 +88,21 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let fatsImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.backgroundImage
         return imageView
     }()
-    
+
     private let fatsTopImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.topBackgroundImage
         return imageView
     }()
-    
+
     private let fatsTitleLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
@@ -113,7 +112,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let fatsLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
@@ -122,21 +121,21 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let proteinsImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.backgroundImage
         return imageView
     }()
-    
+
     private let proteinsTopImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = Constants.topBackgroundImage
         return imageView
     }()
-    
+
     private let proteinsTitleLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
@@ -146,7 +145,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let proteinsLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize10
@@ -155,14 +154,15 @@ final class RecipeDetailCompoundCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var elementsStackView = {
         let stackView = UIStackView(
             arrangedSubviews: [
                 enercKcalImageView,
                 carbohydratesImageView,
                 fatsImageView,
-                proteinsImageView]
+                proteinsImageView
+            ]
         )
         stackView.spacing = 5
         stackView.distribution = .fillEqually
@@ -173,11 +173,11 @@ final class RecipeDetailCompoundCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetail) {
-        enercKcalLabel.text = info.kilocalories + Constants.kCal
-        carbohydratesLabel.text = info.carbohydrates + Constants.potChar
-        fatsLabel.text = info.fats + Constants.potChar
-        proteinsLabel.text = info.proteins + Constants.potChar
+    func configureCell(info: RecipeDetail?) {
+        enercKcalLabel.text = (info?.kilocalories ?? "") + Constants.kCal
+        carbohydratesLabel.text = (info?.carbohydrates ?? "") + Constants.potChar
+        fatsLabel.text = (info?.fats ?? "") + Constants.potChar
+        proteinsLabel.text = (info?.proteins ?? "") + Constants.potChar
     }
 
     // MARK: - Initializators
@@ -287,7 +287,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
             carbohydratesTitleLabel.widthAnchor.constraint(equalToConstant: 74)
         ])
     }
-    
+
     private func setupCarbohydratesLabelConstraints() {
         NSLayoutConstraint.activate([
             carbohydratesLabel.centerXAnchor.constraint(equalTo: carbohydratesImageView.centerXAnchor),
@@ -296,7 +296,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
             carbohydratesLabel.widthAnchor.constraint(equalToConstant: 64)
         ])
     }
-    
+
     private func setupFatsTopImageViewConstraints() {
         NSLayoutConstraint.activate([
             fatsTopImageView.leadingAnchor.constraint(equalTo: fatsImageView.leadingAnchor),
@@ -306,7 +306,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
             fatsTopImageView.widthAnchor.constraint(equalToConstant: 73)
         ])
     }
-    
+
     private func setupFatsTitleLabelConstraints() {
         NSLayoutConstraint.activate([
             fatsTitleLabel.centerXAnchor.constraint(equalTo: fatsTopImageView.centerXAnchor),
@@ -315,7 +315,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
             fatsTitleLabel.widthAnchor.constraint(equalToConstant: 74)
         ])
     }
-    
+
     private func setupFatsLabelConstraints() {
         NSLayoutConstraint.activate([
             fatsLabel.centerXAnchor.constraint(equalTo: fatsImageView.centerXAnchor),
@@ -324,7 +324,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
             fatsLabel.widthAnchor.constraint(equalToConstant: 64)
         ])
     }
-    
+
     private func setupProteinsTopImageViewConstraints() {
         NSLayoutConstraint.activate([
             proteinsTopImageView.leadingAnchor.constraint(equalTo: proteinsImageView.leadingAnchor),
@@ -334,7 +334,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
             proteinsTopImageView.widthAnchor.constraint(equalToConstant: 73)
         ])
     }
-    
+
     private func setupProteinsTitleLabelConstraints() {
         NSLayoutConstraint.activate([
             proteinsTitleLabel.centerXAnchor.constraint(equalTo: proteinsTopImageView.centerXAnchor),
@@ -343,7 +343,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
             proteinsTitleLabel.widthAnchor.constraint(equalToConstant: 74)
         ])
     }
-    
+
     private func setupProteinsLabelConstraints() {
         NSLayoutConstraint.activate([
             proteinsLabel.centerXAnchor.constraint(equalTo: proteinsImageView.centerXAnchor),

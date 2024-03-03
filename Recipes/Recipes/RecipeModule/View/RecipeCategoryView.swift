@@ -7,7 +7,6 @@ protocol RecipeCategoryViewProtocol: AnyObject {}
 
 /// Экран с категориями рецептов
 final class RecipeCategoryView: UIViewController {
-    
     // MARK: - Constants
 
     private enum Constants {
@@ -45,7 +44,6 @@ final class RecipeCategoryView: UIViewController {
         setupViews()
         setupConstraints()
         setupRecipeCollectionView()
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +112,7 @@ extension RecipeCategoryView: UICollectionViewDataSource {
         return cell
     }
 }
+
 // MARK: - RecipeCategoryView + UICollectionViewDelegate
 
 extension RecipeCategoryView: UICollectionViewDelegate {

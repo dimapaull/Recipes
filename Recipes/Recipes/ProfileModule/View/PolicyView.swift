@@ -69,7 +69,7 @@ final class PolicyView: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private lazy var closeButton = {
         let button = UIButton()
         button.setImage(Constants.closeButtonImage, for: .normal)

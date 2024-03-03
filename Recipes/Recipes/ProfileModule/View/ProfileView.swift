@@ -131,7 +131,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: ProfileAvatarTableViewCell.Constants.identifier,
                 for: indexPath
             )
-                    as? ProfileAvatarTableViewCell else { return UITableViewCell() }
+                as? ProfileAvatarTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             cell.delegate = self
             presenter?.cellDelegate = cell
@@ -141,7 +141,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: ProfileBonusesTableViewCell.Constants.identifier,
                 for: indexPath
             )
-                    as? ProfileBonusesTableViewCell else { return UITableViewCell() }
+                as? ProfileBonusesTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             return cell
         case .profilePolicy:
@@ -149,7 +149,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: ProfilePolicyTableViewCell.Constants.identifier,
                 for: indexPath
             )
-                    as? ProfilePolicyTableViewCell else { return UITableViewCell() }
+                as? ProfilePolicyTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             return cell
         case .profileLogOut:
@@ -157,15 +157,15 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
                 withIdentifier: LogOutTableViewCell.Constants.identifier,
                 for: indexPath
             )
-                    as? LogOutTableViewCell else { return UITableViewCell() }
+                as? LogOutTableViewCell else { return UITableViewCell() }
             cell.selectionStyle = .none
             return cell
         }
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
+
         let cells = cellTypes[indexPath.section]
         switch cells {
         case .profileAvatar:
@@ -187,7 +187,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             logOutAlert()
         }
     }
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let cells = cellTypes[indexPath.section]
         switch cells {

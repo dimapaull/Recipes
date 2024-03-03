@@ -5,9 +5,8 @@ import UIKit
 
 /// Ячейка с изображением и названием рецепта
 final class RecipeDetailImageCell: UITableViewCell {
-    
     static let identifier = "RecipeDetailImageCell"
-    
+
     // MARK: - Constants
 
     private enum Constants {
@@ -24,7 +23,7 @@ final class RecipeDetailImageCell: UITableViewCell {
     }
 
     // MARK: - Visual Components
-    
+
     private let titleRecipeLabel = {
         let label = UILabel()
         label.font = Constants.verdanaBoldSize20
@@ -39,14 +38,14 @@ final class RecipeDetailImageCell: UITableViewCell {
         imageView.layer.cornerRadius = Constants.photoRecipeCornerRadius
         return imageView
     }()
-    
+
     private let circleBackgroundImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.circleBackgroundImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let potImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.potImage
@@ -69,7 +68,7 @@ final class RecipeDetailImageCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
+
     private let timerImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.timerImage
@@ -98,11 +97,11 @@ final class RecipeDetailImageCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetail) {
-        titleRecipeLabel.text = info.title 
-        photoRecipeImageView.image = UIImage(named: info.imageName )
-        potCountLabel.text = info.dishWeight + Constants.potChar
-        cookingCountLabel.text = info.cookingTime + Constants.cookingMinute
+    func configureCell(info: RecipeDetail?) {
+        titleRecipeLabel.text = info?.title
+        photoRecipeImageView.image = UIImage(named: info?.imageName ?? "")
+        potCountLabel.text = (info?.dishWeight ?? "") + Constants.potChar
+        cookingCountLabel.text = (info?.cookingTime ?? "") + Constants.cookingMinute
     }
 
     // MARK: - Initializators
@@ -173,7 +172,8 @@ final class RecipeDetailImageCell: UITableViewCell {
             circleBackgroundImageView.topAnchor.constraint(equalTo: photoRecipeImageView.topAnchor, constant: 8),
             circleBackgroundImageView.trailingAnchor.constraint(
                 equalTo: photoRecipeImageView.trailingAnchor,
-                constant: -6),
+                constant: -6
+            ),
             circleBackgroundImageView.widthAnchor.constraint(equalToConstant: 50),
             circleBackgroundImageView.heightAnchor.constraint(equalToConstant: 50)
         ])
@@ -205,7 +205,7 @@ final class RecipeDetailImageCell: UITableViewCell {
             timerBackgroundImageView.widthAnchor.constraint(equalToConstant: 124)
         ])
     }
-    
+
     private func setupTimerImageViewConstraints() {
         NSLayoutConstraint.activate([
             timerImageView.leadingAnchor.constraint(equalTo: timerBackgroundImageView.leadingAnchor, constant: 8),
@@ -214,7 +214,7 @@ final class RecipeDetailImageCell: UITableViewCell {
             timerImageView.widthAnchor.constraint(equalToConstant: 25)
         ])
     }
-    
+
     private func setupCookingTimeLabelConstraints() {
         NSLayoutConstraint.activate([
             cookingTimeLabel.trailingAnchor.constraint(equalTo: timerBackgroundImageView.trailingAnchor, constant: -8),
@@ -223,12 +223,13 @@ final class RecipeDetailImageCell: UITableViewCell {
             cookingTimeLabel.widthAnchor.constraint(equalToConstant: 83)
         ])
     }
-    
+
     private func setupCookingCountLabelConstraints() {
         NSLayoutConstraint.activate([
             cookingCountLabel.trailingAnchor.constraint(
                 equalTo: timerBackgroundImageView.trailingAnchor,
-                constant: -26),
+                constant: -26
+            ),
             cookingCountLabel.bottomAnchor.constraint(equalTo: timerBackgroundImageView.bottomAnchor, constant: -8),
             cookingCountLabel.heightAnchor.constraint(equalToConstant: 15),
             cookingCountLabel.widthAnchor.constraint(equalToConstant: 50)
