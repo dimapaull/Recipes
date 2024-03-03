@@ -35,7 +35,7 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetailDescription) {
+    func configureCell(info: RecipeDetail) {
         descriptionLabel.text = info.description
     }
 

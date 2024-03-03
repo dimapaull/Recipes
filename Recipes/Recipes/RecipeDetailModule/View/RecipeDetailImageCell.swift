@@ -100,7 +100,7 @@ final class RecipeDetailImageCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetailImage) {
+    func configureCell(info: RecipeDetail) {
         titleRecipeLabel.text = info.title
         photoRecipeImageView.image = UIImage(named: info.imageName)
         potCountLabel.text = String(info.dishWeight) + Constants.potChar

@@ -4,7 +4,7 @@
 import Foundation
 
 /// Название и фото рецепта
-struct RecipeDetailImage {
+struct RecipeDetail {
     /// Название рецепта
     let title: String
     /// Изображение рецепта
@@ -13,4 +13,14 @@ struct RecipeDetailImage {
     let dishWeight: Int
     /// Время приготовления
     let cookingTime: Int
+    /// Килокалории
+    let kilocalories: Int
+    /// Углеводы
+    let carbohydrates: Double
+    /// Жиры
+    let fats: Double
+    /// Протеины
+    let proteins: Double
+    /// Описание рецепта
+    let description: String
 }

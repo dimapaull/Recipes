@@ -168,7 +168,7 @@ final class RecipeDetailCompoundCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetailComponents) {
+    func configureCell(info: RecipeDetail) {
         enercKcalLabel.text = String(info.kilocalories) + Constants.kCal
         carbohydratesLabel.text = String(info.carbohydrates) + Constants.potChar
         fatsLabel.text = String(info.fats) + Constants.potChar
