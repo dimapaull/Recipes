@@ -5,6 +5,7 @@ import UIKit
 
 /// Ячейка с категорией рецептов
 final class FooterRecipeCategoryViewCell: UICollectionViewCell {
+    
     // MARK: - Visual Components
 
     private let textLabel = {

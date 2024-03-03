@@ -8,12 +8,12 @@ final class CategoryPresenter {
     // MARK: - Private Properties
 
     private weak var view: CategoryViewProtocol?
-    private weak var categoryCoordinator: CategoryCoordinator?
+    private weak var recipeCoordinator: RecipeCoordinator?
 
     // MARK: - Initializers
 
-    init(view: CategoryViewProtocol, categoryCoordinator: CategoryCoordinator) {
-        self.categoryCoordinator = categoryCoordinator
+    init(view: CategoryViewProtocol, recipeCoordinator: RecipeCoordinator) {
+        self.recipeCoordinator = recipeCoordinator
         self.view = view
     }
 
@@ -32,6 +32,12 @@ final class CategoryPresenter {
         ),
         Category(name: "Chilli and Tomato Fish", imageName: "chillAndTomato", minuteTime: 100, foodSuply: 174)
     ]
+    
+    // MARK: - Public Method
+    
+    func selectionRow() {
+        recipeCoordinator?.pushRecipeDetailView(title: "Test")
+    }
 }
 
 // MARK: - CategoryPresenter + FilterableDelegate

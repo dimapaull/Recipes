@@ -3,20 +3,25 @@
 
 import UIKit
 
+protocol RecipeCategoryViewProtocol: AnyObject {}
+
 /// Экран с категориями рецептов
 final class RecipeCategoryView: UIViewController {
+    
     // MARK: - Constants
 
     private enum Constants {
         static let zero = 0
         static let one = 1
-        static let two = 2
-        static let three = 3
+        static let two = 2.0
+        static let three = 3.0
         static let seven = 7
         static let ten = 10
-        static let forty = 40
+        static let thirty = 30.0
+        static let forty = 40.0
+        static let fortyInt = 40
         static let eighty = 80
-
+        static let case2 = 240.0 / 380.0
         static let defaultAssertText = "Unexpected element kind"
     }
 
@@ -33,18 +38,6 @@ final class RecipeCategoryView: UIViewController {
 
     var presenter: RecipePresenter?
 
-    let recipes: [RecipeCategory] = [
-        RecipeCategory(recipeCategoryImage: "salad", recipeCategoryTitle: "Salad"),
-        RecipeCategory(recipeCategoryImage: "soup", recipeCategoryTitle: "Soup"),
-        RecipeCategory(recipeCategoryImage: "chicken", recipeCategoryTitle: "Chicken"),
-        RecipeCategory(recipeCategoryImage: "meat", recipeCategoryTitle: "Meat"),
-        RecipeCategory(recipeCategoryImage: "fish", recipeCategoryTitle: "Fish"),
-        RecipeCategory(recipeCategoryImage: "sidedish", recipeCategoryTitle: "Side dish"),
-        RecipeCategory(recipeCategoryImage: "drinks", recipeCategoryTitle: "Drinks"),
-        RecipeCategory(recipeCategoryImage: "pancakes", recipeCategoryTitle: "Pancake"),
-        RecipeCategory(recipeCategoryImage: "desserts", recipeCategoryTitle: "Desserts")
-    ]
-
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
@@ -52,14 +45,13 @@ final class RecipeCategoryView: UIViewController {
         setupViews()
         setupConstraints()
         setupRecipeCollectionView()
+        
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
     }
-
-    // MARK: - Public Methods
 
     // MARK: - Private Methods
 
@@ -99,14 +91,15 @@ final class RecipeCategoryView: UIViewController {
     }
 }
 
-/// RecipeCategoryView + UICollectionViewDataSource
+// MARK: - RecipeCategoryView + UICollectionViewDataSource
+
 extension RecipeCategoryView: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         Constants.one
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        recipes.count
+        presenter?.recipes.count ?? 0
     }
 
     func collectionView(
@@ -117,20 +110,21 @@ extension RecipeCategoryView: UICollectionViewDataSource {
             withReuseIdentifier: RecipeCategoryViewCell.identifier,
             for: indexPath
         ) as? RecipeCategoryViewCell else { return UICollectionViewCell() }
-        cell.configureCell(info: recipes[indexPath.row])
+        cell.configureCell(info: presenter?.recipes[indexPath.row])
         return cell
     }
 }
+// MARK: - RecipeCategoryView + UICollectionViewDelegate
 
-/// RecipeCategoryView + UICollectionViewDelegate
 extension RecipeCategoryView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let titleCategory = recipes[indexPath.row].recipeCategoryTitle
+        guard let titleCategory = presenter?.recipes[indexPath.row].recipeCategoryTitle else { return }
         presenter?.chooseRecipe(title: titleCategory)
     }
 }
 
-/// RecipeCategoryView + UICollectionViewDelegateFlowLayout
+// MARK: - RecipeCategoryView + UICollectionViewDelegateFlowLayout
+
 extension RecipeCategoryView: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
@@ -142,11 +136,11 @@ extension RecipeCategoryView: UICollectionViewDelegateFlowLayout {
 
         switch cellNumber {
         case 0, 1:
-            cellSize = (view.frame.width - 30) / 2
+            cellSize = (view.frame.width - Constants.thirty) / Constants.two
         case 2, 6:
-            cellSize = view.frame.width * 240 / 380
+            cellSize = view.frame.width * Constants.case2
         case 3 ... 5:
-            cellSize = (view.frame.width - 40) / 3
+            cellSize = (view.frame.width - Constants.forty) / Constants.three
         default:
             cellSize = CGFloat(Constants.ten)
         }
@@ -192,6 +186,8 @@ extension RecipeCategoryView: UICollectionViewDelegateFlowLayout {
         layout collectionViewLayout: UICollectionViewLayout,
         referenceSizeForFooterInSection section: Int
     ) -> CGSize {
-        CGSize(width: Constants.zero, height: Constants.forty)
+        CGSize(width: Constants.zero, height: Constants.fortyInt)
     }
 }
+
+extension RecipeCategoryView: RecipeCategoryViewProtocol {}
