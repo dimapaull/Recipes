@@ -10,8 +10,6 @@ final class FavoritiesCoordinator: BaseCoodinator {
     var rootController: UINavigationController?
     var onFinishFlow: VoidHandler?
 
-    // MARK: - Private Properties
-
     // MARK: - Public Methods
 
     func setRootViewController(view: UIViewController) {
@@ -24,6 +22,8 @@ final class FavoritiesCoordinator: BaseCoodinator {
 
     func pushFavoritiesView() {
         let favoritiesView = FavoritiesView()
+        let favoritiesPresenter = FavoritiesPresenter(view: favoritiesView, favoritiesCoordinator: self)
+        favoritiesView.presenter = favoritiesPresenter
         rootController?.pushViewController(favoritiesView, animated: true)
     }
 }

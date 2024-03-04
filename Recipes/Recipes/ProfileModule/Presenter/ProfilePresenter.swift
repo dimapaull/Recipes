@@ -7,13 +7,13 @@ import UIKit
 final class ProfilePresenter {
     // MARK: - Private Properties
 
-    private weak var view: UIViewController?
+    private weak var view: ProfileViewProtocol?
     private weak var profileCoordinator: ProfileCoordinator?
     weak var cellDelegate: ChangebleTitleProtocol?
 
     // MARK: - Initializers
 
-    required init(view: UIViewController, profileCoordinator: ProfileCoordinator) {
+    required init(view: ProfileViewProtocol, profileCoordinator: ProfileCoordinator) {
         self.view = view
         self.profileCoordinator = profileCoordinator
     }

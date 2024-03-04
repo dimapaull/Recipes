@@ -21,7 +21,7 @@ final class CategoryViewCell: UITableViewCell {
 
     // MARK: - Visual Components
 
-    let photoRecipeImage = {
+    private let photoRecipeImage = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .red
@@ -29,7 +29,7 @@ final class CategoryViewCell: UITableViewCell {
         return imageView
     }()
 
-    let titleRecipeLabel = {
+    private let titleRecipeLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize14
         label.textAlignment = .left
@@ -39,14 +39,14 @@ final class CategoryViewCell: UITableViewCell {
         return label
     }()
 
-    let timerRecipeImage = {
+    private let timerRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.timerRecipeImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    let timeRecipeLabel = {
+    private let timeRecipeLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize12
         label.textAlignment = .left
@@ -54,14 +54,14 @@ final class CategoryViewCell: UITableViewCell {
         return label
     }()
 
-    let kalRecipeImage = {
+    private let kalRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.kalRecipeImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    let kalRecipeLabel = {
+    private let kalRecipeLabel = {
         let label = UILabel()
         label.font = Constants.verdanaSize12
         label.textAlignment = .left
@@ -69,7 +69,7 @@ final class CategoryViewCell: UITableViewCell {
         return label
     }()
 
-    let pointerRecipeImage = {
+    private let pointerRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.pointerImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -78,11 +78,11 @@ final class CategoryViewCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: Category?) {
+    func configureCell(info: RecipeDetail?) {
         photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
-        titleRecipeLabel.text = info?.name
-        timeRecipeLabel.text = "\(info?.minuteTime ?? 0) \(Constants.timeText)"
-        kalRecipeLabel.text = "\(info?.foodSuply ?? 0) \(Constants.foodSuplyText)"
+        titleRecipeLabel.text = info?.title
+        timeRecipeLabel.text = "\(info?.cookingTime ?? "") \(Constants.timeText)"
+        kalRecipeLabel.text = "\(info?.kilocalories ?? "") \(Constants.foodSuplyText)"
     }
 
     // MARK: - Initializators

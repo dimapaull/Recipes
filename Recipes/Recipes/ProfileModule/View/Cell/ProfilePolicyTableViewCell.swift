@@ -16,23 +16,23 @@ final class ProfilePolicyTableViewCell: UITableViewCell {
         static let pointerImage = UIImage(named: "pointer")
     }
 
-    // MARK: - Private Properties
+    // MARK: - Visual components
 
-    private let lightGrayImageView: UIImageView = {
+    private let lightGrayImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.image = Constants.lightGrayImage
         return view
     }()
 
-    private let paperImageView: UIImageView = {
+    private let paperImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.paperImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private let policyLabel: UILabel = {
+    private let policyLabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = Constants.policyText
@@ -41,14 +41,14 @@ final class ProfilePolicyTableViewCell: UITableViewCell {
         return label
     }()
 
-    private let pointerImageView: UIImageView = {
+    private let pointerImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.pointerImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private let lineView: UIView = {
+    private let lineView = {
         let view = UIView()
         view.backgroundColor = .appLightGray
         view.translatesAutoresizingMaskIntoConstraints = false

@@ -7,7 +7,7 @@ import UIKit
 final class PolicyView: UIViewController {
     // MARK: - Constants
 
-    enum Constants {
+    private enum Constants {
         static let dieImage = UIImage(named: "die")
         static let titleText = "Terms of Use"
         static let verdanaBold20 = UIFont(name: "Verdana-Bold", size: 20)
@@ -46,14 +46,14 @@ final class PolicyView: UIViewController {
 
     // MARK: - Visual Components
 
-    private let dieImageView: UIImageView = {
+    private let dieImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.dieImage
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
-    private let titleLabel: UILabel = {
+    private let titleLabel = {
         let label = UILabel()
         label.text = Constants.titleText
         label.font = Constants.verdanaBold20
@@ -61,21 +61,21 @@ final class PolicyView: UIViewController {
         return label
     }()
 
-    private lazy var closeButton: UIButton = {
-        let button = UIButton()
-        button.setImage(Constants.closeButtonImage, for: .normal)
-        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
-    private let policyLabel: UILabel = {
+    private let policyLabel = {
         let label = UILabel()
         label.font = Constants.verdana14
         label.numberOfLines = 0
         label.text = Constants.policyText
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+
+    private lazy var closeButton = {
+        let button = UIButton()
+        button.setImage(Constants.closeButtonImage, for: .normal)
+        button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
 
     // MARK: - Life Cycle
