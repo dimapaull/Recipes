@@ -50,6 +50,8 @@ final class CategoryView: UIViewController {
 
     var presenter: CategoryPresenter?
     var backNavigationTitle = String()
+    
+    var searching = false
 
     // MARK: - Private Properties
 
@@ -140,7 +142,12 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.recipes.count ?? 0
+//        presenter?.recipes.count ?? 0
+        if searching {
+            return presenter?.searchingNames.count ?? 0
+        } else {
+            return presenter?.recipes.count ?? 0
+        }
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -157,7 +164,12 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         guard let cell = recipeTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.recipes[indexPath.section])
+//        cell.configureCell(info: presenter?.recipes[indexPath.section])
+        if searching {
+            cell.configureCell(info: presenter?.searchingNames[indexPath.section])
+        } else {
+            cell.configureCell(info: presenter?.recipes[indexPath.section])
+        }
         return cell
     }
 
@@ -179,5 +191,13 @@ extension CategoryView: FilterControlViewDataSource {
 
     func filterControlTitle(_ dayPicker: FilterControlView, indexPath: IndexPath) -> String {
         filterStates[indexPath.row]
+    }
+}
+
+extension CategoryView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter?.filtredRecipes(searchText: searchText)
+        searching = true
+        recipeTableView.reloadData()
     }
 }

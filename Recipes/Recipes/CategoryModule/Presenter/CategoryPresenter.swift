@@ -58,6 +58,8 @@ final class CategoryPresenter {
     }
 
     // MARK: - Public Properties
+    
+    var searchingNames: [RecipeDetail] = []
 
     private(set) var recipes = [
         RecipeDetail(
@@ -137,6 +139,12 @@ final class CategoryPresenter {
 
     func selectionRow(in section: Int) {
         recipeCoordinator?.pushRecipeDetailView(recipe: recipes[section])
+    }
+    
+    func filtredRecipes(searchText: String) {
+        searchingNames = recipes.filter({
+            $0.title.prefix(searchText.count) == searchText
+        })
     }
 }
 

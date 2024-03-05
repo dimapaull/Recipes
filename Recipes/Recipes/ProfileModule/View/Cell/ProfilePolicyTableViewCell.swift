@@ -15,7 +15,27 @@ final class ProfilePolicyTableViewCell: UITableViewCell {
         static let verdanaSize18 = UIFont(name: "Verdana", size: 18)
         static let pointerImage = UIImage(named: "pointer")
     }
-
+    ////////////
+    enum CardState {
+        case expanded
+        case collapsed
+    }
+    
+    var visualEffectView = UIVisualEffectView()
+    var cardVisible = false
+    var nextState: CardState {
+        return cardVisible ? .collapsed : .expanded
+    }
+    
+    var runningAnimations: [UIViewPropertyAnimator] = []
+    var animationProgressWhenInterrupted: CGFloat = 0
+    
+    func setupCard() {
+        visualEffectView = UIVisualEffectView()
+        visualEffectView.frame = self.contentView.frame
+        self.contentView.addSubview(visualEffectView)
+    }
+    ///////////////
     // MARK: - Visual components
 
     private let lightGrayImageView = {
