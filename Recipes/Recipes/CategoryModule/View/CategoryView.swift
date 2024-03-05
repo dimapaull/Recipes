@@ -3,7 +3,9 @@
 
 import UIKit
 
-protocol CategoryViewProtocol: AnyObject {}
+protocol CategoryViewProtocol: AnyObject {
+    func reloadTable()
+}
 
 /// Экран выбора категории
 final class CategoryView: UIViewController {
@@ -18,13 +20,14 @@ final class CategoryView: UIViewController {
 
     // MARK: - Visual Components
 
-    private let recipeSearchBar = {
+    private lazy var recipeSearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
         searchBar.barStyle = .default
         searchBar.searchTextField.backgroundColor = .appSoftBlue
         searchBar.backgroundImage = nil
         searchBar.backgroundColor = .clear
+        searchBar.delegate = self
         searchBar.placeholder = Constants.searchBarPlaceholderText
         return searchBar
     }()
@@ -50,8 +53,6 @@ final class CategoryView: UIViewController {
 
     var presenter: CategoryPresenter?
     var backNavigationTitle = String()
-    
-    var searching = false
 
     // MARK: - Private Properties
 
@@ -142,12 +143,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-//        presenter?.recipes.count ?? 0
-        if searching {
-            return presenter?.searchingNames.count ?? 0
-        } else {
-            return presenter?.recipes.count ?? 0
-        }
+        presenter?.currentRecipes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -164,13 +160,9 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         guard let cell = recipeTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-//        cell.configureCell(info: presenter?.recipes[indexPath.section])
-        if searching {
-            cell.configureCell(info: presenter?.searchingNames[indexPath.section])
-        } else {
-            cell.configureCell(info: presenter?.recipes[indexPath.section])
-        }
+        cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
         return cell
+        
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -180,7 +172,11 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - CategoryView + CategoryViewProtocol
 
-extension CategoryView: CategoryViewProtocol {}
+extension CategoryView: CategoryViewProtocol {
+    func reloadTable() {
+        recipeTableView.reloadData()
+    }
+}
 
 // MARK: - CategoryView + FilterControlViewDataSource
 
@@ -197,7 +193,5 @@ extension CategoryView: FilterControlViewDataSource {
 extension CategoryView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter?.filtredRecipes(searchText: searchText)
-        searching = true
-        recipeTableView.reloadData()
     }
 }

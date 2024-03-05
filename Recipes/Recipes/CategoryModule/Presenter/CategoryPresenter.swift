@@ -55,13 +55,17 @@ final class CategoryPresenter {
     init(view: CategoryViewProtocol, recipeCoordinator: RecipeCoordinator) {
         self.recipeCoordinator = recipeCoordinator
         self.view = view
+        self.searching = false
     }
 
     // MARK: - Public Properties
     
-    var searchingNames: [RecipeDetail] = []
+    private var searchingNames: [RecipeDetail] = []
+    private(set) var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
+    
+    var searching = false
 
-    private(set) var recipes = [
+    static var recipes = [
         RecipeDetail(
             title: "Simple Fish And Corn",
             imageName: "chickenFish",
@@ -138,13 +142,18 @@ final class CategoryPresenter {
     // MARK: - Public Method
 
     func selectionRow(in section: Int) {
-        recipeCoordinator?.pushRecipeDetailView(recipe: recipes[section])
+        recipeCoordinator?.pushRecipeDetailView(recipe: CategoryPresenter.recipes[section])
     }
     
     func filtredRecipes(searchText: String) {
-        searchingNames = recipes.filter({
-            $0.title.prefix(searchText.count) == searchText
-        })
+        if searchText.count < 3 {
+            currentRecipes = CategoryPresenter.recipes
+        } else {
+            currentRecipes = CategoryPresenter.recipes.filter({
+                $0.title.prefix(searchText.count) == searchText
+            })
+        }
+        view?.reloadTable()
     }
 }
 

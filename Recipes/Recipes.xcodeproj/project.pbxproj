@@ -61,6 +61,7 @@
 		C465B0962B93531A005D3FE8 /* RecipeDetailImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C465B0952B93531A005D3FE8 /* RecipeDetailImageCell.swift */; };
 		C465B0982B9353A1005D3FE8 /* RecipeDetailCompoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C465B0972B9353A1005D3FE8 /* RecipeDetailCompoundCell.swift */; };
 		C465B09A2B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C465B0992B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift */; };
+		C4BDF79A2B978A97001DC265 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDF7992B978A97001DC265 /* UIColor+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -120,6 +121,7 @@
 		C465B0952B93531A005D3FE8 /* RecipeDetailImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailImageCell.swift; sourceTree = "<group>"; };
 		C465B0972B9353A1005D3FE8 /* RecipeDetailCompoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailCompoundCell.swift; sourceTree = "<group>"; };
 		C465B0992B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailDescriptionCell.swift; sourceTree = "<group>"; };
+		C4BDF7992B978A97001DC265 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -344,6 +346,7 @@
 			isa = PBXGroup;
 			children = (
 				0E6FDB912B8E19C5005A7D10 /* UIFont+Extension.swift */,
+				C4BDF7992B978A97001DC265 /* UIColor+Extension.swift */,
 				0EAC5B8A2B8EAA70000108E2 /* String+Extension.swift */,
 				C45B61E72B91003000C80F92 /* UIView+Extension.swift */,
 			);
@@ -594,6 +597,7 @@
 				0E5FD6CF2B90B8EB00124D9B /* FilterControlView.swift in Sources */,
 				0EAC5B902B908B9D000108E2 /* CategoryView.swift in Sources */,
 				0EAC5B8D2B8FA495000108E2 /* SwiftLintEdits.swift in Sources */,
+				C4BDF79A2B978A97001DC265 /* UIColor+Extension.swift in Sources */,
 				C465B0942B935293005D3FE8 /* RecipeDetailView.swift in Sources */,
 				C465B0902B934FFE005D3FE8 /* RecipeDetailPresenter.swift in Sources */,
 				0E744DF62B90C55B00EF101F /* AutoPaddingButton.swift in Sources */,
