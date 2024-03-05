@@ -12,7 +12,7 @@ protocol FilterControlViewDataSource {
 
 protocol FilterableDelegate: AnyObject {
     /// Выбранный фильтр, возвращает обработанное состояние, нажата ли выбранная кнопка, индекс отжатой
-    func choosedFilter(currentState: FilterType, tag: Int, complition: @escaping (FilterType, Bool, Int?) -> ())
+    func choosedFilter(tag: Int, complition: @escaping BoolHandler)
 }
 
 /// Состояния фильтра
@@ -20,9 +20,11 @@ enum FilterType {
     /// Отключен
     case off
     /// От большего к меньшему
-    case less
+    case time
     /// От меньшего к большему
-    case more
+    case calories
+    /// Включенные оба фильтра
+    case twice
 }
 
 final class FilterControlView: UIView {
@@ -86,13 +88,9 @@ final class FilterControlView: UIView {
 
     @objc private func filterButtonPressed(_ sender: AutoAddPaddingButtton) {
         delagate?.choosedFilter(
-            currentState: filterState,
             tag: sender.tag,
-            complition: { filterState, isPressed, unpressIndex in
-                self.filterState = filterState
+            complition: { isPressed in
                 self.filterButtons[sender.tag].buttonState = isPressed
-                guard let index = unpressIndex else { return }
-                self.filterButtons[index].buttonState = false
             }
         )
     }

@@ -3,7 +3,9 @@
 
 import UIKit
 
-protocol CategoryViewProtocol: AnyObject {}
+protocol CategoryViewProtocol: AnyObject {
+    func reloadTable()
+}
 
 /// Экран выбора категории
 final class CategoryView: UIViewController {
@@ -140,7 +142,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.recipes.count ?? 0
+        presenter?.currentRecipes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -157,7 +159,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         guard let cell = recipeTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.recipes[indexPath.section])
+        cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
         return cell
     }
 
@@ -168,7 +170,11 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - CategoryView + CategoryViewProtocol
 
-extension CategoryView: CategoryViewProtocol {}
+extension CategoryView: CategoryViewProtocol {
+    func reloadTable() {
+        recipeTableView.reloadData()
+    }
+}
 
 // MARK: - CategoryView + FilterControlViewDataSource
 

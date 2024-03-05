@@ -81,8 +81,8 @@ final class CategoryViewCell: UITableViewCell {
     func configureCell(info: RecipeDetail?) {
         photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
         titleRecipeLabel.text = info?.title
-        timeRecipeLabel.text = "\(info?.cookingTime ?? "") \(Constants.timeText)"
-        kalRecipeLabel.text = "\(info?.kilocalories ?? "") \(Constants.foodSuplyText)"
+        timeRecipeLabel.text = "\(info?.cookingTime ?? 0) \(Constants.timeText)"
+        kalRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
     }
 
     // MARK: - Initializators
