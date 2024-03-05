@@ -3,6 +3,10 @@
 
 import UIKit
 
+protocol RemovableControllerProtocol {
+    func removeController()
+}
+
 /// Экран политики конфиденциальности
 final class PolicyView: UIViewController {
     // MARK: - Constants
@@ -43,8 +47,17 @@ final class PolicyView: UIViewController {
                 Enjoy exploring and cooking up a storm!
         """
     }
+    
+    var delegate: RemovableControllerProtocol?
 
     // MARK: - Visual Components
+    
+    let handleArea = {
+        let view = UIView()
+        view.layer.cornerRadius = 26
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
 
     private let dieImageView = {
         let imageView = UIImageView()
@@ -89,7 +102,8 @@ final class PolicyView: UIViewController {
     // MARK: - Private Methods
 
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .appGradient
+        view.addSubview(handleArea)
         view.addSubview(dieImageView)
         view.addSubview(titleLabel)
         view.addSubview(closeButton)
@@ -101,6 +115,14 @@ final class PolicyView: UIViewController {
         setupTitleLabelConstraints()
         setupCloseButtonConstraints()
         setupPolicyLabelConstraints()
+        setupHandleAreaConstraints()
+    }
+    
+    private func setupHandleAreaConstraints() {
+        handleArea.topAnchor.constraint(equalTo: view.topAnchor, constant: 17).isActive = true
+        handleArea.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        handleArea.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        handleArea.widthAnchor.constraint(equalToConstant: 50).isActive = true
     }
 
     private func setupDieViewImageConstraints() {
@@ -137,6 +159,7 @@ final class PolicyView: UIViewController {
     }
 
     @objc private func closeButtonTapped() {
-        dismiss(animated: true)
+        tabBarController?.tabBar.isHidden = false
+        delegate?.removeController()
     }
 }
