@@ -3,6 +3,11 @@
 
 import UIKit
 
+protocol UpdatableCell {
+    var updateCell: ((DownloadState) -> ())? { get set }
+    func startFetch()
+}
+
 /// Презентер для экрана с категорией рецепта
 final class CategoryPresenter {
     // MARK: - Constants
@@ -49,6 +54,7 @@ final class CategoryPresenter {
 
     private weak var view: CategoryViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
+    var updateCell: ((DownloadState) -> ())?
 
     // MARK: - Initializers
 
@@ -56,6 +62,7 @@ final class CategoryPresenter {
         self.recipeCoordinator = recipeCoordinator
         self.view = view
         currentFilterState = .off
+        updateCell?(.initial)
     }
 
     // MARK: - Public Properties
@@ -198,5 +205,15 @@ extension CategoryPresenter: FilterableDelegate {
             }
         }
         view?.reloadTable()
+    }
+}
+
+extension CategoryPresenter: UpdatableCell {
+    func startFetch() {
+        updateCell?(.initial)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.updateCell?(.success)
+        }
     }
 }

@@ -137,7 +137,7 @@ extension FavoritiesView: UITableViewDataSource {
         guard let cell = favoriteTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.favorities[indexPath.section])
+        cell.configureCell(info: presenter?.favorities[indexPath.section], updateCellState: nil)
         return cell
     }
 }
