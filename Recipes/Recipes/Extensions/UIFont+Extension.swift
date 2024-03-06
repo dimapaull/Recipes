@@ -18,4 +18,17 @@ extension UIFont {
     static func verdanaBold(ofSize: CGFloat) -> UIFont {
         UIFont(name: "Verdana-Bold", size: ofSize) ?? UIFont.systemFont(ofSize: ofSize)
     }
+
+    /// Словарь для шрифтов
+    static var fontStoreMap: [String: UIFont] = [:]
+    /// Функция проверки цвета в словаре
+    static func font(name: String, size: CGFloat) -> UIFont? {
+        let keyFont = "\(name)\(size)"
+        if let font = fontStoreMap[keyFont] {
+            return font
+        }
+        let newFont = UIFont(name: name, size: size)
+        fontStoreMap[keyFont] = newFont
+        return newFont
+    }
 }

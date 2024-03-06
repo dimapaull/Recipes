@@ -11,6 +11,19 @@ protocol ChangebleTitleProtocol: AnyObject {
 
 /// Экран профиля пользователя
 final class ProfileView: UIViewController {
+    // MARK: - Types
+
+    private enum CellTypes {
+        /// Ячейка с аватаром профиля
+        case profileAvatar
+        /// Ячейка с разделом "Бонусы"
+        case profileBonuses
+        /// Ячейка с политикой конфиденциальности
+        case profilePolicy
+        /// Ячейка с выходом из профиля
+        case profileLogOut
+    }
+
     // MARK: - Constants
 
     private enum Constants {
@@ -24,17 +37,7 @@ final class ProfileView: UIViewController {
         static let seventy = 70
         static let one = 1
         static let four = 4
-    }
-
-    private enum CellTypes {
-        /// Ячейка с аватаром профиля
-        case profileAvatar
-        /// Ячейка с разделом "Бонусы"
-        case profileBonuses
-        /// Ячейка с политикой конфиденциальности
-        case profilePolicy
-        /// Ячейка с выходом из профиля
-        case profileLogOut
+        static let minimumContentView = 900.0
     }
 
     // MARK: - Visual Components
@@ -52,6 +55,24 @@ final class ProfileView: UIViewController {
     // MARK: - Private Properties
 
     private let cellTypes: [CellTypes] = [.profileAvatar, .profileBonuses, .profilePolicy, .profileLogOut]
+
+    private enum CardState {
+        case expanded
+        case collapsed
+        case closed
+    }
+
+    private let cardHeight: CGFloat = 600
+    private let cardHandleAreaHeight: CGFloat = 265
+    private var cardViewController: PolicyView!
+    private var visualEffectView: UIVisualEffectView!
+    private var cardVisible = false
+    private var nextState: CardState {
+        cardVisible ? .collapsed : .expanded
+    }
+
+    private var runningAnimations: [UIViewPropertyAnimator] = []
+    private var animationProgressWhenInterrupted: CGFloat = 0
 
     // MARK: - Life Cycle
 
@@ -110,6 +131,140 @@ final class ProfileView: UIViewController {
         alert.addAction(actionCancel)
         present(alert, animated: true)
     }
+
+    private func setupCard() {
+        tabBarController?.tabBar.isHidden = true
+        visualEffectView = UIVisualEffectView()
+        visualEffectView.frame = view.frame
+        view.addSubview(visualEffectView)
+
+        cardViewController = PolicyView()
+        cardViewController.delegate = self
+
+        addChild(cardViewController)
+        view.addSubview(cardViewController.view)
+
+        cardViewController.view.frame = CGRect(
+            x: 0,
+            y: view.frame.height - cardHandleAreaHeight,
+            width: view.bounds.width,
+            height: cardHeight
+        )
+
+        cardViewController.view.clipsToBounds = true
+
+        let tapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(handleCardTap(recognzier:))
+        )
+        let panGestureRecognizer = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(handleCardPan(recognizer:))
+        )
+
+        cardViewController.handleArea.addGestureRecognizer(tapGestureRecognizer)
+        cardViewController.handleArea.addGestureRecognizer(panGestureRecognizer)
+    }
+
+    private func animateTransitionIfNeeded(state: CardState, duration: TimeInterval) {
+        if runningAnimations.isEmpty {
+            let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .expanded:
+                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight
+                case .collapsed:
+                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
+                case .closed:
+                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight + Constants
+                        .minimumContentView
+                    self.visualEffectView.removeFromSuperview()
+                }
+            }
+
+            frameAnimator.addCompletion { _ in
+                self.cardVisible = !self.cardVisible
+                self.runningAnimations.removeAll()
+            }
+
+            frameAnimator.startAnimation()
+            runningAnimations.append(frameAnimator)
+
+            let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
+                switch state {
+                case .expanded:
+                    self.cardViewController.view.layer.cornerRadius = 12
+                case .collapsed:
+                    self.cardViewController.view.layer.cornerRadius = 0
+                case .closed:
+                    break
+                }
+            }
+
+            cornerRadiusAnimator.startAnimation()
+            runningAnimations.append(cornerRadiusAnimator)
+
+            let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
+                switch state {
+                case .expanded:
+                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
+                case .collapsed:
+                    self.visualEffectView.effect = nil
+                case .closed:
+                    break
+                }
+            }
+
+            blurAnimator.startAnimation()
+            runningAnimations.append(blurAnimator)
+        }
+    }
+
+    private func startInteractiveTransition(state: CardState, duration: TimeInterval) {
+        if runningAnimations.isEmpty {
+            animateTransitionIfNeeded(state: state, duration: duration)
+        }
+        for animator in runningAnimations {
+            animator.pauseAnimation()
+            animationProgressWhenInterrupted = animator.fractionComplete
+        }
+    }
+
+    private func updateInteractiveTransition(fractionCompleted: CGFloat) {
+        for animator in runningAnimations {
+            animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
+        }
+    }
+
+    private func continueInteractiveTransition() {
+        for animator in runningAnimations {
+            animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        }
+    }
+
+    @objc private func handleCardTap(recognzier: UITapGestureRecognizer) {
+        switch recognzier.state {
+        case .ended:
+            animateTransitionIfNeeded(state: nextState, duration: 0.9)
+        default:
+            break
+        }
+    }
+
+    @objc private func handleCardPan(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            startInteractiveTransition(state: nextState, duration: 0.9)
+        case .changed:
+            let translation = recognizer.translation(in: cardViewController.handleArea)
+            var fractionComplete = translation.y / cardHeight
+            fractionComplete = cardVisible ? fractionComplete : -fractionComplete
+            updateInteractiveTransition(fractionCompleted: fractionComplete)
+        case .ended:
+            continueInteractiveTransition()
+        default:
+            break
+        }
+    }
 }
 
 // MARK: - ProfileView + UITableViewDataSource, UITableViewDelegate
@@ -164,12 +319,10 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-
         let cells = cellTypes[indexPath.section]
         switch cells {
         case .profileAvatar:
-            print("profileAvatar")
+            break
         case .profileBonuses:
             let bonusesView = BonusesView()
             bonusesView.profilePresenter = presenter
@@ -179,10 +332,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             }
             present(bonusesView, animated: true)
         case .profilePolicy:
-            let policyView = PolicyView()
-            policyView.modalPresentationStyle = .automatic
-            policyView.sheetPresentationController?.preferredCornerRadius = 30
-            present(policyView, animated: true)
+            setupCard()
         case .profileLogOut:
             logOutAlert()
         }
@@ -223,3 +373,9 @@ extension ProfileView: AlertableProtocol {
 }
 
 extension ProfileView: ProfileViewProtocol {}
+
+extension ProfileView: RemovableControllerProtocol {
+    func removeController() {
+        animateTransitionIfNeeded(state: .closed, duration: 1.0)
+    }
+}

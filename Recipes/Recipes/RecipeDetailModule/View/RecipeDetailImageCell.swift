@@ -101,7 +101,7 @@ final class RecipeDetailImageCell: UITableViewCell {
         titleRecipeLabel.text = info?.title
         photoRecipeImageView.image = UIImage(named: info?.imageName ?? "")
         potCountLabel.text = (info?.dishWeight ?? "") + Constants.potChar
-        cookingCountLabel.text = (info?.cookingTime ?? "") + Constants.cookingMinute
+        cookingCountLabel.text = "\(info?.cookingTime ?? 0) \(Constants.cookingMinute)"
     }
 
     // MARK: - Initializators

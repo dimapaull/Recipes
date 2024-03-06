@@ -12,17 +12,7 @@ protocol FilterControlViewDataSource {
 
 protocol FilterableDelegate: AnyObject {
     /// Выбранный фильтр, возвращает обработанное состояние, нажата ли выбранная кнопка, индекс отжатой
-    func choosedFilter(currentState: FilterType, tag: Int, complition: @escaping (FilterType, Bool, Int?) -> ())
-}
-
-/// Состояния фильтра
-enum FilterType {
-    /// Отключен
-    case off
-    /// От большего к меньшему
-    case less
-    /// От меньшего к большему
-    case more
+    func choosedFilter(tag: Int, completion: @escaping BoolHandler)
 }
 
 final class FilterControlView: UIView {
@@ -39,6 +29,7 @@ final class FilterControlView: UIView {
 
     // MARK: - Public Properties
 
+    weak var delagate: FilterableDelegate?
     var dataSource: FilterControlViewDataSource? {
         didSet {
             setupView()
@@ -49,11 +40,7 @@ final class FilterControlView: UIView {
 
     private var filterState: FilterType = .off
 
-    // MARK: - Public Properties
-
-    weak var delagate: FilterableDelegate?
-
-    // MARK: - Public Methods
+    // MARK: - Life Cycle
 
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -86,13 +73,9 @@ final class FilterControlView: UIView {
 
     @objc private func filterButtonPressed(_ sender: AutoAddPaddingButtton) {
         delagate?.choosedFilter(
-            currentState: filterState,
             tag: sender.tag,
-            complition: { filterState, isPressed, unpressIndex in
-                self.filterState = filterState
-                self.filterButtons[sender.tag].buttonState = isPressed
-                guard let index = unpressIndex else { return }
-                self.filterButtons[index].buttonState = false
+            completion: { [weak self] isPressed in
+                self?.filterButtons[sender.tag].buttonState = isPressed
             }
         )
     }

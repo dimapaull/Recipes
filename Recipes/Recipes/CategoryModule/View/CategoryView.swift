@@ -3,7 +3,13 @@
 
 import UIKit
 
-protocol CategoryViewProtocol: AnyObject {}
+/// Нужен для упраления вью
+protocol CategoryViewProtocol: AnyObject {
+    /// Принимает состояние процесса скачивания рецепта
+    var updateCellState: DownloadState { get set }
+    /// Обновляет данные в таблице
+    func reloadTable()
+}
 
 /// Экран выбора категории
 final class CategoryView: UIViewController {
@@ -18,13 +24,14 @@ final class CategoryView: UIViewController {
 
     // MARK: - Visual Components
 
-    private let recipeSearchBar = {
+    private lazy var recipeSearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
         searchBar.barStyle = .default
         searchBar.searchTextField.backgroundColor = .appSoftBlue
         searchBar.backgroundImage = nil
         searchBar.backgroundColor = .clear
+        searchBar.delegate = self
         searchBar.placeholder = Constants.searchBarPlaceholderText
         return searchBar
     }()
@@ -50,6 +57,11 @@ final class CategoryView: UIViewController {
 
     var presenter: CategoryPresenter?
     var backNavigationTitle = String()
+    var updateCellState: DownloadState = .initial {
+        didSet {
+            recipeTableView.reloadData()
+        }
+    }
 
     // MARK: - Private Properties
 
@@ -59,9 +71,11 @@ final class CategoryView: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tabBarController?.tabBar.isHidden = true
         configureUI()
         configureNavigationBar()
-        tabBarController?.tabBar.isHidden = true
+        presenter?.updateView()
+        setupMainViewRecognizer()
     }
 
     // MARK: - Private Methods
@@ -127,6 +141,15 @@ final class CategoryView: UIViewController {
         recipeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
+    private func setupMainViewRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(mainViewTapped))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+
+    @objc private func mainViewTapped() {
+        view.endEditing(true)
+    }
+
     @objc private func backBarButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
@@ -140,7 +163,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.recipes.count ?? 0
+        presenter?.currentRecipes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -157,7 +180,20 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         guard let cell = recipeTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.recipes[indexPath.section])
+        cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
+        cell.showShimmers()
+        switch updateCellState {
+        case .initial:
+            break
+        case .loading:
+            recipeTableView.isScrollEnabled = false
+            cell.showShimmers()
+        case .success:
+            recipeTableView.isScrollEnabled = true
+            cell.removeShimmers()
+        case .failture:
+            cell.showShimmers()
+        }
         return cell
     }
 
@@ -168,7 +204,11 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - CategoryView + CategoryViewProtocol
 
-extension CategoryView: CategoryViewProtocol {}
+extension CategoryView: CategoryViewProtocol {
+    func reloadTable() {
+        recipeTableView.reloadData()
+    }
+}
 
 // MARK: - CategoryView + FilterControlViewDataSource
 
@@ -179,5 +219,13 @@ extension CategoryView: FilterControlViewDataSource {
 
     func filterControlTitle(_ dayPicker: FilterControlView, indexPath: IndexPath) -> String {
         filterStates[indexPath.row]
+    }
+}
+
+// MARK: - CategoryView + UISearchBarDelegate
+
+extension CategoryView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter?.filtredRecipes(searchText: searchText)
     }
 }
