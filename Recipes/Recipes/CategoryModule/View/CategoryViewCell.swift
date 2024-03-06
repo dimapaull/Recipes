@@ -3,6 +3,11 @@
 
 import UIKit
 
+// protocol CellAnimatableProtocol {
+//    func setupShimmers()
+//    func removeShimmers()
+// }
+
 /// Ячейка с рецептом
 final class CategoryViewCell: UITableViewCell {
     // MARK: - Constants
@@ -23,6 +28,7 @@ final class CategoryViewCell: UITableViewCell {
 
     private let photoRecipeImage = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .red
         imageView.layer.cornerRadius = Constants.protoRecipeCornerRadius
@@ -31,6 +37,7 @@ final class CategoryViewCell: UITableViewCell {
 
     private let titleRecipeLabel = {
         let label = UILabel()
+        label.clipsToBounds = true
         label.font = Constants.verdanaSize14
         label.textAlignment = .left
         label.numberOfLines = Constants.titleRecipeLinesCount
@@ -42,30 +49,29 @@ final class CategoryViewCell: UITableViewCell {
     private let timerRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.timerRecipeImage
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
     private let timeRecipeLabel = {
         let label = UILabel()
+        label.clipsToBounds = true
         label.font = Constants.verdanaSize12
         label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let kalRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.kalRecipeImage
-        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
     private let kalRecipeLabel = {
         let label = UILabel()
+        label.clipsToBounds = true
+        label.adjustsFontSizeToFitWidth = true
         label.font = Constants.verdanaSize12
         label.textAlignment = .left
-        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
@@ -76,13 +82,62 @@ final class CategoryViewCell: UITableViewCell {
         return imageView
     }()
 
+    private lazy var timeStackView = {
+        let stackView = UIStackView(arrangedSubviews: [timerRecipeImage, timeRecipeLabel])
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.clipsToBounds = true
+        stackView.distribution = .equalSpacing
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    private lazy var caloriesStackView = {
+        let stackView = UIStackView(arrangedSubviews: [kalRecipeImage, kalRecipeLabel])
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
+        stackView.isLayoutMarginsRelativeArrangement = true
+        stackView.clipsToBounds = true
+        stackView.spacing = 2
+        stackView.distribution = .fillProportionally
+        stackView.axis = .horizontal
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+
+    private lazy var imageViewGradientLayer = createGradientLayer()
+    private lazy var titleLabelGradientLayer = createGradientLayer()
+    private lazy var timeStackViewlGradientLayer = createGradientLayer()
+    private lazy var caloriesStackViewGradientLayer = createGradientLayer()
+
+    private var updateCellState: UpdatableCell?
+
+    private lazy var gradientLayers = [
+        imageViewGradientLayer,
+        titleLabelGradientLayer,
+        timeStackViewlGradientLayer,
+        caloriesStackViewGradientLayer
+    ]
+
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetail?) {
+    func configureCell(info: RecipeDetail?, updateCellState: UpdatableCell?) {
         photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
         titleRecipeLabel.text = info?.title
-        timeRecipeLabel.text = "\(info?.cookingTime ?? "") \(Constants.timeText)"
-        kalRecipeLabel.text = "\(info?.kilocalories ?? "") \(Constants.foodSuplyText)"
+        timeRecipeLabel.text = "\(info?.cookingTime ?? 0) \(Constants.timeText)"
+        kalRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
+        self.updateCellState = updateCellState
+    }
+
+    func setupShimmers() {
+        setupIamgeViewShimmer()
+        setupTitleLabelShimmer()
+        setupTimeStackViewShimmer()
+        setupCaloriesStackViewShimmer()
+    }
+
+    func removeShimmers() {
+        gradientLayers.forEach { $0.removeFromSuperlayer() }
     }
 
     // MARK: - Initializators
@@ -98,34 +153,87 @@ final class CategoryViewCell: UITableViewCell {
         configureUI()
     }
 
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        imageViewGradientLayer.frame = contentView.bounds
+        titleLabelGradientLayer.frame = contentView.bounds
+        timeStackViewlGradientLayer.frame = contentView.bounds
+        caloriesStackViewGradientLayer.frame = contentView.bounds
+    }
+
+    // MARK: - Public Methods
+
     // MARK: - Private Methods
 
     private func configureUI() {
-        contentView.backgroundColor = .blue
+        contentView.backgroundColor = .white
+        contentView.clipsToBounds = true
         setupViews()
         setupConstraints()
+    }
+
+    private func setupIamgeViewShimmer() {
+        photoRecipeImage.layer.addSublayer(imageViewGradientLayer)
+        let animationGroup = createAnimationGroup()
+        animationGroup.beginTime = 0.0
+        imageViewGradientLayer.add(animationGroup, forKey: animationGroup.keyPath)
+    }
+
+    private func setupTitleLabelShimmer() {
+        titleRecipeLabel.layer.addSublayer(titleLabelGradientLayer)
+        let animationGroup = createAnimationGroup()
+        animationGroup.beginTime = 0.0
+        titleLabelGradientLayer.add(animationGroup, forKey: animationGroup.keyPath)
+    }
+
+    private func setupTimeStackViewShimmer() {
+        timeStackView.layer.addSublayer(timeStackViewlGradientLayer)
+        let animationGroup = createAnimationGroup()
+        animationGroup.beginTime = 0.0
+        timeStackViewlGradientLayer.add(animationGroup, forKey: animationGroup.keyPath)
+    }
+
+    private func setupCaloriesStackViewShimmer() {
+        caloriesStackView.layer.addSublayer(caloriesStackViewGradientLayer)
+        let animationGroup = createAnimationGroup()
+        animationGroup.beginTime = 0.0
+        caloriesStackViewGradientLayer.add(animationGroup, forKey: animationGroup.keyPath)
     }
 
     private func setupViews() {
         contentView.backgroundColor = .appLightGray
         contentView.layer.cornerRadius = 12
         contentView.addSubview(photoRecipeImage)
+        contentView.addSubview(timeStackView)
+        contentView.addSubview(caloriesStackView)
         contentView.addSubview(titleRecipeLabel)
-        contentView.addSubview(timerRecipeImage)
-        contentView.addSubview(timeRecipeLabel)
-        contentView.addSubview(kalRecipeImage)
-        contentView.addSubview(kalRecipeLabel)
         contentView.addSubview(pointerRecipeImage)
     }
 
     private func setupConstraints() {
         setupPhotoRecipeImageConstraints()
         setupTitleRecipeLabelConstraints()
-        setupTimerRecipeImageConstraints()
-        setupTimeRecipeLabelConstraints()
-        setupKalRecipeImageConstraints()
-        setupKalRecipeLabelConstraints()
+        setupTimeStackViewConstraints()
+        setupCaloriesStackViewConstraints()
         setupPointerRecipeImageConstraints()
+    }
+
+    private func setupTimeStackViewConstraints() {
+        NSLayoutConstraint.activate([
+            timeStackView.leadingAnchor.constraint(equalTo: photoRecipeImage.trailingAnchor, constant: 20),
+            timeStackView.heightAnchor.constraint(equalToConstant: 15),
+            timeStackView.widthAnchor.constraint(equalToConstant: 74),
+            timeStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
+        ])
+    }
+
+    private func setupCaloriesStackViewConstraints() {
+        NSLayoutConstraint.activate([
+            caloriesStackView.leadingAnchor.constraint(equalTo: timeStackView.trailingAnchor, constant: 10),
+            caloriesStackView.heightAnchor.constraint(equalToConstant: 15),
+            caloriesStackView.widthAnchor.constraint(equalToConstant: 91),
+            caloriesStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23)
+        ])
     }
 
     private func setupPhotoRecipeImageConstraints() {
@@ -147,42 +255,6 @@ final class CategoryViewCell: UITableViewCell {
         ])
     }
 
-    private func setupTimerRecipeImageConstraints() {
-        NSLayoutConstraint.activate([
-            timerRecipeImage.leadingAnchor.constraint(equalTo: photoRecipeImage.trailingAnchor, constant: 20),
-            timerRecipeImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
-            timerRecipeImage.heightAnchor.constraint(equalToConstant: 15),
-            timerRecipeImage.widthAnchor.constraint(equalToConstant: 15)
-        ])
-    }
-
-    private func setupTimeRecipeLabelConstraints() {
-        NSLayoutConstraint.activate([
-            timeRecipeLabel.leadingAnchor.constraint(equalTo: timerRecipeImage.trailingAnchor, constant: 4),
-            timeRecipeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
-            timeRecipeLabel.heightAnchor.constraint(equalToConstant: 15),
-            timeRecipeLabel.widthAnchor.constraint(equalToConstant: 55)
-        ])
-    }
-
-    private func setupKalRecipeImageConstraints() {
-        NSLayoutConstraint.activate([
-            kalRecipeImage.trailingAnchor.constraint(equalTo: kalRecipeLabel.leadingAnchor, constant: -5),
-            kalRecipeImage.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
-            kalRecipeImage.heightAnchor.constraint(equalToConstant: 15),
-            kalRecipeImage.widthAnchor.constraint(equalToConstant: 15)
-        ])
-    }
-
-    private func setupKalRecipeLabelConstraints() {
-        NSLayoutConstraint.activate([
-            kalRecipeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -60),
-            kalRecipeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
-            kalRecipeLabel.heightAnchor.constraint(equalToConstant: 15),
-            kalRecipeLabel.widthAnchor.constraint(equalToConstant: 72)
-        ])
-    }
-
     private func setupPointerRecipeImageConstraints() {
         NSLayoutConstraint.activate([
             pointerRecipeImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -15.42),
@@ -191,4 +263,34 @@ final class CategoryViewCell: UITableViewCell {
             pointerRecipeImage.widthAnchor.constraint(equalToConstant: 12.35)
         ])
     }
+
+    private func createAnimationGroup(previousGroup: CABasicAnimation? = nil) -> CABasicAnimation {
+        let animDuration: CFTimeInterval = 1.5
+
+        let basicAnimation = CABasicAnimation(keyPath: #keyPath(CAGradientLayer.locations))
+        basicAnimation.fromValue = [-1.0, -0.5, 0]
+        basicAnimation.toValue = [1, 1.5, 2]
+        basicAnimation.duration = animDuration
+        basicAnimation.beginTime = 0.0
+        basicAnimation.repeatCount = .infinity
+
+        if let previousGroup = previousGroup {
+            basicAnimation.beginTime = previousGroup.beginTime + 0.33
+        }
+
+        return basicAnimation
+    }
+
+    private func createGradientLayer() -> CAGradientLayer {
+        let gradient = CAGradientLayer()
+        gradient.startPoint = .init(x: 0, y: 0.5)
+        gradient.endPoint = .init(x: 1, y: 0.5)
+        gradient.colors = [UIColor.appLightGray.cgColor, UIColor.white.cgColor, UIColor.appLightGray.cgColor]
+        gradient.locations = [0, 0.5, 1]
+        return gradient
+    }
 }
+
+// extension CategoryViewCell: CellAnimatableProtocol {
+//
+// }

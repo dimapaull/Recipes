@@ -12,9 +12,9 @@ struct RecipeDetail {
     /// Вес блюда
     let dishWeight: String
     /// Время приготовления
-    let cookingTime: String
+    let cookingTime: Int
     /// Килокалории
-    let kilocalories: String
+    let kilocalories: Int
     /// Углеводы
     let carbohydrates: String
     /// Жиры

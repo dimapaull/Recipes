@@ -3,6 +3,11 @@
 
 import UIKit
 
+protocol UpdatableCell {
+    var updateCell: ((DownloadState) -> ())? { get set }
+    func startFetch()
+}
+
 /// Презентер для экрана с категорией рецепта
 final class CategoryPresenter {
     // MARK: - Constants
@@ -49,6 +54,7 @@ final class CategoryPresenter {
 
     private weak var view: CategoryViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
+    var updateCell: ((DownloadState) -> ())?
 
     // MARK: - Initializers
 
@@ -56,6 +62,8 @@ final class CategoryPresenter {
         self.recipeCoordinator = recipeCoordinator
         self.view = view
         self.searching = false
+        currentFilterState = .off
+        updateCell?(.initial)
     }
 
     // MARK: - Public Properties
@@ -70,8 +78,8 @@ final class CategoryPresenter {
             title: "Simple Fish And Corn",
             imageName: "chickenFish",
             dishWeight: "793",
-            cookingTime: "60",
-            kilocalories: "1322",
+            cookingTime: 60,
+            kilocalories: 1322,
             carbohydrates: "10,78",
             fats: "10,00",
             proteins: "97,30",
@@ -82,8 +90,8 @@ final class CategoryPresenter {
             title: "Baked Fish with Lemon Herb Sauce",
             imageName: "bakeFish",
             dishWeight: "793",
-            cookingTime: "90",
-            kilocalories: "616",
+            cookingTime: 90,
+            kilocalories: 616,
             carbohydrates: "10,78",
             fats: "10,00",
             proteins: "97,30",
@@ -94,8 +102,8 @@ final class CategoryPresenter {
             title: "Lemon and Chilli Fish Burrito",
             imageName: "lemonAndChill",
             dishWeight: "793",
-            cookingTime: "90",
-            kilocalories: "226",
+            cookingTime: 90,
+            kilocalories: 226,
             carbohydrates: "10,78",
             fats: "10,00",
             proteins: "97,30",
@@ -106,8 +114,8 @@ final class CategoryPresenter {
             title: "Fast Roast Fish & Show Peas Recipes",
             imageName: "fastRoast",
             dishWeight: "793",
-            cookingTime: "80",
-            kilocalories: "94",
+            cookingTime: 80,
+            kilocalories: 94,
             carbohydrates: "10,78",
             fats: "10,00",
             proteins: "97,30",
@@ -118,8 +126,8 @@ final class CategoryPresenter {
             title: "Salmon with Cantaloupe and Fried Shallots",
             imageName: "salmon",
             dishWeight: "793",
-            cookingTime: "100",
-            kilocalories: "410",
+            cookingTime: 100,
+            kilocalories: 410,
             carbohydrates: "10,78",
             fats: "10,00",
             proteins: "97,30",
@@ -130,8 +138,8 @@ final class CategoryPresenter {
             title: "Chilli and Tomato Fish",
             imageName: "chillAndTomato",
             dishWeight: "793",
-            cookingTime: "100",
-            kilocalories: "174",
+            cookingTime: 100,
+            kilocalories: 174,
             carbohydrates: "10,78",
             fats: "10,00",
             proteins: "97,30",
@@ -139,7 +147,26 @@ final class CategoryPresenter {
         ),
     ]
 
-    // MARK: - Public Method
+    var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
+    var currentFilterState: FilterType {
+        willSet {
+            currentRecipes = CategoryPresenter.recipes
+            switch newValue {
+            case .time:
+                currentRecipes.sort { $0.cookingTime < $1.cookingTime }
+            case .calories:
+                currentRecipes.sort { $0.kilocalories < $1.kilocalories }
+            case .twice:
+                currentRecipes.sort {
+                    ($0.cookingTime + $0.kilocalories) < ($1.cookingTime + $1.kilocalories)
+                }
+            default:
+                currentRecipes = CategoryPresenter.recipes
+            }
+        }
+    }
+
+    // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
         recipeCoordinator?.pushRecipeDetailView(recipe: CategoryPresenter.recipes[section])
@@ -154,32 +181,57 @@ final class CategoryPresenter {
             })
         }
         view?.reloadTable()
+        recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
     }
 }
 
 // MARK: - CategoryPresenter + FilterableDelegate
 
 extension CategoryPresenter: FilterableDelegate {
-    func choosedFilter(currentState: FilterType, tag: Int, complition: @escaping (FilterType, Bool, Int?) -> ()) {
-        switch currentState {
+    func choosedFilter(tag: Int, complition: @escaping BoolHandler) {
+        switch currentFilterState {
         case .off:
             if tag == 0 {
-                complition(.more, true, nil)
+                currentFilterState = .calories
+                complition(true)
             } else {
-                complition(.less, true, nil)
+                currentFilterState = .time
+                complition(true)
             }
-        case .less:
+        case .time:
             if tag == 1 {
-                complition(.off, false, nil)
+                currentFilterState = .off
+                complition(false)
             } else {
-                complition(.more, true, 1)
+                currentFilterState = .twice
+                complition(true)
             }
-        case .more:
+        case .calories:
             if tag == 0 {
-                complition(.off, false, nil)
+                currentFilterState = .off
+                complition(false)
             } else {
-                complition(.less, true, 0)
+                currentFilterState = .twice
+                complition(true)
             }
+        case .twice:
+            complition(false)
+            if tag == 0 {
+                currentFilterState = .time
+            } else {
+                currentFilterState = .calories
+            }
+        }
+        view?.reloadTable()
+    }
+}
+
+extension CategoryPresenter: UpdatableCell {
+    func startFetch() {
+        updateCell?(.initial)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
+            self?.updateCell?(.success)
         }
     }
 }

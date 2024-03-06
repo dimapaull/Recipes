@@ -5,6 +5,8 @@ import UIKit
 
 protocol CategoryViewProtocol: AnyObject {
     func reloadTable()
+    func startShimmerAnimate()
+    func stopShimmerAnimate()
 }
 
 /// Экран выбора категории
@@ -57,11 +59,13 @@ final class CategoryView: UIViewController {
     // MARK: - Private Properties
 
     private let filterStates = [Constants.caloriesText, Constants.timeText]
+    private var updateCellState: UpdatableCell?
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        updateCellState = presenter
         configureUI()
         configureNavigationBar()
         tabBarController?.tabBar.isHidden = true
@@ -130,6 +134,8 @@ final class CategoryView: UIViewController {
         recipeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
+    private func addGradient() {}
+
     @objc private func backBarButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
@@ -160,7 +166,9 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         guard let cell = recipeTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
+        cell.configureCell(info: presenter?.currentRecipes[indexPath.section], updateCellState: updateCellState)
+        cell.setupShimmers()
+        updateCellState?.startFetch()
         return cell
         
     }
@@ -173,6 +181,15 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
 // MARK: - CategoryView + CategoryViewProtocol
 
 extension CategoryView: CategoryViewProtocol {
+    func stopShimmerAnimate() {
+//        updateCellState.updateCell { state in
+//
+//        }
+    }
+
+    func startShimmerAnimate() {}
+
+
     func reloadTable() {
         recipeTableView.reloadData()
     }
