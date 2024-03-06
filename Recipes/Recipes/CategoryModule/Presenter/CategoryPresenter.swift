@@ -61,11 +61,17 @@ final class CategoryPresenter {
     init(view: CategoryViewProtocol, recipeCoordinator: RecipeCoordinator) {
         self.recipeCoordinator = recipeCoordinator
         self.view = view
+        self.searching = false
         currentFilterState = .off
         updateCell?(.initial)
     }
 
     // MARK: - Public Properties
+    
+    private var searchingNames: [RecipeDetail] = []
+    private(set) var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
+    
+    var searching = false
 
     static var recipes = [
         RecipeDetail(
@@ -163,6 +169,18 @@ final class CategoryPresenter {
     // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
+        recipeCoordinator?.pushRecipeDetailView(recipe: CategoryPresenter.recipes[section])
+    }
+    
+    func filtredRecipes(searchText: String) {
+        if searchText.count < 3 {
+            currentRecipes = CategoryPresenter.recipes
+        } else {
+            currentRecipes = CategoryPresenter.recipes.filter({
+                $0.title.prefix(searchText.count) == searchText
+            })
+        }
+        view?.reloadTable()
         recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
     }
 }

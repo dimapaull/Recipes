@@ -22,13 +22,14 @@ final class CategoryView: UIViewController {
 
     // MARK: - Visual Components
 
-    private let recipeSearchBar = {
+    private lazy var recipeSearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
         searchBar.barStyle = .default
         searchBar.searchTextField.backgroundColor = .appSoftBlue
         searchBar.backgroundImage = nil
         searchBar.backgroundColor = .clear
+        searchBar.delegate = self
         searchBar.placeholder = Constants.searchBarPlaceholderText
         return searchBar
     }()
@@ -169,6 +170,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         cell.setupShimmers()
         updateCellState?.startFetch()
         return cell
+        
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -187,6 +189,7 @@ extension CategoryView: CategoryViewProtocol {
 
     func startShimmerAnimate() {}
 
+
     func reloadTable() {
         recipeTableView.reloadData()
     }
@@ -201,5 +204,11 @@ extension CategoryView: FilterControlViewDataSource {
 
     func filterControlTitle(_ dayPicker: FilterControlView, indexPath: IndexPath) -> String {
         filterStates[indexPath.row]
+    }
+}
+
+extension CategoryView: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        presenter?.filtredRecipes(searchText: searchText)
     }
 }

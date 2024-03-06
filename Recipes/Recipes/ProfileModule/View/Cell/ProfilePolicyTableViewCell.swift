@@ -15,7 +15,7 @@ final class ProfilePolicyTableViewCell: UITableViewCell {
         static let verdanaSize18 = UIFont(name: "Verdana", size: 18)
         static let pointerImage = UIImage(named: "pointer")
     }
-
+    
     // MARK: - Visual components
 
     private let lightGrayImageView = {
