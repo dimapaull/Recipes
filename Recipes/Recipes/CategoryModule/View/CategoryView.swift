@@ -185,10 +185,10 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         case .initial:
             break
         case .loading:
-             recipeTableView.isScrollEnabled = false
+            recipeTableView.isScrollEnabled = false
             cell.setupShimmers()
         case .success:
-             recipeTableView.isScrollEnabled = true
+            recipeTableView.isScrollEnabled = true
             cell.removeShimmers()
         case .failture:
             cell.setupShimmers()

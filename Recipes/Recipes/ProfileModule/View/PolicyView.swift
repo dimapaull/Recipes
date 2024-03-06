@@ -153,7 +153,6 @@ final class PolicyView: UIViewController {
         policyLabel.bottomAnchor.constraint(
             equalTo:
             view.safeAreaLayoutGuide.bottomAnchor,
-
             constant: -80
         ).isActive = true
     }

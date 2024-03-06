@@ -11,6 +11,19 @@ protocol ChangebleTitleProtocol: AnyObject {
 
 /// Экран профиля пользователя
 final class ProfileView: UIViewController {
+    //MARK: - Types
+    
+    private enum CellTypes {
+        /// Ячейка с аватаром профиля
+        case profileAvatar
+        /// Ячейка с разделом "Бонусы"
+        case profileBonuses
+        /// Ячейка с политикой конфиденциальности
+        case profilePolicy
+        /// Ячейка с выходом из профиля
+        case profileLogOut
+    }
+    
     // MARK: - Constants
 
     private enum Constants {
@@ -24,18 +37,9 @@ final class ProfileView: UIViewController {
         static let seventy = 70
         static let one = 1
         static let four = 4
+        static let minimumContentView = 900.0
     }
 
-    private enum CellTypes {
-        /// Ячейка с аватаром профиля
-        case profileAvatar
-        /// Ячейка с разделом "Бонусы"
-        case profileBonuses
-        /// Ячейка с политикой конфиденциальности
-        case profilePolicy
-        /// Ячейка с выходом из профиля
-        case profileLogOut
-    }
 
     // MARK: - Visual Components
 
@@ -197,7 +201,7 @@ final class ProfileView: UIViewController {
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
                 case .closed:
-                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight + 900
+                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight + Constants.minimumContentView
                     self.visualEffectView.removeFromSuperview()
                 }
             }
@@ -318,7 +322,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
         let cells = cellTypes[indexPath.section]
         switch cells {
         case .profileAvatar:
-            print("profileAvatar")
+            break
         case .profileBonuses:
             let bonusesView = BonusesView()
             bonusesView.profilePresenter = presenter

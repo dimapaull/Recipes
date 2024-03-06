@@ -43,6 +43,7 @@ final class CategoryPresenter {
         1/2 cup thai basil leaves
         Juice of 3 limes
         """
+        static let minimumCountSymbols = 3
     }
 
     // MARK: - Private Properties
@@ -165,7 +166,7 @@ final class CategoryPresenter {
     }
 
     func filtredRecipes(searchText: String) {
-        if searchText.count < 3 {
+        if searchText.count < Constants.minimumCountSymbols {
             currentRecipes = CategoryPresenter.recipes
         } else {
             currentRecipes = CategoryPresenter.recipes.filter {

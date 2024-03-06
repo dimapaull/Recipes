@@ -1,8 +1,6 @@
 // Category.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
-
 /// Категория рецепта
 struct Category {
     /// Название

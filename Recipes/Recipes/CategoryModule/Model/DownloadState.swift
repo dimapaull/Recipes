@@ -1,11 +1,9 @@
 // DownloadState.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
-
 /// Описывает состояния загрузки данных
 enum DownloadState {
-    /// Начальное состояние(загрузка не начинается)
+    /// Начальное состояние(загрузка только начинается)
     case initial
     /// Процесс загрузки
     case loading

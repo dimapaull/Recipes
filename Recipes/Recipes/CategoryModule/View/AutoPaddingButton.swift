@@ -5,12 +5,18 @@ import UIKit
 
 /// Кнопка имеющая внутрение отступы
 final class AutoAddPaddingButtton: UIButton {
+    // MARK: - Constants
+
+    private enum Constants {
+        static let margin = 24.0
+    }
+
     // MARK: - Public Properties
 
     override var intrinsicContentSize: CGSize {
         let baseSize = super.intrinsicContentSize
         return CGSize(
-            width: baseSize.width + 24,
+            width: baseSize.width + Constants.margin,
             height: baseSize.height
         )
     }
