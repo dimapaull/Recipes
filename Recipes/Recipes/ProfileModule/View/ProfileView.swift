@@ -12,7 +12,7 @@ protocol ChangebleTitleProtocol: AnyObject {
 /// Экран профиля пользователя
 final class ProfileView: UIViewController {
     // MARK: - Constants
-    
+
     private enum Constants {
         static let alertTitle = "Are you sure you want to log out?"
         static let yesAlert = "Yes"
@@ -25,7 +25,7 @@ final class ProfileView: UIViewController {
         static let one = 1
         static let four = 4
     }
-    
+
     private enum CellTypes {
         /// Ячейка с аватаром профиля
         case profileAvatar
@@ -36,43 +36,43 @@ final class ProfileView: UIViewController {
         /// Ячейка с выходом из профиля
         case profileLogOut
     }
-    
+
     // MARK: - Visual Components
-    
+
     private let tableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
-    
+
     // MARK: - Public Properties
-    
+
     var presenter: ProfilePresenter?
-    
+
     // MARK: - Private Properties
-    
+
     private let cellTypes: [CellTypes] = [.profileAvatar, .profileBonuses, .profilePolicy, .profileLogOut]
-    
+
     private enum CardState {
         case expanded
         case collapsed
         case closed
     }
-    
+
     private let cardHeight: CGFloat = 600
     private let cardHandleAreaHeight: CGFloat = 265
     private var cardViewController: PolicyView!
     private var visualEffectView: UIVisualEffectView!
     private var cardVisible = false
     private var nextState: CardState {
-        return cardVisible ? .collapsed : .expanded
+        cardVisible ? .collapsed : .expanded
     }
-    
+
     private var runningAnimations: [UIViewPropertyAnimator] = []
     private var animationProgressWhenInterrupted: CGFloat = 0
-    
+
     // MARK: - Life Cycle
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupTableView()
@@ -80,9 +80,9 @@ final class ProfileView: UIViewController {
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = "Profile"
     }
-    
+
     // MARK: - Private Methods
-    
+
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.rowHeight = UITableView.automaticDimension
@@ -93,25 +93,25 @@ final class ProfileView: UIViewController {
         tableView.register(
             ProfileAvatarTableViewCell.self,
             forCellReuseIdentifier:
-                ProfileAvatarTableViewCell.Constants.identifier
+            ProfileAvatarTableViewCell.Constants.identifier
         )
         tableView.register(
             ProfileBonusesTableViewCell.self,
             forCellReuseIdentifier:
-                ProfileBonusesTableViewCell.Constants.identifier
+            ProfileBonusesTableViewCell.Constants.identifier
         )
         tableView.register(
             ProfilePolicyTableViewCell.self,
             forCellReuseIdentifier:
-                ProfilePolicyTableViewCell.Constants.identifier
+            ProfilePolicyTableViewCell.Constants.identifier
         )
         tableView.register(
             LogOutTableViewCell.self,
             forCellReuseIdentifier:
-                LogOutTableViewCell.Constants.identifier
+            LogOutTableViewCell.Constants.identifier
         )
     }
-    
+
     private func configureUI() {
         view.backgroundColor = .white
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -119,7 +119,7 @@ final class ProfileView: UIViewController {
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
-    
+
     private func logOutAlert() {
         let alert = UIAlertController(title: Constants.alertTitle, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Constants.yesAlert, style: .default)
@@ -128,38 +128,41 @@ final class ProfileView: UIViewController {
         alert.addAction(actionCancel)
         present(alert, animated: true)
     }
-    
+
     private func setupCard() {
         tabBarController?.tabBar.isHidden = true
         visualEffectView = UIVisualEffectView()
-        visualEffectView.frame = self.view.frame
-        self.view.addSubview(visualEffectView)
-        
+        visualEffectView.frame = view.frame
+        view.addSubview(visualEffectView)
+
         cardViewController = PolicyView()
         cardViewController.delegate = self
-        
-        self.addChild(cardViewController)
-        self.view.addSubview(cardViewController.view)
-        
+
+        addChild(cardViewController)
+        view.addSubview(cardViewController.view)
+
         cardViewController.view.frame = CGRect(
             x: 0,
-            y: self.view.frame.height - cardHandleAreaHeight,
-            width: self.view.bounds.width,
-            height: cardHeight)
-        
+            y: view.frame.height - cardHandleAreaHeight,
+            width: view.bounds.width,
+            height: cardHeight
+        )
+
         cardViewController.view.clipsToBounds = true
-        
+
         let tapGestureRecognizer = UITapGestureRecognizer(
             target: self,
-            action: #selector(handleCardTap(recognzier:)))
+            action: #selector(handleCardTap(recognzier:))
+        )
         let panGestureRecognizer = UIPanGestureRecognizer(
             target: self,
-            action: #selector(handleCardPan(recognizer:)))
-        
+            action: #selector(handleCardPan(recognizer:))
+        )
+
         cardViewController.handleArea.addGestureRecognizer(tapGestureRecognizer)
         cardViewController.handleArea.addGestureRecognizer(panGestureRecognizer)
     }
-    
+
     @objc private func handleCardTap(recognzier: UITapGestureRecognizer) {
         switch recognzier.state {
         case .ended:
@@ -168,13 +171,13 @@ final class ProfileView: UIViewController {
             break
         }
     }
-    
-    @objc private func handleCardPan (recognizer: UIPanGestureRecognizer) {
+
+    @objc private func handleCardPan(recognizer: UIPanGestureRecognizer) {
         switch recognizer.state {
         case .began:
             startInteractiveTransition(state: nextState, duration: 0.9)
         case .changed:
-            let translation = recognizer.translation(in: self.cardViewController.handleArea)
+            let translation = recognizer.translation(in: cardViewController.handleArea)
             var fractionComplete = translation.y / cardHeight
             fractionComplete = cardVisible ? fractionComplete : -fractionComplete
             updateInteractiveTransition(fractionCompleted: fractionComplete)
@@ -184,8 +187,8 @@ final class ProfileView: UIViewController {
             break
         }
     }
-    
-    private func animateTransitionIfNeeded (state: CardState, duration: TimeInterval) {
+
+    private func animateTransitionIfNeeded(state: CardState, duration: TimeInterval) {
         if runningAnimations.isEmpty {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
@@ -198,15 +201,15 @@ final class ProfileView: UIViewController {
                     self.visualEffectView.removeFromSuperview()
                 }
             }
-            
+
             frameAnimator.addCompletion { _ in
                 self.cardVisible = !self.cardVisible
                 self.runningAnimations.removeAll()
             }
-            
+
             frameAnimator.startAnimation()
             runningAnimations.append(frameAnimator)
-            
+
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
                 switch state {
                 case .expanded:
@@ -217,10 +220,10 @@ final class ProfileView: UIViewController {
                     break
                 }
             }
-            
+
             cornerRadiusAnimator.startAnimation()
             runningAnimations.append(cornerRadiusAnimator)
-            
+
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
@@ -231,13 +234,12 @@ final class ProfileView: UIViewController {
                     break
                 }
             }
-            
+
             blurAnimator.startAnimation()
             runningAnimations.append(blurAnimator)
-            
         }
     }
-    
+
     private func startInteractiveTransition(state: CardState, duration: TimeInterval) {
         if runningAnimations.isEmpty {
             animateTransitionIfNeeded(state: state, duration: duration)
@@ -247,14 +249,14 @@ final class ProfileView: UIViewController {
             animationProgressWhenInterrupted = animator.fractionComplete
         }
     }
-    
+
     private func updateInteractiveTransition(fractionCompleted: CGFloat) {
         for animator in runningAnimations {
             animator.fractionComplete = fractionCompleted + animationProgressWhenInterrupted
         }
     }
-    
-    private func continueInteractiveTransition () {
+
+    private func continueInteractiveTransition() {
         for animator in runningAnimations {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
         }
@@ -313,7 +315,6 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
         let cells = cellTypes[indexPath.section]
         switch cells {
         case .profileAvatar:

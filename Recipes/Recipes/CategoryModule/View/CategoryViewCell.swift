@@ -3,11 +3,6 @@
 
 import UIKit
 
-// protocol CellAnimatableProtocol {
-//    func setupShimmers()
-//    func removeShimmers()
-// }
-
 /// Ячейка с рецептом
 final class CategoryViewCell: UITableViewCell {
     // MARK: - Constants
@@ -110,35 +105,12 @@ final class CategoryViewCell: UITableViewCell {
     private lazy var timeStackViewlGradientLayer = createGradientLayer()
     private lazy var caloriesStackViewGradientLayer = createGradientLayer()
 
-    private var updateCellState: UpdatableCell?
-
     private lazy var gradientLayers = [
         imageViewGradientLayer,
         titleLabelGradientLayer,
         timeStackViewlGradientLayer,
         caloriesStackViewGradientLayer
     ]
-
-    // MARK: - Public Methods
-
-    func configureCell(info: RecipeDetail?, updateCellState: UpdatableCell?) {
-        photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
-        titleRecipeLabel.text = info?.title
-        timeRecipeLabel.text = "\(info?.cookingTime ?? 0) \(Constants.timeText)"
-        kalRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
-        self.updateCellState = updateCellState
-    }
-
-    func setupShimmers() {
-        setupIamgeViewShimmer()
-        setupTitleLabelShimmer()
-        setupTimeStackViewShimmer()
-        setupCaloriesStackViewShimmer()
-    }
-
-    func removeShimmers() {
-        gradientLayers.forEach { $0.removeFromSuperlayer() }
-    }
 
     // MARK: - Initializators
 
@@ -153,6 +125,8 @@ final class CategoryViewCell: UITableViewCell {
         configureUI()
     }
 
+    // MARK: - Life Cycle
+
     override func layoutSubviews() {
         super.layoutSubviews()
         imageViewGradientLayer.frame = contentView.bounds
@@ -162,6 +136,24 @@ final class CategoryViewCell: UITableViewCell {
     }
 
     // MARK: - Public Methods
+
+    func configureCell(info: RecipeDetail?) {
+        photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
+        titleRecipeLabel.text = info?.title
+        timeRecipeLabel.text = "\(info?.cookingTime ?? 0) \(Constants.timeText)"
+        kalRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
+    }
+
+    func setupShimmers() {
+        setupIamgeViewShimmer()
+        setupTitleLabelShimmer()
+        setupTimeStackViewShimmer()
+        setupCaloriesStackViewShimmer()
+    }
+
+    func removeShimmers() {
+        gradientLayers.forEach { $0.removeFromSuperlayer() }
+    }
 
     // MARK: - Private Methods
 
@@ -222,7 +214,7 @@ final class CategoryViewCell: UITableViewCell {
         NSLayoutConstraint.activate([
             timeStackView.leadingAnchor.constraint(equalTo: photoRecipeImage.trailingAnchor, constant: 20),
             timeStackView.heightAnchor.constraint(equalToConstant: 15),
-            timeStackView.widthAnchor.constraint(equalToConstant: 74),
+            timeStackView.widthAnchor.constraint(equalToConstant: 80),
             timeStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -23),
         ])
     }
@@ -290,7 +282,3 @@ final class CategoryViewCell: UITableViewCell {
         return gradient
     }
 }
-
-// extension CategoryViewCell: CellAnimatableProtocol {
-//
-// }

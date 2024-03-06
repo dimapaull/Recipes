@@ -1,4 +1,4 @@
-// UIView+Extension.swift
+// UIColor+Extension.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
@@ -12,7 +12,7 @@ extension UIColor {
         if let color = colorStoreMap[key] {
             return color
         }
-        
+
         let color = UIColor(red: red, green: green, blue: blue, alpha: alpha)
         colorStoreMap[key] = color
         return color

@@ -47,11 +47,11 @@ final class PolicyView: UIViewController {
                 Enjoy exploring and cooking up a storm!
         """
     }
-    
+
     var delegate: RemovableControllerProtocol?
 
     // MARK: - Visual Components
-    
+
     let handleArea = {
         let view = UIView()
         view.layer.cornerRadius = 26
@@ -117,7 +117,7 @@ final class PolicyView: UIViewController {
         setupPolicyLabelConstraints()
         setupHandleAreaConstraints()
     }
-    
+
     private func setupHandleAreaConstraints() {
         handleArea.topAnchor.constraint(equalTo: view.topAnchor, constant: 17).isActive = true
         handleArea.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

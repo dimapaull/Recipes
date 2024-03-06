@@ -3,11 +3,6 @@
 
 import UIKit
 
-protocol UpdatableCell {
-    var updateCell: ((DownloadState) -> ())? { get set }
-    func startFetch()
-}
-
 /// Презентер для экрана с категорией рецепта
 final class CategoryPresenter {
     // MARK: - Constants
@@ -54,24 +49,22 @@ final class CategoryPresenter {
 
     private weak var view: CategoryViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
-    var updateCell: ((DownloadState) -> ())?
+    private var downloadRecipe: DownloadRecipeProtocol!
 
     // MARK: - Initializers
 
-    init(view: CategoryViewProtocol, recipeCoordinator: RecipeCoordinator) {
+    init(view: CategoryViewProtocol, recipeCoordinator: RecipeCoordinator, downloadRecipe: DownloadRecipeProtocol) {
+        self.downloadRecipe = downloadRecipe
         self.recipeCoordinator = recipeCoordinator
         self.view = view
-        self.searching = false
         currentFilterState = .off
-        updateCell?(.initial)
+        downloadRecipe.startFetch()
     }
 
     // MARK: - Public Properties
-    
+
     private var searchingNames: [RecipeDetail] = []
     private(set) var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
-    
-    var searching = false
 
     static var recipes = [
         RecipeDetail(
@@ -147,7 +140,6 @@ final class CategoryPresenter {
         ),
     ]
 
-    var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
     var currentFilterState: FilterType {
         willSet {
             currentRecipes = CategoryPresenter.recipes
@@ -171,17 +163,23 @@ final class CategoryPresenter {
     func selectionRow(in section: Int) {
         recipeCoordinator?.pushRecipeDetailView(recipe: CategoryPresenter.recipes[section])
     }
-    
+
     func filtredRecipes(searchText: String) {
         if searchText.count < 3 {
             currentRecipes = CategoryPresenter.recipes
         } else {
-            currentRecipes = CategoryPresenter.recipes.filter({
+            currentRecipes = CategoryPresenter.recipes.filter {
                 $0.title.prefix(searchText.count) == searchText
-            })
+            }
         }
         view?.reloadTable()
-        recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
+    }
+
+    func updateView() {
+        downloadRecipe.updateCell = { [weak self] viewData in
+            print(viewData)
+            self?.view?.updateCellState = viewData
+        }
     }
 }
 
@@ -223,15 +221,5 @@ extension CategoryPresenter: FilterableDelegate {
             }
         }
         view?.reloadTable()
-    }
-}
-
-extension CategoryPresenter: UpdatableCell {
-    func startFetch() {
-        updateCell?(.initial)
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.updateCell?(.success)
-        }
     }
 }

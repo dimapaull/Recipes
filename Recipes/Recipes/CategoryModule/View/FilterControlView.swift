@@ -41,6 +41,7 @@ final class FilterControlView: UIView {
 
     // MARK: - Public Properties
 
+    weak var delagate: FilterableDelegate?
     var dataSource: FilterControlViewDataSource? {
         didSet {
             setupView()
@@ -51,11 +52,7 @@ final class FilterControlView: UIView {
 
     private var filterState: FilterType = .off
 
-    // MARK: - Public Properties
-
-    weak var delagate: FilterableDelegate?
-
-    // MARK: - Public Methods
+    // MARK: - Life Cycle
 
     override func layoutSubviews() {
         super.layoutSubviews()

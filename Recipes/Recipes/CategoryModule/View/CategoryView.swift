@@ -4,9 +4,10 @@
 import UIKit
 
 protocol CategoryViewProtocol: AnyObject {
+    /// Принимает состояние процесса скачивания рецепта
+    var updateCellState: DownloadState { get set }
+    /// Обновляет данные в таблице
     func reloadTable()
-    func startShimmerAnimate()
-    func stopShimmerAnimate()
 }
 
 /// Экран выбора категории
@@ -55,20 +56,25 @@ final class CategoryView: UIViewController {
 
     var presenter: CategoryPresenter?
     var backNavigationTitle = String()
+    var updateCellState: DownloadState = .initial {
+        didSet {
+            recipeTableView.reloadData()
+        }
+    }
 
     // MARK: - Private Properties
 
     private let filterStates = [Constants.caloriesText, Constants.timeText]
-    private var updateCellState: UpdatableCell?
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        updateCellState = presenter
+        tabBarController?.tabBar.isHidden = true
         configureUI()
         configureNavigationBar()
-        tabBarController?.tabBar.isHidden = true
+        presenter?.updateView()
+        setupMainViewRecognizer()
     }
 
     // MARK: - Private Methods
@@ -134,7 +140,14 @@ final class CategoryView: UIViewController {
         recipeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
-    private func addGradient() {}
+    private func setupMainViewRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(mainViewTapped))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+
+    @objc private func mainViewTapped() {
+        view.endEditing(true)
+    }
 
     @objc private func backBarButtonPressed() {
         navigationController?.popViewController(animated: true)
@@ -166,11 +179,21 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         guard let cell = recipeTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.currentRecipes[indexPath.section], updateCellState: updateCellState)
+        cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
         cell.setupShimmers()
-        updateCellState?.startFetch()
+        switch updateCellState {
+        case .initial:
+            break
+        case .loading:
+             recipeTableView.isScrollEnabled = false
+            cell.setupShimmers()
+        case .success:
+             recipeTableView.isScrollEnabled = true
+            cell.removeShimmers()
+        case .failture:
+            cell.setupShimmers()
+        }
         return cell
-        
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -181,15 +204,6 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
 // MARK: - CategoryView + CategoryViewProtocol
 
 extension CategoryView: CategoryViewProtocol {
-    func stopShimmerAnimate() {
-//        updateCellState.updateCell { state in
-//
-//        }
-    }
-
-    func startShimmerAnimate() {}
-
-
     func reloadTable() {
         recipeTableView.reloadData()
     }
@@ -206,6 +220,8 @@ extension CategoryView: FilterControlViewDataSource {
         filterStates[indexPath.row]
     }
 }
+
+// MARK: - CategoryView + UISearchBarDelegate
 
 extension CategoryView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

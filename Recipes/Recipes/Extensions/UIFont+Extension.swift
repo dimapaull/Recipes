@@ -18,7 +18,7 @@ extension UIFont {
     static func verdanaBold(ofSize: CGFloat) -> UIFont {
         UIFont(name: "Verdana-Bold", size: ofSize) ?? UIFont.systemFont(ofSize: ofSize)
     }
-    
+
     /// Словарь для шрифтов
     static var fontStoreMap: [String: UIFont] = [:]
     /// Функция проверки цвета в словаре
