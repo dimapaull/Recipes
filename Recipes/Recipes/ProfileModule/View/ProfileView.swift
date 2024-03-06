@@ -11,8 +11,8 @@ protocol ChangebleTitleProtocol: AnyObject {
 
 /// Экран профиля пользователя
 final class ProfileView: UIViewController {
-    //MARK: - Types
-    
+    // MARK: - Types
+
     private enum CellTypes {
         /// Ячейка с аватаром профиля
         case profileAvatar
@@ -23,7 +23,7 @@ final class ProfileView: UIViewController {
         /// Ячейка с выходом из профиля
         case profileLogOut
     }
-    
+
     // MARK: - Constants
 
     private enum Constants {
@@ -39,7 +39,6 @@ final class ProfileView: UIViewController {
         static let four = 4
         static let minimumContentView = 900.0
     }
-
 
     // MARK: - Visual Components
 
@@ -167,31 +166,6 @@ final class ProfileView: UIViewController {
         cardViewController.handleArea.addGestureRecognizer(panGestureRecognizer)
     }
 
-    @objc private func handleCardTap(recognzier: UITapGestureRecognizer) {
-        switch recognzier.state {
-        case .ended:
-            animateTransitionIfNeeded(state: nextState, duration: 0.9)
-        default:
-            break
-        }
-    }
-
-    @objc private func handleCardPan(recognizer: UIPanGestureRecognizer) {
-        switch recognizer.state {
-        case .began:
-            startInteractiveTransition(state: nextState, duration: 0.9)
-        case .changed:
-            let translation = recognizer.translation(in: cardViewController.handleArea)
-            var fractionComplete = translation.y / cardHeight
-            fractionComplete = cardVisible ? fractionComplete : -fractionComplete
-            updateInteractiveTransition(fractionCompleted: fractionComplete)
-        case .ended:
-            continueInteractiveTransition()
-        default:
-            break
-        }
-    }
-
     private func animateTransitionIfNeeded(state: CardState, duration: TimeInterval) {
         if runningAnimations.isEmpty {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
@@ -201,7 +175,8 @@ final class ProfileView: UIViewController {
                 case .collapsed:
                     self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
                 case .closed:
-                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight + Constants.minimumContentView
+                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight + Constants
+                        .minimumContentView
                     self.visualEffectView.removeFromSuperview()
                 }
             }
@@ -263,6 +238,31 @@ final class ProfileView: UIViewController {
     private func continueInteractiveTransition() {
         for animator in runningAnimations {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        }
+    }
+
+    @objc private func handleCardTap(recognzier: UITapGestureRecognizer) {
+        switch recognzier.state {
+        case .ended:
+            animateTransitionIfNeeded(state: nextState, duration: 0.9)
+        default:
+            break
+        }
+    }
+
+    @objc private func handleCardPan(recognizer: UIPanGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            startInteractiveTransition(state: nextState, duration: 0.9)
+        case .changed:
+            let translation = recognizer.translation(in: cardViewController.handleArea)
+            var fractionComplete = translation.y / cardHeight
+            fractionComplete = cardVisible ? fractionComplete : -fractionComplete
+            updateInteractiveTransition(fractionCompleted: fractionComplete)
+        case .ended:
+            continueInteractiveTransition()
+        default:
+            break
         }
     }
 }

@@ -12,11 +12,17 @@ protocol DownloadRecipeProtocol {
 
 /// Загрузка данных из сети
 final class DownloadView: DownloadRecipeProtocol {
+    // MARK: - Public Properties
+
     var updateCell: ((DownloadState) -> ())?
+
+    // MARK: - Initializers
 
     init() {
         updateCell?(.initial)
     }
+
+    // MARK: - Public Methods
 
     func startFetch() {
         updateCell?(.loading)

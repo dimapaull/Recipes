@@ -17,6 +17,7 @@ final class CategoryViewCell: UITableViewCell {
         static let foodSuplyText = "kkal"
         static let protoRecipeCornerRadius = 12.0
         static let titleRecipeLinesCount = 2
+        static let beginAnimationtimeOffset = 0.33
     }
 
     // MARK: - Visual Components
@@ -144,7 +145,7 @@ final class CategoryViewCell: UITableViewCell {
         kalRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
     }
 
-    func setupShimmers() {
+    func showShimmers() {
         setupIamgeViewShimmer()
         setupTitleLabelShimmer()
         setupTimeStackViewShimmer()
@@ -267,7 +268,7 @@ final class CategoryViewCell: UITableViewCell {
         basicAnimation.repeatCount = .infinity
 
         if let previousGroup = previousGroup {
-            basicAnimation.beginTime = previousGroup.beginTime + 0.33
+            basicAnimation.beginTime = previousGroup.beginTime + Constants.beginAnimationtimeOffset
         }
 
         return basicAnimation

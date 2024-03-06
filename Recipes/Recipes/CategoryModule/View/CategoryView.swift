@@ -3,6 +3,7 @@
 
 import UIKit
 
+/// Нужен для упраления вью
 protocol CategoryViewProtocol: AnyObject {
     /// Принимает состояние процесса скачивания рецепта
     var updateCellState: DownloadState { get set }
@@ -180,18 +181,18 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
         cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
-        cell.setupShimmers()
+        cell.showShimmers()
         switch updateCellState {
         case .initial:
             break
         case .loading:
             recipeTableView.isScrollEnabled = false
-            cell.setupShimmers()
+            cell.showShimmers()
         case .success:
             recipeTableView.isScrollEnabled = true
             cell.removeShimmers()
         case .failture:
-            cell.setupShimmers()
+            cell.showShimmers()
         }
         return cell
     }

@@ -50,7 +50,7 @@ final class CategoryPresenter {
 
     private weak var view: CategoryViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
-    private var downloadRecipe: DownloadRecipeProtocol!
+    private var downloadRecipe: DownloadRecipeProtocol?
 
     // MARK: - Initializers
 
@@ -177,8 +177,7 @@ final class CategoryPresenter {
     }
 
     func updateView() {
-        downloadRecipe.updateCell = { [weak self] viewData in
-            print(viewData)
+        downloadRecipe?.updateCell = { [weak self] viewData in
             self?.view?.updateCellState = viewData
         }
     }
@@ -187,34 +186,33 @@ final class CategoryPresenter {
 // MARK: - CategoryPresenter + FilterableDelegate
 
 extension CategoryPresenter: FilterableDelegate {
-    func choosedFilter(tag: Int, complition: @escaping BoolHandler) {
+    func choosedFilter(tag: Int, completion: @escaping BoolHandler) {
         switch currentFilterState {
         case .off:
+            completion(true)
             if tag == 0 {
                 currentFilterState = .calories
-                complition(true)
             } else {
                 currentFilterState = .time
-                complition(true)
             }
         case .time:
             if tag == 1 {
                 currentFilterState = .off
-                complition(false)
+                completion(false)
             } else {
                 currentFilterState = .twice
-                complition(true)
+                completion(true)
             }
         case .calories:
             if tag == 0 {
                 currentFilterState = .off
-                complition(false)
+                completion(false)
             } else {
                 currentFilterState = .twice
-                complition(true)
+                completion(true)
             }
         case .twice:
-            complition(false)
+            completion(false)
             if tag == 0 {
                 currentFilterState = .time
             } else {

@@ -12,7 +12,7 @@ protocol FilterControlViewDataSource {
 
 protocol FilterableDelegate: AnyObject {
     /// Выбранный фильтр, возвращает обработанное состояние, нажата ли выбранная кнопка, индекс отжатой
-    func choosedFilter(tag: Int, complition: @escaping BoolHandler)
+    func choosedFilter(tag: Int, completion: @escaping BoolHandler)
 }
 
 final class FilterControlView: UIView {
@@ -74,8 +74,8 @@ final class FilterControlView: UIView {
     @objc private func filterButtonPressed(_ sender: AutoAddPaddingButtton) {
         delagate?.choosedFilter(
             tag: sender.tag,
-            complition: { isPressed in
-                self.filterButtons[sender.tag].buttonState = isPressed
+            completion: { [weak self] isPressed in
+                self?.filterButtons[sender.tag].buttonState = isPressed
             }
         )
     }
