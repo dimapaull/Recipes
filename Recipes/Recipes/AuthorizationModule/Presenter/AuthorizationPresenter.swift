@@ -17,13 +17,19 @@ final class AuthorizationPresenter {
     private var validateUserData = ValidateUserData()
     private weak var view: AuthorizationViewProtocol?
     private weak var authorizationCoordinator: AuthorizationCoordinator?
+    private var carrierState: CarrierState?
 
     // MARK: - Initializers
 
-    required init(view: AuthorizationViewProtocol, authorizationCoordinator: AuthorizationCoordinator) {
+    required init(
+        view: AuthorizationViewProtocol,
+        authorizationCoordinator: AuthorizationCoordinator,
+        carrierState: CarrierState
+    ) {
         self.view = view
         self.authorizationCoordinator = authorizationCoordinator
         validateUserData.delegate = self
+        self.carrierState = carrierState
     }
 
     // MARK: - Public Methods
@@ -71,10 +77,20 @@ extension AuthorizationPresenter: DataValidableProtocol {
             view?.showSpinner()
             DispatchQueue.main.asyncAfter(deadline: .now() + Constants.dispatchTimeCount) {
                 self.view?.stopSpinner()
-                if !self.validateUserData.getValidateData() {
+
+                if !self.validateUserData.getValidateData().valid {
                     self.view?.showUnvalideDataLabel()
                 } else {
-                    self.authorizationCoordinator?.onFinish()
+                    self.carrierState?.usersManager.users.append(User(
+                        login: self.validateUserData.getValidateData().login ?? "",
+                        password: self.validateUserData.getValidateData().password ?? ""
+                    ))
+
+                    self.carrierState?.saveUser()
+                    self.carrierState?.load()
+                    print(self.carrierState?.usersManager.load()
+                    // print(self.carrierState?.)
+                    // self.authorizationCoordinator?.onFinish()
                 }
             }
         }

@@ -51,7 +51,12 @@ final class MainModuleBuilder {
 
     func makeAuthorizationModule(coordinator: AuthorizationCoordinator) -> AuthorizationView {
         let view = AuthorizationView()
-        let authorizationPresenter = AuthorizationPresenter(view: view, authorizationCoordinator: coordinator)
+        let users = UsersManager.shared
+        let authorizationPresenter = AuthorizationPresenter(
+            view: view,
+            authorizationCoordinator: coordinator,
+            carrierState: CarrierState(usersManager: users)
+        )
         view.presenter = authorizationPresenter
         return view
     }

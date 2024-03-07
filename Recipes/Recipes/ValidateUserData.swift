@@ -46,11 +46,11 @@ final class ValidateUserData {
         }
     }
 
-    func getValidateData() -> Bool {
+    func getValidateData() -> (valid: Bool, login: String?, password: String?) {
         if mail == Constants.unvalidMail, password == Constants.unvalidPassword {
-            return false
+            return (valid: false, login: nil, password: nil)
         }
-        return true
+        return (valid: true, login: mail, password: password)
     }
 
     weak var delegate: DataValidableProtocol?
