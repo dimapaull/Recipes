@@ -15,17 +15,25 @@ final class RegisteredUsersMemento {
         get {
             guard let data = UserDefaults.standard.data(forKey: Constants.userMementoKey) else { return [User]() }
             do {
-                return try decoder.decode([User].self, from: data)
+                let decodedUsers = try decoder.decode([User].self, from: data)
+                print(decodedUsers)
+                return decodedUsers
             } catch {
                 return [User]()
             }
         }
         set {
             do {
+                guard !newValue.isEmpty else {
+                    print("Attempted to save an empty array of users.")
+                    return
+                }
+                print(newValue)
                 let data = try encoder.encode(newValue)
                 UserDefaults.standard.set(data, forKey: Constants.userMementoKey)
+                UserDefaults.standard.synchronize()
             } catch {
-                print(error)
+                print("Encoding error:", error)
             }
         }
     }

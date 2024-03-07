@@ -5,6 +5,12 @@ import UIKit
 
 /// Презентер для экрана авториизации
 final class AuthorizationPresenter {
+    enum UserValidateState {
+        case newUser
+        case notValidPassword
+        case validUser
+    }
+
     // MARK: - Constants
 
     private enum Constants {
@@ -75,24 +81,46 @@ extension AuthorizationPresenter: DataValidableProtocol {
 
         if isPasswordValid, isMailValid {
             view?.showSpinner()
+
             DispatchQueue.main.asyncAfter(deadline: .now() + Constants.dispatchTimeCount) {
                 self.view?.stopSpinner()
 
-                if !self.validateUserData.getValidateData().valid {
-                    self.view?.showUnvalideDataLabel()
-                } else {
-                    self.carrierState?.usersManager.users.append(User(
-                        login: self.validateUserData.getValidateData().login ?? "",
-                        password: self.validateUserData.getValidateData().password ?? ""
-                    ))
-
+                if self.validateUserData.getValidateData().valid {
                     self.carrierState?.saveUser()
                     self.carrierState?.load()
-                    print(self.carrierState?.usersManager.load()
-                    // print(self.carrierState?.)
-                    // self.authorizationCoordinator?.onFinish()
+
+                    let user = User(
+                        login: self.validateUserData.getValidateData().login ?? "",
+                        password: self.validateUserData.getValidateData().password ?? ""
+                    )
+
+                    switch self.checkRegisterUser(user).0 {
+                    case .newUser:
+                        self.carrierState?.usersManager.users.append(user)
+                        self.carrierState?.saveUser()
+                    case .notValidPassword:
+                        self.view?.showUnvalideDataLabel()
+                        return
+                    case .validUser:
+                        break
+                    }
+                    self.carrierState?.usersManager.setCurrentUser(self.checkRegisterUser(user).1)
+                    self.authorizationCoordinator?.onFinish()
                 }
             }
         }
+    }
+
+    func checkRegisterUser(_ user: User) -> (UserValidateState, User) {
+        if let safeRegisteredUsers = carrierState?.usersManager.users {
+            for registerUser in safeRegisteredUsers {
+                if registerUser.login == user.login, registerUser.password == user.password {
+                    return (.validUser, registerUser)
+                } else if registerUser.login == user.login, registerUser.password != user.password {
+                    return (.notValidPassword, registerUser)
+                }
+            }
+        }
+        return (.newUser, user)
     }
 }

@@ -7,10 +7,11 @@ protocol ProfileViewProtocol: AnyObject {}
 
 protocol ChangebleTitleProtocol: AnyObject {
     func changeTitleFullName(title: String)
+    func changeImageView(image: UIImage)
 }
 
 /// Экран профиля пользователя
-final class ProfileView: UIViewController {
+final class ProfileView: UIViewController, UINavigationControllerDelegate {
     // MARK: - Types
 
     private enum CellTypes {
@@ -51,6 +52,7 @@ final class ProfileView: UIViewController {
     // MARK: - Public Properties
 
     var presenter: ProfilePresenter?
+    var carrierState: CarrierState?
 
     // MARK: - Private Properties
 
@@ -290,6 +292,7 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
             cell.selectionStyle = .none
             cell.delegate = self
             presenter?.cellDelegate = cell
+            cell.confifure(user: carrierState?.usersManager.getCurrentUser())
             return cell
         case .profileBonuses:
             guard let cell = tableView.dequeueReusableCell(
@@ -356,11 +359,20 @@ extension ProfileView: UITableViewDataSource, UITableViewDelegate {
 // MARK: - Расширение класса для вывода аллерта
 
 extension ProfileView: AlertableProtocol {
+    func imagePickerShow() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true)
+    }
+
     func alertShow() {
         let alert = UIAlertController(title: Constants.titleAlert, message: nil, preferredStyle: .alert)
         let okAction = UIAlertAction(title: Constants.okAlert, style: .cancel) { [weak self] _ in
             guard let fullName = alert.textFields?.first?.text else { return }
+            self?.carrierState?.usersManager.setUserName(fullName)
             self?.presenter?.allertChangeFullName(title: fullName)
+            self?.carrierState?.saveUser()
+            self?.carrierState?.load()
         }
         let actionCancel = UIAlertAction(title: Constants.cancelAlert, style: .default)
         alert.addTextField { textField in
@@ -377,5 +389,27 @@ extension ProfileView: ProfileViewProtocol {}
 extension ProfileView: RemovableControllerProtocol {
     func removeController() {
         animateTransitionIfNeeded(state: .closed, duration: 1.0)
+    }
+}
+
+extension ProfileView: UIImagePickerControllerDelegate {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
+        var selectedImageFromPicker: UIImage?
+        if let editedImage = info[.editedImage] as? UIImage {
+            selectedImageFromPicker = editedImage
+        } else if let originalImage = info[.originalImage] as? UIImage {
+            selectedImageFromPicker = originalImage
+        }
+
+        if let selectedImage = selectedImageFromPicker {
+            carrierState?.usersManager.setProfileUserImage(selectedImage.pngData() ?? Data())
+            presenter?.allertChangeIamge(image: selectedImage)
+            carrierState?.saveUser()
+            carrierState?.load()
+        }
+        dismiss(animated: true, completion: nil)
     }
 }
