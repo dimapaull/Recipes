@@ -33,4 +33,8 @@ final class ProfilePresenter {
     func allertChangeFullName(title: String) {
         cellDelegate?.changeTitleFullName(title: title)
     }
+
+    func allertChangeIamge(image: UIImage) {
+        cellDelegate?.changeImageView(image: image)
+    }
 }

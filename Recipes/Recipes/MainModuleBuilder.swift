@@ -42,8 +42,10 @@ final class MainModuleBuilder {
 
     func makeProfileModule(coordinator: ProfileCoordinator) -> ProfileView {
         let view = ProfileView()
+        let users = UsersManager.shared
         let profilePresenter = ProfilePresenter(view: view, profileCoordinator: coordinator)
         view.presenter = profilePresenter
+        view.carrierState = CarrierState(usersManager: users)
         view.tabBarItem = UITabBarItem(title: Constants.profileTabBarTitle, image: .profileBar, tag: 1)
         view.tabBarItem.selectedImage = .currentProfileBar
         return view

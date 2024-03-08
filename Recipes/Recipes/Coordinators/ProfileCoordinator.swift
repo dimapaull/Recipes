@@ -22,6 +22,7 @@ final class ProfileCoordinator: BaseCoodinator {
 
     func pushProfileView() {
         let pofileView = ProfileView()
+        let users = UsersManager.shared
         rootController?.pushViewController(pofileView, animated: true)
     }
 }

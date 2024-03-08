@@ -220,15 +220,12 @@
 		0E4F2C082B8CAB8400EDF359 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				0E9DF2202B9AF87F00AEA718 /* UsersMemento */,
 				0E4F2C092B8CAB8400EDF359 /* AppDelegate.swift */,
 				0E4F2C0B2B8CAB8400EDF359 /* SceneDelegate.swift */,
 				0E4F2C342B8CE9AD00EDF359 /* MainModuleBuilder.swift */,
 				0E2DE65F2B8D5008007D448C /* MainTabBarViewController.swift */,
 				0ED55CE42B8E4BA800197357 /* ValidateUserData.swift */,
-				0E6B53092B99240200F28B7D /* User.swift */,
-				0E6B53132B99CEA400F28B7D /* UsersMemento.swift */,
-				0E6B530D2B9924EE00F28B7D /* UsersManager.swift */,
-				0E6B530F2B99259800F28B7D /* CarrierState.swift */,
 				0E2DE64A2B8D4468007D448C /* Coordinators */,
 				0E4F2C2C2B8CE8A400EDF359 /* AuthorizationModule */,
 				0E6FDB7D2B8DE8CD005A7D10 /* FavoritiesModule */,
@@ -372,6 +369,17 @@
 				C45B61E72B91003000C80F92 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		0E9DF2202B9AF87F00AEA718 /* UsersMemento */ = {
+			isa = PBXGroup;
+			children = (
+				0E6B53092B99240200F28B7D /* User.swift */,
+				0E6B53132B99CEA400F28B7D /* UsersMemento.swift */,
+				0E6B530D2B9924EE00F28B7D /* UsersManager.swift */,
+				0E6B530F2B99259800F28B7D /* CarrierState.swift */,
+			);
+			path = UsersMemento;
 			sourceTree = "<group>";
 		};
 		0EAC5B8E2B908B44000108E2 /* CategoryModule */ = {
