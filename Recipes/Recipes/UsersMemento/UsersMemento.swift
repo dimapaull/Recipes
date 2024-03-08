@@ -3,14 +3,16 @@
 
 import Foundation
 
+/// Моментальное хранилище, которое записывает данные на устройство
 final class RegisteredUsersMemento {
+    // MARK: - Constants
+
     private enum Constants {
         static let userMementoKey = "users"
     }
-
-    private let decoder = JSONDecoder()
-    private let encoder = JSONEncoder()
-
+    
+    //MARK: Public Property
+    
     var users: [User] {
         get {
             guard let data = UserDefaults.standard.data(forKey: Constants.userMementoKey) else { return [User]() }
@@ -37,6 +39,14 @@ final class RegisteredUsersMemento {
             }
         }
     }
+
+    // MARK: - Private Properties
+
+    private let decoder = JSONDecoder()
+    private let encoder = JSONEncoder()
+
+    
+    // MARK: - Initializers
 
     init(users: [User]) {
         self.users = users

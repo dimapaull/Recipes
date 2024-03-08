@@ -384,13 +384,19 @@ extension ProfileView: AlertableProtocol {
     }
 }
 
+//MARK: - ProfileView + ProfileViewProtocol
+
 extension ProfileView: ProfileViewProtocol {}
+
+//MARK: - ProfileView + RemovableControllerProtocol
 
 extension ProfileView: RemovableControllerProtocol {
     func removeController() {
         animateTransitionIfNeeded(state: .closed, duration: 1.0)
     }
 }
+
+//MARK: - ProfileView + UIImagePickerControllerDelegate
 
 extension ProfileView: UIImagePickerControllerDelegate {
     func imagePickerController(
