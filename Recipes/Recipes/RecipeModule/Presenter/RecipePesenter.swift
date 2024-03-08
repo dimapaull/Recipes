@@ -9,12 +9,14 @@ final class RecipePresenter {
 
     private weak var view: RecipeCategoryViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
+    private var reseiver: FileManagerServiceProtocol?
 
     // MARK: - Initializers
 
     required init(view: RecipeCategoryViewProtocol, recipeCoordinator: RecipeCoordinator) {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
+        reseiver = FileManagerService.fileManagerService
     }
 
     // MARK: - Public Properties
@@ -32,6 +34,10 @@ final class RecipePresenter {
     ]
 
     // MARK: - Public Methods
+
+    func textTitleSection(titleSection: String) {
+        reseiver?.setTitleSection(nameSection: titleSection)
+    }
 
     func chooseRecipe(title: String) {
         recipeCoordinator?.pushCategoryView(title: title)

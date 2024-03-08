@@ -69,6 +69,7 @@
 		C465B0982B9353A1005D3FE8 /* RecipeDetailCompoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C465B0972B9353A1005D3FE8 /* RecipeDetailCompoundCell.swift */; };
 		C465B09A2B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C465B0992B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift */; };
 		C4BDF79A2B978A97001DC265 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDF7992B978A97001DC265 /* UIColor+Extension.swift */; };
+		C4BDF7A12B9A2791001DC265 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDF7A02B9A2791001DC265 /* FileManagerService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -136,6 +137,7 @@
 		C465B0972B9353A1005D3FE8 /* RecipeDetailCompoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailCompoundCell.swift; sourceTree = "<group>"; };
 		C465B0992B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailDescriptionCell.swift; sourceTree = "<group>"; };
 		C4BDF7992B978A97001DC265 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		C4BDF7A02B9A2791001DC265 /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +236,7 @@
 				0EAC5B8E2B908B44000108E2 /* CategoryModule */,
 				C465B0892B934A6E005D3FE8 /* RecipeDetailModule */,
 				0E4F2C2D2B8CE8B000EDF359 /* ProfileModule */,
+				C4BDF79F2B9A2731001DC265 /* FileManagerService */,
 				0E6FDB902B8E199A005A7D10 /* Extensions */,
 				0E6FDB8F2B8E1970005A7D10 /* Fonts */,
 				0EAC5B8C2B8FA495000108E2 /* SwiftLintEdits.swift */,
@@ -459,6 +462,14 @@
 			path = Presenter;
 			sourceTree = "<group>";
 		};
+		C4BDF79F2B9A2731001DC265 /* FileManagerService */ = {
+			isa = PBXGroup;
+			children = (
+				C4BDF7A02B9A2791001DC265 /* FileManagerService.swift */,
+			);
+			path = FileManagerService;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -549,7 +560,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftformat > /dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		0E4F2C212B8CB09300EDF359 /* SwiftLint */ = {
@@ -610,6 +621,7 @@
 				0EAC5B892B8E956A000108E2 /* PaddingLabel.swift in Sources */,
 				0E476ECC2B97C42900516AE8 /* DownloadState.swift in Sources */,
 				0E4F2C392B8CF7AB00EDF359 /* ProfilePresenter.swift in Sources */,
+				C4BDF7A12B9A2791001DC265 /* FileManagerService.swift in Sources */,
 				0EAC5B8B2B8EAA71000108E2 /* String+Extension.swift in Sources */,
 				C465B0982B9353A1005D3FE8 /* RecipeDetailCompoundCell.swift in Sources */,
 				C465B0962B93531A005D3FE8 /* RecipeDetailImageCell.swift in Sources */,
