@@ -51,6 +51,7 @@ final class CategoryPresenter {
     private weak var view: CategoryViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
     private var downloadRecipe: DownloadRecipeProtocol?
+    private var reseiver: FileManagerServiceProtocol?
 
     // MARK: - Initializers
 
@@ -60,6 +61,7 @@ final class CategoryPresenter {
         self.view = view
         currentFilterState = .off
         downloadRecipe.startFetch()
+        reseiver = FileManagerService.fileManagerService
     }
 
     // MARK: - Public Properties
@@ -159,10 +161,15 @@ final class CategoryPresenter {
         }
     }
 
+    func textTitleSection(titleSection: String) {
+        reseiver?.setTitleSection(nameSection: titleSection)
+    }
+
     // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
         recipeCoordinator?.pushRecipeDetailView(recipe: CategoryPresenter.recipes[section])
+        reseiver?.setTitleSection(nameSection: "открыл рецепт блюда из \(CategoryPresenter.recipes[section].title)")
     }
 
     func filtredRecipes(searchText: String) {

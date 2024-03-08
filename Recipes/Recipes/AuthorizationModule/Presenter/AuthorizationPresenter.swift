@@ -24,6 +24,7 @@ final class AuthorizationPresenter {
     private weak var view: AuthorizationViewProtocol?
     private weak var authorizationCoordinator: AuthorizationCoordinator?
     private var carrierState: CarrierState?
+    private var reseiver: FileManagerServiceProtocol?
 
     // MARK: - Initializers
 
@@ -36,9 +37,14 @@ final class AuthorizationPresenter {
         self.authorizationCoordinator = authorizationCoordinator
         validateUserData.delegate = self
         self.carrierState = carrierState
+        reseiver = FileManagerService.fileManagerService
     }
 
     // MARK: - Public Methods
+
+    func textTitleSection(titleSection: String) {
+        reseiver?.setTitleSection(nameSection: titleSection)
+    }
 
     func textFieldChanged(inMail: String?) {
         validateUserData.mail = inMail

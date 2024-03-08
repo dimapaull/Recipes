@@ -9,6 +9,7 @@ final class RecipeDetailPresenter {
 
     private weak var view: RecipeDetailViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
+    private var reseiver: FileManagerServiceProtocol?
 
     // MARK: - Public Properties
 
@@ -19,5 +20,10 @@ final class RecipeDetailPresenter {
     required init(view: RecipeDetailViewProtocol, recipeCoordinator: RecipeCoordinator) {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
+        reseiver = FileManagerService.fileManagerService
+    }
+
+    func textTitleSection(titleSection: String) {
+        reseiver?.setTitleSection(nameSection: titleSection)
     }
 }

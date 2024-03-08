@@ -40,6 +40,7 @@ final class AuthorizationView: UIViewController {
         static let incorrectEmailText = "Incorrect format"
         static let incorrectPasswordText = "You entered the wrong password"
         static let unvaliableText = "Please check the accuracy of the entered credentials."
+        static let titleSection = "Логин"
     }
 
     // MARK: - Visual Components
@@ -175,6 +176,7 @@ final class AuthorizationView: UIViewController {
         configurenavigationBar()
         configureUI()
         addKeyboardObserver()
+        presenter?.textTitleSection(titleSection: Constants.titleSection)
     }
 
     // MARK: - Private Methods

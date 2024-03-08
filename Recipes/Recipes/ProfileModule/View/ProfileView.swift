@@ -39,6 +39,8 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
         static let one = 1
         static let four = 4
         static let minimumContentView = 900.0
+        static let navigationTitle = "Profile"
+        static let titleSection = "Профиль"
     }
 
     // MARK: - Visual Components
@@ -83,7 +85,8 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
         setupTableView()
         configureUI()
         navigationController?.navigationBar.prefersLargeTitles = true
-        navigationItem.title = "Profile"
+        navigationItem.title = Constants.navigationTitle
+        presenter?.textTitleSection(titleSection: Constants.titleSection)
     }
 
     // MARK: - Private Methods
