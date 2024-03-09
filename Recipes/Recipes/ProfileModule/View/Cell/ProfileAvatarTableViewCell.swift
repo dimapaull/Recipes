@@ -7,6 +7,8 @@ import UIKit
 protocol AlertableProtocol: AnyObject {
     /// Метод вызова аллерта
     func alertShow()
+    /// Метод вызова контроллера для выбора фото
+    func imagePickerShow()
 }
 
 /// Ячейка с аватаркой пользователя
@@ -30,7 +32,12 @@ final class ProfileAvatarTableViewCell: UITableViewCell {
     private let profileImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = true
         imageView.image = Constants.avatarImage
+        imageView.layer.borderWidth = 4
+        imageView.layer.borderColor = UIColor.appLightBlue.cgColor
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -59,12 +66,24 @@ final class ProfileAvatarTableViewCell: UITableViewCell {
         super.awakeFromNib()
         setupView()
         setupConstraints()
+        addProfileViewRecognizer()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         setupView()
         setupConstraints()
+        addProfileViewRecognizer()
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        profileImageView.layer.cornerRadius = profileImageView.frame.height / 2
+    }
+
+    func confifure(user: User?) {
+        profileImageView.image = UIImage(data: user?.profileImage ?? Data())
+        profileFullNameLabel.text = user?.userName ?? "Surname Name"
     }
 
     // MARK: - Private Methods
@@ -106,12 +125,27 @@ final class ProfileAvatarTableViewCell: UITableViewCell {
         pencilButton.widthAnchor.constraint(equalToConstant: 24).isActive = true
     }
 
+    private func addProfileViewRecognizer() {
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped))
+        profileImageView.addGestureRecognizer(tapRecognizer)
+    }
+
+    @objc private func profileViewTapped() {
+        delegate?.imagePickerShow()
+    }
+
     @objc private func pencilButtonTapped() {
         delegate?.alertShow()
     }
 }
 
+//MARK: - ProfileAvatarTableViewCell + ChangebleTitleProtocol
+
 extension ProfileAvatarTableViewCell: ChangebleTitleProtocol {
+    func changeImageView(image: UIImage) {
+        profileImageView.image = image
+    }
+
     func changeTitleFullName(title: String) {
         profileFullNameLabel.text = title
     }

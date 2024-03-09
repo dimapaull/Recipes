@@ -49,6 +49,8 @@ final class RecipeDetailView: UIViewController {
 
     private let cellsType: [CellsType] = [.recipeImage, .recipeInfo, .recipeDescription]
 
+    let recipeDetailImageCell = RecipeDetailImageCell()
+
     // MARK: - Public Properties
 
     var presenter: RecipeDetailPresenter?
@@ -71,6 +73,10 @@ final class RecipeDetailView: UIViewController {
         backImage.contentMode = .scaleAspectFit
 
         let shareButtonImage = UIImageView(image: Constants.shareButtonImage)
+        shareButtonImage.isUserInteractionEnabled = true
+        shareButtonImage.addGestureRecognizer(
+            UITapGestureRecognizer(target: self, action: #selector(shareButtonImageTapped))
+        )
         let bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
         bookmarkButtonImage.isUserInteractionEnabled = true
         bookmarkButtonImage.addGestureRecognizer(
@@ -143,6 +149,10 @@ final class RecipeDetailView: UIViewController {
 
     @objc private func bookmarkButtonImageTapped() {
         alertBookmarkButton()
+    }
+
+    @objc func shareButtonImageTapped() {
+        presenter?.textTitleSection(titleSection: "поделился рецептом \(presenter?.recipeDetailInfo?.title ?? "")")
     }
 }
 

@@ -22,6 +22,7 @@ final class RecipeCategoryView: UIViewController {
         static let eighty = 80
         static let case2 = 240.0 / 380.0
         static let defaultAssertText = "Unexpected element kind"
+        static let titleSection = "открыл экран Рецептов"
     }
 
     // MARK: - Visual Components
@@ -44,6 +45,7 @@ final class RecipeCategoryView: UIViewController {
         setupViews()
         setupConstraints()
         setupRecipeCollectionView()
+        presenter?.textTitleSection(titleSection: Constants.titleSection)
     }
 
     override func viewWillAppear(_ animated: Bool) {

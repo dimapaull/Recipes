@@ -20,6 +20,7 @@ final class CategoryView: UIViewController {
         static let caloriesText = "Calories"
         static let timeText = "Time"
         static let separateHeight = 5.0
+        static let titleSection = "перешел на экран со списком рецептов из "
     }
 
     // MARK: - Visual Components
@@ -89,6 +90,7 @@ final class CategoryView: UIViewController {
         let backLabel = UILabel()
         backLabel.text = backNavigationTitle
         backLabel.font = .verdanaBold(ofSize: 28)
+        presenter?.textTitleSection(titleSection: Constants.titleSection + backNavigationTitle)
 
         let backStackView = UIStackView(arrangedSubviews: [backImage, backLabel])
         backStackView.distribution = .equalSpacing
@@ -191,7 +193,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         case .success:
             recipeTableView.isScrollEnabled = true
             cell.removeShimmers()
-        case .failture:
+        case .failture: break
             cell.showShimmers()
         }
         return cell

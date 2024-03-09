@@ -5,6 +5,12 @@ import UIKit
 
 /// Презентер для экрана авториизации
 final class AuthorizationPresenter {
+    enum UserValidateState {
+        case newUser
+        case notValidPassword
+        case validUser
+    }
+
     // MARK: - Constants
 
     private enum Constants {
@@ -17,16 +23,28 @@ final class AuthorizationPresenter {
     private var validateUserData = ValidateUserData()
     private weak var view: AuthorizationViewProtocol?
     private weak var authorizationCoordinator: AuthorizationCoordinator?
+    private var carrierState: CarrierState?
+    private var reseiver: FileManagerServiceProtocol?
 
     // MARK: - Initializers
 
-    required init(view: AuthorizationViewProtocol, authorizationCoordinator: AuthorizationCoordinator) {
+    required init(
+        view: AuthorizationViewProtocol,
+        authorizationCoordinator: AuthorizationCoordinator,
+        carrierState: CarrierState
+    ) {
         self.view = view
         self.authorizationCoordinator = authorizationCoordinator
         validateUserData.delegate = self
+        self.carrierState = carrierState
+        reseiver = FileManagerService.fileManagerService
     }
 
     // MARK: - Public Methods
+
+    func textTitleSection(titleSection: String) {
+        reseiver?.setTitleSection(nameSection: titleSection)
+    }
 
     func textFieldChanged(inMail: String?) {
         validateUserData.mail = inMail
@@ -69,14 +87,46 @@ extension AuthorizationPresenter: DataValidableProtocol {
 
         if isPasswordValid, isMailValid {
             view?.showSpinner()
+
             DispatchQueue.main.asyncAfter(deadline: .now() + Constants.dispatchTimeCount) {
                 self.view?.stopSpinner()
-                if !self.validateUserData.getValidateData() {
-                    self.view?.showUnvalideDataLabel()
-                } else {
+
+                if self.validateUserData.getValidateData().valid {
+                    self.carrierState?.saveUser()
+                    self.carrierState?.load()
+
+                    let user = User(
+                        login: self.validateUserData.getValidateData().login ?? "",
+                        password: self.validateUserData.getValidateData().password ?? ""
+                    )
+
+                    switch self.checkRegisterUser(user).0 {
+                    case .newUser:
+                        self.carrierState?.usersManager.users.append(user)
+                        self.carrierState?.saveUser()
+                    case .notValidPassword:
+                        self.view?.showUnvalideDataLabel()
+                        return
+                    case .validUser:
+                        break
+                    }
+                    self.carrierState?.usersManager.setCurrentUser(self.checkRegisterUser(user).1)
                     self.authorizationCoordinator?.onFinish()
                 }
             }
         }
+    }
+
+    func checkRegisterUser(_ user: User) -> (UserValidateState, User) {
+        if let safeRegisteredUsers = carrierState?.usersManager.users {
+            for registerUser in safeRegisteredUsers {
+                if registerUser.login == user.login, registerUser.password == user.password {
+                    return (.validUser, registerUser)
+                } else if registerUser.login == user.login, registerUser.password != user.password {
+                    return (.notValidPassword, registerUser)
+                }
+            }
+        }
+        return (.newUser, user)
     }
 }
