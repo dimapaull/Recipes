@@ -45,12 +45,12 @@ final class RecipeCategoryView: UIViewController {
         setupViews()
         setupConstraints()
         setupRecipeCollectionView()
-        presenter?.textTitleSection(titleSection: Constants.titleSection)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         tabBarController?.tabBar.isHidden = false
+        presenter?.textTitleSection(titleSection: Constants.titleSection)
     }
 
     // MARK: - Private Methods

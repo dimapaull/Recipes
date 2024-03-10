@@ -176,6 +176,10 @@ final class AuthorizationView: UIViewController {
         configurenavigationBar()
         configureUI()
         addKeyboardObserver()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         presenter?.textTitleSection(titleSection: Constants.titleSection)
     }
 

@@ -41,6 +41,7 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
         static let minimumContentView = 900.0
         static let navigationTitle = "Profile"
         static let titleSection = "Профиль"
+        static let goToScreenText = "перешел на экран"
     }
 
     // MARK: - Visual Components
@@ -86,7 +87,11 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
         configureUI()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = Constants.navigationTitle
-        presenter?.textTitleSection(titleSection: Constants.titleSection)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.textTitleSection(titleSection: "\(Constants.goToScreenText) \(Constants.titleSection)")
     }
 
     // MARK: - Private Methods
@@ -387,11 +392,11 @@ extension ProfileView: AlertableProtocol {
     }
 }
 
-//MARK: - ProfileView + ProfileViewProtocol
+// MARK: - ProfileView + ProfileViewProtocol
 
 extension ProfileView: ProfileViewProtocol {}
 
-//MARK: - ProfileView + RemovableControllerProtocol
+// MARK: - ProfileView + RemovableControllerProtocol
 
 extension ProfileView: RemovableControllerProtocol {
     func removeController() {
@@ -399,7 +404,7 @@ extension ProfileView: RemovableControllerProtocol {
     }
 }
 
-//MARK: - ProfileView + UIImagePickerControllerDelegate
+// MARK: - ProfileView + UIImagePickerControllerDelegate
 
 extension ProfileView: UIImagePickerControllerDelegate {
     func imagePickerController(

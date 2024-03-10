@@ -76,7 +76,11 @@ final class CategoryView: UIViewController {
         configureUI()
         configureNavigationBar()
         presenter?.updateView()
-        setupMainViewRecognizer()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.textTitleSection(titleSection: Constants.titleSection + backNavigationTitle)
     }
 
     // MARK: - Private Methods
@@ -90,7 +94,6 @@ final class CategoryView: UIViewController {
         let backLabel = UILabel()
         backLabel.text = backNavigationTitle
         backLabel.font = .verdanaBold(ofSize: 28)
-        presenter?.textTitleSection(titleSection: Constants.titleSection + backNavigationTitle)
 
         let backStackView = UIStackView(arrangedSubviews: [backImage, backLabel])
         backStackView.distribution = .equalSpacing
@@ -143,15 +146,6 @@ final class CategoryView: UIViewController {
         recipeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
     }
 
-    private func setupMainViewRecognizer() {
-        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(mainViewTapped))
-        view.addGestureRecognizer(tapRecognizer)
-    }
-
-    @objc private func mainViewTapped() {
-        view.endEditing(true)
-    }
-
     @objc private func backBarButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
@@ -183,7 +177,6 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
         cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
-        cell.showShimmers()
         switch updateCellState {
         case .initial:
             break
@@ -193,7 +186,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         case .success:
             recipeTableView.isScrollEnabled = true
             cell.removeShimmers()
-        case .failture: break
+        case .failture:
             cell.showShimmers()
         }
         return cell
@@ -229,5 +222,9 @@ extension CategoryView: FilterControlViewDataSource {
 extension CategoryView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         presenter?.filtredRecipes(searchText: searchText)
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        view.endEditing(true)
     }
 }

@@ -139,7 +139,7 @@ final class ProfileAvatarTableViewCell: UITableViewCell {
     }
 }
 
-//MARK: - ProfileAvatarTableViewCell + ChangebleTitleProtocol
+// MARK: - ProfileAvatarTableViewCell + ChangebleTitleProtocol
 
 extension ProfileAvatarTableViewCell: ChangebleTitleProtocol {
     func changeImageView(image: UIImage) {
