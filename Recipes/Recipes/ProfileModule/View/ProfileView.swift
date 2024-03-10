@@ -387,11 +387,11 @@ extension ProfileView: AlertableProtocol {
     }
 }
 
-//MARK: - ProfileView + ProfileViewProtocol
+// MARK: - ProfileView + ProfileViewProtocol
 
 extension ProfileView: ProfileViewProtocol {}
 
-//MARK: - ProfileView + RemovableControllerProtocol
+// MARK: - ProfileView + RemovableControllerProtocol
 
 extension ProfileView: RemovableControllerProtocol {
     func removeController() {
@@ -399,7 +399,7 @@ extension ProfileView: RemovableControllerProtocol {
     }
 }
 
-//MARK: - ProfileView + UIImagePickerControllerDelegate
+// MARK: - ProfileView + UIImagePickerControllerDelegate
 
 extension ProfileView: UIImagePickerControllerDelegate {
     func imagePickerController(

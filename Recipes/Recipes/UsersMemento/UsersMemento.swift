@@ -10,9 +10,9 @@ final class RegisteredUsersMemento {
     private enum Constants {
         static let userMementoKey = "users"
     }
-    
-    //MARK: Public Property
-    
+
+    // MARK: Public Property
+
     var users: [User] {
         get {
             guard let data = UserDefaults.standard.data(forKey: Constants.userMementoKey) else { return [User]() }
@@ -45,7 +45,6 @@ final class RegisteredUsersMemento {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
 
-    
     // MARK: - Initializers
 
     init(users: [User]) {

@@ -23,6 +23,7 @@ final class RecipeDetailView: UIViewController {
         static let threeHundredSixty = 360
         static let seventyThree = 73
         static let sevenHundred = 700
+        static let bookmarkRedButtonImage = UIImage(named: "favouritesRed")
     }
 
     private enum CellsType {
@@ -77,7 +78,7 @@ final class RecipeDetailView: UIViewController {
         shareButtonImage.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(shareButtonImageTapped))
         )
-        let bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
+        var bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
         bookmarkButtonImage.isUserInteractionEnabled = true
         bookmarkButtonImage.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(bookmarkButtonImageTapped))
@@ -147,8 +148,9 @@ final class RecipeDetailView: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc private func bookmarkButtonImageTapped() {
-        alertBookmarkButton()
+    @objc func bookmarkButtonImageTapped() {
+//        alertBookmarkButton()
+        presenter?.addFavouriteRecipe()
     }
 
     @objc func shareButtonImageTapped() {

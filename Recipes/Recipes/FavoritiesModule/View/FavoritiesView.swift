@@ -130,14 +130,14 @@ extension FavoritiesView: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.favorities.count ?? 0
+        presenter?.favouriteRecipes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = favoriteTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.favorities[indexPath.section])
+        cell.configureCell(info: presenter?.favouriteRecipes[indexPath.section])
         return cell
     }
 }
@@ -171,7 +171,10 @@ extension FavoritiesView: UITableViewDelegate {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath:
         IndexPath
-    ) {}
+    ) {
+        presenter?.favouriteRemoveRecipe(recipe: presenter?.favouriteRecipes[indexPath.section])
+        tableView.reloadData()
+    }
 }
 
 // MARK: - FavoritiesView + FavoritiesViewProtocol

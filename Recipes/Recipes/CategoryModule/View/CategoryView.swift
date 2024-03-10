@@ -193,7 +193,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         case .success:
             recipeTableView.isScrollEnabled = true
             cell.removeShimmers()
-        case .failture: break
+        case .failture:
             cell.showShimmers()
         }
         return cell

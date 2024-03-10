@@ -26,4 +26,10 @@ final class RecipeDetailPresenter {
     func textTitleSection(titleSection: String) {
         reseiver?.setTitleSection(nameSection: titleSection)
     }
+
+    func addFavouriteRecipe() {
+        guard let recipeDetailInfo = recipeDetailInfo else { return }
+        FavouriteRecipes.shared.updateFavouriteRecipe(recipeDetailInfo)
+        print(FavouriteRecipes.shared.recipes)
+    }
 }

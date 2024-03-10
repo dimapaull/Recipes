@@ -6,28 +6,26 @@ import Foundation
 /// Менеджер храниилища
 final class UsersManager {
     // MARK: - Types
-    
+
     static let shared = UsersManager()
-    
+
     // MARK: - Constants
-    
+
     private enum Constants {
         static let currentUser = "currentUser"
     }
-    
-    
+
     // MARK: - Public Properties
-    
+
     var users: [User] = []
-    
+
     // MARK: - Private Properties
-    
+
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
-    
-    
+
     // MARK: - Public Methods
-    
+
     func save() -> RegisteredUsersMemento {
         RegisteredUsersMemento(users: users)
     }
@@ -72,18 +70,8 @@ final class UsersManager {
         }
     }
 
-    
-    
     // MARK: - Private Methods
-    
 
-  
-
-   
-
-    
-
-   
     private func upadateUsersStore() {
         if let user = getCurrentUser() {
             for (index, storeUser) in users.enumerated() where storeUser.login == user.login {
