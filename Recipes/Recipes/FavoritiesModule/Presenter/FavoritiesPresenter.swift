@@ -37,13 +37,14 @@ final class FavoritiesPresenter {
 
     private weak var view: FavoritiesViewProtocol?
     private weak var favoritiesCoordinator: FavoritiesCoordinator?
+    private var reseiver: FileManagerServiceProtocol?
 
     // MARK: - Initializers
 
     required init(view: FavoritiesViewProtocol, favoritiesCoordinator: FavoritiesCoordinator) {
         self.view = view
         self.favoritiesCoordinator = favoritiesCoordinator
-        FavouriteRecipes.shared.getRecipes()
+        reseiver = FileManagerService.fileManagerService
     }
 
     private(set) var favouriteRecipes: [RecipeDetail] = FavouriteRecipes.shared.recipes
@@ -71,5 +72,9 @@ final class FavoritiesPresenter {
             view?.setupTableView()
             view?.removeEmptyView()
         }
+    }
+
+    func textTitleSection(titleSection: String) {
+        reseiver?.setTitleSection(nameSection: titleSection)
     }
 }

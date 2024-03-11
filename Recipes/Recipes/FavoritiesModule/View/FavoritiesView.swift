@@ -20,6 +20,8 @@ final class FavoritiesView: UIViewController {
 
     private enum Constants {
         static let controllerTitle = "Favorities"
+        static let controllerRussianTitle = "Избранное"
+        static let goToScreenText = "перешел на экран"
         static let emptyTitle = "There's nothing here yet"
         static let emptyContent = "Add interesting recipes to make ordering products convenient"
         static let separateHeight = 5.0
@@ -87,6 +89,7 @@ final class FavoritiesView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.favoriteViewWillAppear()
+        presenter?.textTitleSection(titleSection: "\(Constants.goToScreenText) \(Constants.controllerRussianTitle)")
     }
 
     // MARK: - Private Methods

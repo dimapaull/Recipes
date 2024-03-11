@@ -18,7 +18,6 @@ final class RegisteredUsersMemento {
             guard let data = UserDefaults.standard.data(forKey: Constants.userMementoKey) else { return [User]() }
             do {
                 let decodedUsers = try decoder.decode([User].self, from: data)
-                print(decodedUsers)
                 return decodedUsers
             } catch {
                 return [User]()
@@ -30,7 +29,6 @@ final class RegisteredUsersMemento {
                     print("Attempted to save an empty array of users.")
                     return
                 }
-                print(newValue)
                 let data = try encoder.encode(newValue)
                 UserDefaults.standard.set(data, forKey: Constants.userMementoKey)
                 UserDefaults.standard.synchronize()

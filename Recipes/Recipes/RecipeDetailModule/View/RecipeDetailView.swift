@@ -50,8 +50,6 @@ final class RecipeDetailView: UIViewController {
 
     private let cellsType: [CellsType] = [.recipeImage, .recipeInfo, .recipeDescription]
 
-    let recipeDetailImageCell = RecipeDetailImageCell()
-
     // MARK: - Public Properties
 
     var presenter: RecipeDetailPresenter?
@@ -63,6 +61,14 @@ final class RecipeDetailView: UIViewController {
         configureUI()
         configureNavigationBar()
         tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?
+            .textTitleSection(
+                titleSection: "Пользователь открыл рецепт под названием \(presenter?.recipeDetailInfo?.title ?? "")"
+            )
     }
 
     // MARK: - Private Methods
@@ -158,7 +164,7 @@ final class RecipeDetailView: UIViewController {
     }
 }
 
-// MARK: - CategoryView + UITableViewDataSource
+// MARK: - CategoryView + UITableViewDataSource, UITableViewDelegate
 
 extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -216,5 +222,7 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
+// MARK: - RecipeDetailView + RecipeDetailViewProtocol
 
 extension RecipeDetailView: RecipeDetailViewProtocol {}
