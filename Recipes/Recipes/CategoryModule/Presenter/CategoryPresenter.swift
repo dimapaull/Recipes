@@ -169,7 +169,6 @@ final class CategoryPresenter {
 
     func selectionRow(in section: Int) {
         recipeCoordinator?.pushRecipeDetailView(recipe: CategoryPresenter.recipes[section])
-        reseiver?.setTitleSection(nameSection: "открыл рецепт блюда из \(CategoryPresenter.recipes[section].title)")
     }
 
     func filtredRecipes(searchText: String) {

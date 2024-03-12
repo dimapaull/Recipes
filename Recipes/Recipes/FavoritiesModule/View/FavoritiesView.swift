@@ -20,6 +20,8 @@ final class FavoritiesView: UIViewController {
 
     private enum Constants {
         static let controllerTitle = "Favorities"
+        static let controllerRussianTitle = "Избранное"
+        static let goToScreenText = "перешел на экран"
         static let emptyTitle = "There's nothing here yet"
         static let emptyContent = "Add interesting recipes to make ordering products convenient"
         static let separateHeight = 5.0
@@ -87,6 +89,7 @@ final class FavoritiesView: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.favoriteViewWillAppear()
+        presenter?.textTitleSection(titleSection: "\(Constants.goToScreenText) \(Constants.controllerRussianTitle)")
     }
 
     // MARK: - Private Methods
@@ -130,14 +133,14 @@ extension FavoritiesView: UITableViewDataSource {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.favorities.count ?? 0
+        presenter?.favouriteRecipes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = favoriteTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.favorities[indexPath.section])
+        cell.configureCell(info: presenter?.favouriteRecipes[indexPath.section])
         return cell
     }
 }
@@ -171,7 +174,10 @@ extension FavoritiesView: UITableViewDelegate {
         commit editingStyle: UITableViewCell.EditingStyle,
         forRowAt indexPath:
         IndexPath
-    ) {}
+    ) {
+        presenter?.favouriteRemoveRecipe(recipe: presenter?.favouriteRecipes[indexPath.section])
+        tableView.reloadData()
+    }
 }
 
 // MARK: - FavoritiesView + FavoritiesViewProtocol

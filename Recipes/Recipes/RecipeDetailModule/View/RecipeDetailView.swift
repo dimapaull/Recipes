@@ -23,6 +23,7 @@ final class RecipeDetailView: UIViewController {
         static let threeHundredSixty = 360
         static let seventyThree = 73
         static let sevenHundred = 700
+        static let bookmarkRedButtonImage = UIImage(named: "favouritesRed")
     }
 
     private enum CellsType {
@@ -49,8 +50,6 @@ final class RecipeDetailView: UIViewController {
 
     private let cellsType: [CellsType] = [.recipeImage, .recipeInfo, .recipeDescription]
 
-    let recipeDetailImageCell = RecipeDetailImageCell()
-
     // MARK: - Public Properties
 
     var presenter: RecipeDetailPresenter?
@@ -62,6 +61,14 @@ final class RecipeDetailView: UIViewController {
         configureUI()
         configureNavigationBar()
         tabBarController?.tabBar.isHidden = true
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?
+            .textTitleSection(
+                titleSection: "Пользователь открыл рецепт под названием \(presenter?.recipeDetailInfo?.title ?? "")"
+            )
     }
 
     // MARK: - Private Methods
@@ -77,7 +84,7 @@ final class RecipeDetailView: UIViewController {
         shareButtonImage.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(shareButtonImageTapped))
         )
-        let bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
+        var bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
         bookmarkButtonImage.isUserInteractionEnabled = true
         bookmarkButtonImage.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(bookmarkButtonImageTapped))
@@ -147,8 +154,9 @@ final class RecipeDetailView: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc private func bookmarkButtonImageTapped() {
-        alertBookmarkButton()
+    @objc func bookmarkButtonImageTapped() {
+//        alertBookmarkButton()
+        presenter?.addFavouriteRecipe()
     }
 
     @objc func shareButtonImageTapped() {
@@ -156,7 +164,7 @@ final class RecipeDetailView: UIViewController {
     }
 }
 
-// MARK: - CategoryView + UITableViewDataSource
+// MARK: - CategoryView + UITableViewDataSource, UITableViewDelegate
 
 extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -214,5 +222,7 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
         }
     }
 }
+
+// MARK: - RecipeDetailView + RecipeDetailViewProtocol
 
 extension RecipeDetailView: RecipeDetailViewProtocol {}

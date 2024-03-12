@@ -16,6 +16,7 @@ final class AuthorizationPresenter {
     private enum Constants {
         static let dispatchTimeCount = 3.0
         static let bottomConstantForLogin = -43.0
+        static let onTheScreen = "находится на экране"
     }
 
     // MARK: - Private Properties
@@ -43,7 +44,7 @@ final class AuthorizationPresenter {
     // MARK: - Public Methods
 
     func textTitleSection(titleSection: String) {
-        reseiver?.setTitleSection(nameSection: titleSection)
+        reseiver?.setTitleSection(nameSection: "\(Constants.onTheScreen) \(titleSection)")
     }
 
     func textFieldChanged(inMail: String?) {

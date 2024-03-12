@@ -10,15 +10,14 @@ final class RegisteredUsersMemento {
     private enum Constants {
         static let userMementoKey = "users"
     }
-    
-    //MARK: Public Property
-    
+
+    // MARK: Public Property
+
     var users: [User] {
         get {
             guard let data = UserDefaults.standard.data(forKey: Constants.userMementoKey) else { return [User]() }
             do {
                 let decodedUsers = try decoder.decode([User].self, from: data)
-                print(decodedUsers)
                 return decodedUsers
             } catch {
                 return [User]()
@@ -30,7 +29,6 @@ final class RegisteredUsersMemento {
                     print("Attempted to save an empty array of users.")
                     return
                 }
-                print(newValue)
                 let data = try encoder.encode(newValue)
                 UserDefaults.standard.set(data, forKey: Constants.userMementoKey)
                 UserDefaults.standard.synchronize()
@@ -45,7 +43,6 @@ final class RegisteredUsersMemento {
     private let decoder = JSONDecoder()
     private let encoder = JSONEncoder()
 
-    
     // MARK: - Initializers
 
     init(users: [User]) {

@@ -15,12 +15,9 @@ final class FileManagerService {
 
     private func bullShit(text: String) {
         let manager = FileManager.default
-        let url: URL
-
-        url = manager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let url = manager.urls(for: .documentDirectory, in: .userDomainMask)[0]
 
         let newFolderUrl = url.appendingPathComponent("recipeApp", conformingTo: .folder)
-        print(newFolderUrl)
         do {
             try manager.createDirectory(at: newFolderUrl, withIntermediateDirectories: true, attributes: [:])
         } catch {
