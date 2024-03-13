@@ -7,8 +7,14 @@ enum CategoryRecipeName: String {
     case salad = "Salad"
     /// Суп
     case soup = "Soup"
-    /// Рыба, мясо, курица
-    case mainCourse = "Main course"
+    /// Рыба
+    case fish = "Fish"
+    /// Мясо
+    case meat = "Meat"
+    /// Курица
+    case chicken = "Chicken"
+    /// Вегетарианская еда
+    case sideDish = "vegetarian"
     /// Панкейки
     case pancake = "Pancake"
     /// Напитки

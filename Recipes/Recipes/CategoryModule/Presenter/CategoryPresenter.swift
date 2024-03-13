@@ -178,8 +178,8 @@ final class CategoryPresenter {
 
     func selectionRow(in section: Int) {
         recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
-        if let recUri = downloadRecipes.first?.uri {
-            network.getDetailRecipe(uri: recUri) { result in
+        if let recipeUri = downloadRecipes.first?.uri {
+            network.getDetailRecipe(uri: recipeUri) { result in
                 print(result)
             }
         }
@@ -203,11 +203,11 @@ final class CategoryPresenter {
                 if let recipes = recipes {
                     for item in recipes.hits {
                         self.downloadRecipes.append(RecipeTest(recipe: item.recipe))
+                        print(item.recipe.label)
                     }
                 }
-
             case let .failure(failure):
-                print(failure)
+                return
             }
         }
 

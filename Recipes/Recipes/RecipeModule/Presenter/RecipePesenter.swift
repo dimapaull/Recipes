@@ -31,22 +31,14 @@ final class RecipePresenter {
         RecipeCategory(
             recipeCategoryImage: "chicken",
             recipeCategoryTitle: "Chicken",
-            categoryName: CategoryRecipeName.mainCourse
+            categoryName: CategoryRecipeName.chicken
         ),
-        RecipeCategory(
-            recipeCategoryImage: "meat",
-            recipeCategoryTitle: "Meat",
-            categoryName: CategoryRecipeName.mainCourse
-        ),
-        RecipeCategory(
-            recipeCategoryImage: "fish",
-            recipeCategoryTitle: "Fish",
-            categoryName: CategoryRecipeName.mainCourse
-        ),
+        RecipeCategory(recipeCategoryImage: "meat", recipeCategoryTitle: "Meat", categoryName: CategoryRecipeName.meat),
+        RecipeCategory(recipeCategoryImage: "fish", recipeCategoryTitle: "Fish", categoryName: CategoryRecipeName.fish),
         RecipeCategory(
             recipeCategoryImage: "sidedish",
             recipeCategoryTitle: "Side dish",
-            categoryName: CategoryRecipeName.mainCourse
+            categoryName: CategoryRecipeName.sideDish
         ),
         RecipeCategory(
             recipeCategoryImage: "drinks",

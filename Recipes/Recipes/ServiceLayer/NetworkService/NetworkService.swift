@@ -31,6 +31,9 @@ final class NetworkService: NetworkServiceProtocol {
         static let appKeyValueQueryItem = "eaf7a9b6dd78df72532332124fb0b972"
         static let uriQueryItem = "uri"
         static let dishTypeQueryItem = "dishType"
+        static let mainCourseTypeQueryItem = "Main course"
+        static let healthTypeQueryItem = "health"
+        static let qQueryItem = "q"
     }
 
     // MARK: - Public Methods
@@ -39,21 +42,7 @@ final class NetworkService: NetworkServiceProtocol {
         categoryName: CategoryRecipeName,
         completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()
     ) {
-        var urlComponent = URLComponents()
-        urlComponent.scheme = Constants.scheme
-        urlComponent.host = Constants.host
-        urlComponent.path = Constants.categoryPath
-        urlComponent.queryItems = [
-            URLQueryItem(name: Constants.typeQueryItem, value: Constants.typeValueQueryItem),
-            URLQueryItem(name: Constants.appIdQueryItem, value: Constants.appIdValueQueryItem),
-            URLQueryItem(name: Constants.appKeyQueryItem, value: Constants.appKeyValueQueryItem),
-            URLQueryItem(
-                name: Constants.dishTypeQueryItem,
-                value: categoryName.rawValue
-            ),
-        ]
-
-        guard let url = urlComponent.url else { return }
+        guard let url = createDishRecipeUrlComponent(categoryName).url else { return }
 
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
@@ -71,21 +60,7 @@ final class NetworkService: NetworkServiceProtocol {
     }
 
     func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()) {
-        var urlComponent = URLComponents()
-        urlComponent.scheme = Constants.scheme
-        urlComponent.host = Constants.host
-        urlComponent.path = Constants.detailPath
-        urlComponent.queryItems = [
-            URLQueryItem(name: Constants.typeQueryItem, value: Constants.typeValueQueryItem),
-            URLQueryItem(name: Constants.appIdQueryItem, value: Constants.appIdValueQueryItem),
-            URLQueryItem(name: Constants.appKeyQueryItem, value: Constants.appKeyValueQueryItem),
-            URLQueryItem(
-                name: Constants.uriQueryItem,
-                value: uri
-            ),
-        ]
-        print(urlComponent)
-        guard let url = urlComponent.url else { return }
+        guard let url = createDetailRecipeUrlComponent(uri).url else { return }
 
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
@@ -100,5 +75,60 @@ final class NetworkService: NetworkServiceProtocol {
                 }
             }
         }.resume()
+    }
+
+    // MARK: - Private Methods
+
+    private func createDishRecipeUrlComponent(_ categoryName: CategoryRecipeName) -> URLComponents {
+        var urlComponent = URLComponents()
+        urlComponent.scheme = Constants.scheme
+        urlComponent.host = Constants.host
+        urlComponent.path = Constants.categoryPath
+        urlComponent.queryItems = [
+            URLQueryItem(name: Constants.typeQueryItem, value: Constants.typeValueQueryItem),
+            URLQueryItem(name: Constants.appIdQueryItem, value: Constants.appIdValueQueryItem),
+            URLQueryItem(name: Constants.appKeyQueryItem, value: Constants.appKeyValueQueryItem),
+        ]
+        if categoryName == .chicken || categoryName == .meat || categoryName == .fish || categoryName == .sideDish {
+            urlComponent.queryItems?.append(URLQueryItem(
+                name: Constants.dishTypeQueryItem,
+                value: Constants.mainCourseTypeQueryItem
+            ))
+        } else {
+            urlComponent.queryItems?.append(URLQueryItem(
+                name: Constants.dishTypeQueryItem,
+                value: categoryName.rawValue
+            ))
+        }
+        if categoryName == .sideDish {
+            urlComponent.queryItems?.append(URLQueryItem(
+                name: Constants.healthTypeQueryItem,
+                value: categoryName.rawValue
+            ))
+        }
+        if categoryName == .chicken || categoryName == .meat || categoryName == .fish {
+            urlComponent.queryItems?.append(URLQueryItem(
+                name: Constants.qQueryItem,
+                value: categoryName.rawValue
+            ))
+        }
+        return urlComponent
+    }
+
+    private func createDetailRecipeUrlComponent(_ uri: String) -> URLComponents {
+        var urlComponent = URLComponents()
+        urlComponent.scheme = Constants.scheme
+        urlComponent.host = Constants.host
+        urlComponent.path = Constants.detailPath
+        urlComponent.queryItems = [
+            URLQueryItem(name: Constants.typeQueryItem, value: Constants.typeValueQueryItem),
+            URLQueryItem(name: Constants.appIdQueryItem, value: Constants.appIdValueQueryItem),
+            URLQueryItem(name: Constants.appKeyQueryItem, value: Constants.appKeyValueQueryItem),
+            URLQueryItem(
+                name: Constants.uriQueryItem,
+                value: uri
+            ),
+        ]
+        return urlComponent
     }
 }
