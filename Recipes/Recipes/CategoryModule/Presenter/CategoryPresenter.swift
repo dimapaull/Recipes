@@ -76,7 +76,7 @@ final class CategoryPresenter {
 
     private var searchingNames: [RecipeDetail] = []
     private(set) var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
-    var downloadRecipes: [RecipeTest] = []
+    var downloadRecipes: [Recipe] = []
 
     static var recipes = [
         RecipeDetail(
@@ -202,8 +202,7 @@ final class CategoryPresenter {
             case let .success(recipes):
                 if let recipes = recipes {
                     for item in recipes.hits {
-                        self.downloadRecipes.append(RecipeTest(recipe: item.recipe))
-                        print(item.recipe.label)
+                        self.downloadRecipes.append(Recipe(recipe: item.recipe))
                     }
                 }
             case .failure:
