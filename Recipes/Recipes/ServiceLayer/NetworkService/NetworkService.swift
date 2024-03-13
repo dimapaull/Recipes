@@ -8,10 +8,14 @@ protocol NetworkServiceProtocol {
     /// Запрос рецептов по категории
     func getDishRecipe(
         categoryName: CategoryRecipeName,
+        searchSymbol: String?,
         completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()
     )
     /// Запрос рецепта по ссылке
-    func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ())
+    func getDetailRecipe(
+        uri: String,
+        completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()
+    )
 }
 
 /// Сервис для работы с сетью, запрашивает данные о рецептах
@@ -39,10 +43,10 @@ final class NetworkService: NetworkServiceProtocol {
     // MARK: - Public Methods
 
     func getDishRecipe(
-        categoryName: CategoryRecipeName,
+        categoryName: CategoryRecipeName, searchSymbol: String? = nil,
         completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()
     ) {
-        guard let url = createDishRecipeUrlComponent(categoryName).url else { return }
+        guard let url = createDishRecipeUrlComponent(categoryName, searchSymbol: searchSymbol).url else { return }
 
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
@@ -79,7 +83,10 @@ final class NetworkService: NetworkServiceProtocol {
 
     // MARK: - Private Methods
 
-    private func createDishRecipeUrlComponent(_ categoryName: CategoryRecipeName) -> URLComponents {
+    private func createDishRecipeUrlComponent(
+        _ categoryName: CategoryRecipeName,
+        searchSymbol: String?
+    ) -> URLComponents {
         var urlComponent = URLComponents()
         urlComponent.scheme = Constants.scheme
         urlComponent.host = Constants.host
@@ -109,7 +116,7 @@ final class NetworkService: NetworkServiceProtocol {
         if categoryName == .chicken || categoryName == .meat || categoryName == .fish {
             urlComponent.queryItems?.append(URLQueryItem(
                 name: Constants.qQueryItem,
-                value: categoryName.rawValue
+                value: searchSymbol == nil ? categoryName.rawValue : "\(categoryName.rawValue) \(searchSymbol ?? "")"
             ))
         }
         return urlComponent

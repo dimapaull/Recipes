@@ -206,7 +206,7 @@ final class CategoryPresenter {
                         print(item.recipe.label)
                     }
                 }
-            case let .failure(failure):
+            case .failure:
                 return
             }
         }
