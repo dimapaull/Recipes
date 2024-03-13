@@ -3,7 +3,9 @@
 
 import UIKit
 
-protocol RemovableControllerProtocol {
+/// Протокол для скрытия всплывающего экрана
+protocol RemovableControllerProtocol: AnyObject {
+    /// Функция удаления экрана
     func removeController()
 }
 
@@ -48,16 +50,9 @@ final class PolicyView: UIViewController {
         """
     }
 
-    var delegate: RemovableControllerProtocol?
+    weak var delegate: RemovableControllerProtocol?
 
     // MARK: - Visual Components
-
-    let handleArea = {
-        let view = UIView()
-        view.layer.cornerRadius = 26
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
 
     private let dieImageView = {
         let imageView = UIImageView()
@@ -89,6 +84,13 @@ final class PolicyView: UIViewController {
         button.addTarget(self, action: #selector(closeButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
+    }()
+
+    let handleArea = {
+        let view = UIView()
+        view.layer.cornerRadius = 26
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     // MARK: - Life Cycle

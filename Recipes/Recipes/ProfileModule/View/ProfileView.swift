@@ -42,6 +42,8 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
         static let navigationTitle = "Profile"
         static let titleSection = "Профиль"
         static let goToScreenText = "перешел на экран"
+        static let sixHundred = 600
+        static let twoHundredSixtyFive = 265
     }
 
     // MARK: - Visual Components
@@ -61,16 +63,20 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
 
     private let cellTypes: [CellTypes] = [.profileAvatar, .profileBonuses, .profilePolicy, .profileLogOut]
 
+    /// Состояния всплывающей плашки "PolicyView"
     private enum CardState {
+        /// Показана полностью
         case expanded
+        /// Показана наполовину
         case collapsed
+        /// Закрыта
         case closed
     }
 
-    private let cardHeight: CGFloat = 600
-    private let cardHandleAreaHeight: CGFloat = 265
-    private var cardViewController: PolicyView!
-    private var visualEffectView: UIVisualEffectView!
+    private let cardHeight = CGFloat(Constants.sixHundred)
+    private let cardHandleAreaHeight = CGFloat(Constants.twoHundredSixtyFive)
+    private var cardViewController: PolicyView?
+    private var visualEffectView: UIVisualEffectView?
     private var cardVisible = false
     private var nextState: CardState {
         cardVisible ? .collapsed : .expanded
@@ -85,6 +91,7 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
         super.viewDidLoad()
         setupTableView()
         configureUI()
+        tappedGestureRecognizer()
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.title = Constants.navigationTitle
     }
@@ -145,24 +152,26 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
     private func setupCard() {
         tabBarController?.tabBar.isHidden = true
         visualEffectView = UIVisualEffectView()
-        visualEffectView.frame = view.frame
-        view.addSubview(visualEffectView)
+        visualEffectView?.frame = view.frame
+        view.addSubview(visualEffectView ?? UIView())
 
         cardViewController = PolicyView()
-        cardViewController.delegate = self
+        cardViewController?.delegate = self
 
-        addChild(cardViewController)
-        view.addSubview(cardViewController.view)
+        addChild(cardViewController ?? UIViewController())
+        view.addSubview(cardViewController?.view ?? UIView())
 
-        cardViewController.view.frame = CGRect(
+        cardViewController?.view.frame = CGRect(
             x: 0,
             y: view.frame.height - cardHandleAreaHeight,
             width: view.bounds.width,
             height: cardHeight
         )
 
-        cardViewController.view.clipsToBounds = true
+        cardViewController?.view.clipsToBounds = true
+    }
 
+    private func tappedGestureRecognizer() {
         let tapGestureRecognizer = UITapGestureRecognizer(
             target: self,
             action: #selector(handleCardTap(recognzier:))
@@ -172,22 +181,23 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
             action: #selector(handleCardPan(recognizer:))
         )
 
-        cardViewController.handleArea.addGestureRecognizer(tapGestureRecognizer)
-        cardViewController.handleArea.addGestureRecognizer(panGestureRecognizer)
+        cardViewController?.handleArea.addGestureRecognizer(tapGestureRecognizer)
+        cardViewController?.handleArea.addGestureRecognizer(panGestureRecognizer)
     }
 
     private func animateTransitionIfNeeded(state: CardState, duration: TimeInterval) {
-        if runningAnimations.isEmpty {
+        guard runningAnimations.isEmpty else { return }
+        do {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight
+                    self.cardViewController?.view.frame.origin.y = self.view.frame.height - self.cardHeight
                 case .collapsed:
-                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
+                    self.cardViewController?.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
                 case .closed:
-                    self.cardViewController.view.frame.origin.y = self.view.frame.height - self.cardHeight + Constants
+                    self.cardViewController?.view.frame.origin.y = self.view.frame.height - self.cardHeight + Constants
                         .minimumContentView
-                    self.visualEffectView.removeFromSuperview()
+                    self.visualEffectView?.removeFromSuperview()
                 }
             }
 
@@ -202,9 +212,9 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) {
                 switch state {
                 case .expanded:
-                    self.cardViewController.view.layer.cornerRadius = 12
+                    self.cardViewController?.view.layer.cornerRadius = 12
                 case .collapsed:
-                    self.cardViewController.view.layer.cornerRadius = 0
+                    self.cardViewController?.view.layer.cornerRadius = 0
                 case .closed:
                     break
                 }
@@ -216,9 +226,9 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
             let blurAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                 case .expanded:
-                    self.visualEffectView.effect = UIBlurEffect(style: .dark)
+                    self.visualEffectView?.effect = UIBlurEffect(style: .dark)
                 case .collapsed:
-                    self.visualEffectView.effect = nil
+                    self.visualEffectView?.effect = nil
                 case .closed:
                     break
                 }
@@ -265,7 +275,7 @@ final class ProfileView: UIViewController, UINavigationControllerDelegate {
         case .began:
             startInteractiveTransition(state: nextState, duration: 0.9)
         case .changed:
-            let translation = recognizer.translation(in: cardViewController.handleArea)
+            let translation = recognizer.translation(in: cardViewController?.handleArea)
             var fractionComplete = translation.y / cardHeight
             fractionComplete = cardVisible ? fractionComplete : -fractionComplete
             updateInteractiveTransition(fractionCompleted: fractionComplete)

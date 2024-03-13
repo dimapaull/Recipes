@@ -9,7 +9,7 @@ final class CategoryViewCell: UITableViewCell {
 
     private enum Constants {
         static let timerRecipeImage = UIImage(named: "timerRecipeImage")
-        static let kalRecipeImage = UIImage(named: "kalRecipeImage")
+        static let caloryRecipeImage = UIImage(named: "kalRecipeImage")
         static let pointerImage = UIImage(named: "largePointer")
         static let verdanaSize14 = UIFont(name: "Verdana", size: 14)
         static let verdanaSize12 = UIFont(name: "Verdana", size: 12)
@@ -58,7 +58,7 @@ final class CategoryViewCell: UITableViewCell {
 
     private let caloriesRecipeImage = {
         let imageView = UIImageView()
-        imageView.image = Constants.kalRecipeImage
+        imageView.image = Constants.caloryRecipeImage
         return imageView
     }()
 

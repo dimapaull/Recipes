@@ -22,6 +22,9 @@ extension UIFont {
     /// Словарь для шрифтов
     static var fontStoreMap: [String: UIFont] = [:]
     /// Функция проверки цвета в словаре
+    /// - Parameter name: Название необходимого шрифта
+    /// - Parameter size: Размер необходимого шрифта
+    /// - Returns: Шрифт
     static func font(name: String, size: CGFloat) -> UIFont? {
         let keyFont = "\(name)\(size)"
         if let font = fontStoreMap[keyFont] {
