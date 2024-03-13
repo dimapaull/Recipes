@@ -3,8 +3,8 @@
 
 import UIKit
 
-/// Кнопка имеющая внутрение отступы
-final class AutoAddPaddingButtton: UIButton {
+/// Кнопка имеющая внутренние отступы
+final class AutoAddPaddingButton: UIButton {
     // MARK: - Constants
 
     private enum Constants {

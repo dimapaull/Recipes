@@ -25,7 +25,7 @@ final class FilterControlView: UIView {
         return stackView
     }()
 
-    private var filterButtons: [AutoAddPaddingButtton] = []
+    private var filterButtons: [AutoAddPaddingButton] = []
 
     // MARK: - Public Properties
 
@@ -55,7 +55,7 @@ final class FilterControlView: UIView {
         for item in 0 ..< countOfItems {
             let indexPath = IndexPath(row: item, section: 0)
             let title = dataSource?.filterControlTitle(self, indexPath: indexPath)
-            let button = AutoAddPaddingButtton()
+            let button = AutoAddPaddingButton()
             button.semanticContentAttribute = .forceRightToLeft
             button.layer.cornerRadius = 19
             button.backgroundColor = .appSoftGray
@@ -71,7 +71,7 @@ final class FilterControlView: UIView {
         addSubview(mainStackView)
     }
 
-    @objc private func filterButtonPressed(_ sender: AutoAddPaddingButtton) {
+    @objc private func filterButtonPressed(_ sender: AutoAddPaddingButton) {
         delagate?.choosedFilter(
             tag: sender.tag,
             completion: { [weak self] isPressed in

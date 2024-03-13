@@ -6,12 +6,19 @@ import Foundation
 /// Используется для описания сервиса запросов
 protocol NetworkServiceProtocol {
     /// Запрос рецептов по категории
+    /// - Parameters:
+    ///  - categoryName: Категория рецепта
+    ///  - searchSymbol: Символы вводимые в строке поиска
+    ///  - completionHandler: Замыкание, вызываемое после того, как будет завершен процесс запроса в сеть
     func getDishRecipe(
         categoryName: CategoryRecipeName,
         searchSymbol: String?,
         completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()
     )
     /// Запрос рецепта по ссылке
+    /// - Parameters:
+    ///  - uri: Ссылка на  детальный рецепт
+    ///  - completionHandler: Замыкание, вызываемое после того, как будет завершен процесс запроса в сеть
     func getDetailRecipe(
         uri: String,
         completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()

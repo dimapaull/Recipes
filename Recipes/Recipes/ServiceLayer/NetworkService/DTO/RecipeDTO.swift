@@ -9,7 +9,6 @@ struct RecipeDTO: Codable {
     let calories: Double
     let totalTime: Double
     let totalWeight: Double
-
     let totalNutrients: TotalNutrientsDTO
     let ingredientLines: [String]
 }

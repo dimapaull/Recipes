@@ -6,7 +6,7 @@ import UIKit
 protocol FavoritiesViewProtocol: AnyObject {
     /// Добавление таблицы на основное вью
     func setupTableView()
-    /// Удаление таблицы с освного вью
+    /// Удаление таблицы с основного вью
     func removeTableView()
     /// Добавление вью, которая указывает на то, что избранного еще нет
     func setupEmptyView()
