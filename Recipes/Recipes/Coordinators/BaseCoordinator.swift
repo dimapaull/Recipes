@@ -4,18 +4,18 @@
 import UIKit
 
 /// Базовый координатор
-class BaseCoodinator {
-    var childCoordinators: [BaseCoodinator] = []
+class BaseCoordinator {
+    var childCoordinators: [BaseCoordinator] = []
 
     func start() {
         print("child должен быть реализован")
     }
 
-    func add(coordinator: BaseCoodinator) {
+    func add(coordinator: BaseCoordinator) {
         childCoordinators.append(coordinator)
     }
 
-    func remove(coordinator: BaseCoodinator) {
+    func remove(coordinator: BaseCoordinator) {
         childCoordinators = childCoordinators.filter { $0 !== coordinator }
     }
 

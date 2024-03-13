@@ -3,16 +3,6 @@
 
 import Foundation
 
-/// Выбор категории рецептов
-enum CategoryRecipeName: String {
-    case salad = "Salad"
-    case soup = "Soup"
-    case mainCourse = "Main course"
-    case pancake = "Pancake"
-    case drinks = "Drinks"
-    case desserts = "Desserts"
-}
-
 /// Используется для описания сервиса запросов
 protocol NetworkServiceProtocol {
     /// Запрос рецептов по категории

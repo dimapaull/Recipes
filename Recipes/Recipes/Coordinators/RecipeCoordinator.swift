@@ -4,7 +4,7 @@
 import UIKit
 
 /// Координатор рецептов
-final class RecipeCoordinator: BaseCoodinator {
+final class RecipeCoordinator: BaseCoordinator {
     // MARK: - Public Properties
 
     var rootController: UINavigationController?

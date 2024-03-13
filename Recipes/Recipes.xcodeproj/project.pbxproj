@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0E238A032BA1269C009A2FFC /* CategoryRecipeName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E238A022BA1269C009A2FFC /* CategoryRecipeName.swift */; };
 		0E2DE64C2B8D4484007D448C /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE64B2B8D4484007D448C /* BaseCoordinator.swift */; };
 		0E2DE64E2B8D4513007D448C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE64D2B8D4513007D448C /* AppCoordinator.swift */; };
 		0E2DE6502B8D4595007D448C /* AuthorizationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE64F2B8D4595007D448C /* AuthorizationCoordinator.swift */; };
@@ -76,6 +77,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E238A022BA1269C009A2FFC /* CategoryRecipeName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryRecipeName.swift; sourceTree = "<group>"; };
 		0E2DE64B2B8D4484007D448C /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		0E2DE64D2B8D4513007D448C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0E2DE64F2B8D4595007D448C /* AuthorizationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinator.swift; sourceTree = "<group>"; };
@@ -157,6 +159,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0E238A012BA1262A009A2FFC /* NetworkService */ = {
+			isa = PBXGroup;
+			children = (
+				0E476ECB2B97C42900516AE8 /* DownloadState.swift */,
+				0EE8634C2BA0B48900DA8582 /* DishRecipeDTO.swift */,
+				0EE8634A2BA09E5300DA8582 /* NetworkService.swift */,
+				0E238A022BA1269C009A2FFC /* CategoryRecipeName.swift */,
+			);
+			path = NetworkService;
+			sourceTree = "<group>";
+		};
+		0E238A042BA126EA009A2FFC /* ValidateUserDataService */ = {
+			isa = PBXGroup;
+			children = (
+				0ED55CE42B8E4BA800197357 /* ValidateUserData.swift */,
+			);
+			path = ValidateUserDataService;
+			sourceTree = "<group>";
+		};
 		0E2DE64A2B8D4468007D448C /* Coordinators */ = {
 			isa = PBXGroup;
 			children = (
@@ -226,11 +247,11 @@
 		0E4F2C082B8CAB8400EDF359 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				0EE863492BA09E0E00DA8582 /* ServiceLayer */,
 				0E4F2C092B8CAB8400EDF359 /* AppDelegate.swift */,
 				0E4F2C0B2B8CAB8400EDF359 /* SceneDelegate.swift */,
 				0E4F2C342B8CE9AD00EDF359 /* MainModuleBuilder.swift */,
 				0E2DE65F2B8D5008007D448C /* MainTabBarViewController.swift */,
+				0EE863492BA09E0E00DA8582 /* ServiceLayer */,
 				0E2DE64A2B8D4468007D448C /* Coordinators */,
 				0E4F2C2C2B8CE8A400EDF359 /* AuthorizationModule */,
 				0E6FDB7D2B8DE8CD005A7D10 /* FavoritiesModule */,
@@ -429,10 +450,8 @@
 		0EE863492BA09E0E00DA8582 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				0ED55CE42B8E4BA800197357 /* ValidateUserData.swift */,
-				0EE8634C2BA0B48900DA8582 /* DishRecipeDTO.swift */,
-				0EE8634A2BA09E5300DA8582 /* NetworkService.swift */,
-				0E476ECB2B97C42900516AE8 /* DownloadState.swift */,
+				0E238A042BA126EA009A2FFC /* ValidateUserDataService */,
+				0E238A012BA1262A009A2FFC /* NetworkService */,
 				0E9DF2202B9AF87F00AEA718 /* UsersMemento */,
 				C4BDF79F2B9A2731001DC265 /* FileManagerService */,
 			);
@@ -641,6 +660,7 @@
 				C45B61E62B90FD7A00C80F92 /* RecipeCategoryViewCell.swift in Sources */,
 				C45B61D82B8E55DC00C80F92 /* LogOutTableViewCell.swift in Sources */,
 				C45B61EE2B91237400C80F92 /* FooterRecipeCategoryViewCell.swift in Sources */,
+				0E238A032BA1269C009A2FFC /* CategoryRecipeName.swift in Sources */,
 				0EE8634B2BA09E5300DA8582 /* NetworkService.swift in Sources */,
 				0E2DE6522B8D45A9007D448C /* ProfileCoordinator.swift in Sources */,
 				0E6B530E2B9924EE00F28B7D /* UsersManager.swift in Sources */,

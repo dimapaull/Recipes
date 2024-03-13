@@ -4,7 +4,7 @@
 import UIKit
 
 /// Координатор избранных рецептов
-final class FavoritiesCoordinator: BaseCoodinator {
+final class FavoritiesCoordinator: BaseCoordinator {
     // MARK: - Public Properties
 
     var rootController: UINavigationController?

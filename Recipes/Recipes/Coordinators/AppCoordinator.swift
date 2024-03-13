@@ -4,7 +4,7 @@
 import UIKit
 
 /// Главный координатор
-final class AppCoordinator: BaseCoodinator {
+final class AppCoordinator: BaseCoordinator {
     // MARK: - Constants
 
     private enum Constants {
