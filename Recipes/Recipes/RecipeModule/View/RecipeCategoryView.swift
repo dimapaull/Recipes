@@ -119,8 +119,9 @@ extension RecipeCategoryView: UICollectionViewDataSource {
 
 extension RecipeCategoryView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let titleCategory = presenter?.recipes[indexPath.row].recipeCategoryTitle else { return }
-        presenter?.chooseRecipe(title: titleCategory)
+        guard let titleCategory = presenter?.recipes[indexPath.row].categoryName else { return }
+        guard let backTitleCategory = presenter?.recipes[indexPath.row].recipeCategoryTitle else { return }
+        presenter?.chooseRecipe(title: titleCategory, backTitle: backTitleCategory)
     }
 }
 

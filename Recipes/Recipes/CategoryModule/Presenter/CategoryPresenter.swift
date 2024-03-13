@@ -52,13 +52,21 @@ final class CategoryPresenter {
     private weak var recipeCoordinator: RecipeCoordinator?
     private var downloadRecipe: DownloadRecipeProtocol?
     private var reseiver: FileManagerServiceProtocol?
+    private let categoryName: CategoryRecipeName
+    private let network = NetworkService()
 
     // MARK: - Initializers
 
-    init(view: CategoryViewProtocol, recipeCoordinator: RecipeCoordinator, downloadRecipe: DownloadRecipeProtocol) {
+    init(
+        view: CategoryViewProtocol,
+        recipeCoordinator: RecipeCoordinator,
+        downloadRecipe: DownloadRecipeProtocol,
+        categoryName: CategoryRecipeName
+    ) {
         self.downloadRecipe = downloadRecipe
         self.recipeCoordinator = recipeCoordinator
         self.view = view
+        self.categoryName = categoryName
         currentFilterState = .off
         downloadRecipe.startFetch()
         reseiver = FileManagerService.fileManagerService
@@ -68,6 +76,7 @@ final class CategoryPresenter {
 
     private var searchingNames: [RecipeDetail] = []
     private(set) var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
+    var downloadRecipes: [RecipeTest] = []
 
     static var recipes = [
         RecipeDetail(
@@ -168,7 +177,12 @@ final class CategoryPresenter {
     // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
-        recipeCoordinator?.pushRecipeDetailView(recipe: CategoryPresenter.recipes[section])
+        recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
+        if let recUri = downloadRecipes.first?.uri {
+            network.getDetailRecipe(uri: recUri) { result in
+                print(result)
+            }
+        }
     }
 
     func filtredRecipes(searchText: String) {
@@ -183,6 +197,21 @@ final class CategoryPresenter {
     }
 
     func updateView() {
+        network.getDishRecipe(categoryName: categoryName) { result in
+            switch result {
+            case let .success(recipes):
+                if let recipes = recipes {
+                    for item in recipes.hits {
+                        self.downloadRecipes.append(RecipeTest(recipe: item.recipe))
+                    }
+                    print(recipes.hits.first?.recipe.uri)
+                }
+
+            case let .failure(failure):
+                print(failure)
+            }
+        }
+
         downloadRecipe?.updateCell = { [weak self] viewData in
             self?.view?.updateCellState = viewData
         }

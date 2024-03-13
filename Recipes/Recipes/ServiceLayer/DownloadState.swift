@@ -9,6 +9,6 @@ enum DownloadState {
     case loading
     /// Загрузка прошла успешно
     case success
-    /// Загрузка была выполена неуспешно
+    /// Загрузка была выполнена неуспешно
     case failture
 }

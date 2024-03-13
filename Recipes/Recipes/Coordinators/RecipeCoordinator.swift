@@ -20,13 +20,13 @@ final class RecipeCoordinator: BaseCoodinator {
         onFinishFlow?()
     }
 
-    func pushCategoryView(title: String) {
+    func pushCategoryView(title: CategoryRecipeName, backTitle: String) {
         let categoryView = CategoryView()
-        categoryView.backNavigationTitle = title
+        categoryView.backNavigationTitle = backTitle
         let categoryPresenter = CategoryPresenter(
             view: categoryView,
             recipeCoordinator: self,
-            downloadRecipe: DownloadView()
+            downloadRecipe: DownloadView(), categoryName: title
         )
         categoryView.presenter = categoryPresenter
         rootController?.pushViewController(categoryView, animated: true)

@@ -56,13 +56,13 @@ final class CategoryViewCell: UITableViewCell {
         return label
     }()
 
-    private let kalRecipeImage = {
+    private let caloriesRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.kalRecipeImage
         return imageView
     }()
 
-    private let kalRecipeLabel = {
+    private let caloriesRecipeLabel = {
         let label = UILabel()
         label.clipsToBounds = true
         label.adjustsFontSizeToFitWidth = true
@@ -90,7 +90,7 @@ final class CategoryViewCell: UITableViewCell {
     }()
 
     private lazy var caloriesStackView = {
-        let stackView = UIStackView(arrangedSubviews: [kalRecipeImage, kalRecipeLabel])
+        let stackView = UIStackView(arrangedSubviews: [caloriesRecipeImage, caloriesRecipeLabel])
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.clipsToBounds = true
@@ -142,7 +142,7 @@ final class CategoryViewCell: UITableViewCell {
         photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
         titleRecipeLabel.text = info?.title
         timeRecipeLabel.text = "\(info?.cookingTime ?? 0) \(Constants.timeText)"
-        kalRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
+        caloriesRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
     }
 
     func showShimmers() {

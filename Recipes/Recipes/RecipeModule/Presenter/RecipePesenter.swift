@@ -22,15 +22,47 @@ final class RecipePresenter {
     // MARK: - Public Properties
 
     private(set) var recipes = [
-        RecipeCategory(recipeCategoryImage: "salad", recipeCategoryTitle: "Salad"),
-        RecipeCategory(recipeCategoryImage: "soup", recipeCategoryTitle: "Soup"),
-        RecipeCategory(recipeCategoryImage: "chicken", recipeCategoryTitle: "Chicken"),
-        RecipeCategory(recipeCategoryImage: "meat", recipeCategoryTitle: "Meat"),
-        RecipeCategory(recipeCategoryImage: "fish", recipeCategoryTitle: "Fish"),
-        RecipeCategory(recipeCategoryImage: "sidedish", recipeCategoryTitle: "Side dish"),
-        RecipeCategory(recipeCategoryImage: "drinks", recipeCategoryTitle: "Drinks"),
-        RecipeCategory(recipeCategoryImage: "pancakes", recipeCategoryTitle: "Pancake"),
-        RecipeCategory(recipeCategoryImage: "desserts", recipeCategoryTitle: "Desserts")
+        RecipeCategory(
+            recipeCategoryImage: "salad",
+            recipeCategoryTitle: "Salad",
+            categoryName: CategoryRecipeName.salad
+        ),
+        RecipeCategory(recipeCategoryImage: "soup", recipeCategoryTitle: "Soup", categoryName: CategoryRecipeName.soup),
+        RecipeCategory(
+            recipeCategoryImage: "chicken",
+            recipeCategoryTitle: "Chicken",
+            categoryName: CategoryRecipeName.mainCourse
+        ),
+        RecipeCategory(
+            recipeCategoryImage: "meat",
+            recipeCategoryTitle: "Meat",
+            categoryName: CategoryRecipeName.mainCourse
+        ),
+        RecipeCategory(
+            recipeCategoryImage: "fish",
+            recipeCategoryTitle: "Fish",
+            categoryName: CategoryRecipeName.mainCourse
+        ),
+        RecipeCategory(
+            recipeCategoryImage: "sidedish",
+            recipeCategoryTitle: "Side dish",
+            categoryName: CategoryRecipeName.mainCourse
+        ),
+        RecipeCategory(
+            recipeCategoryImage: "drinks",
+            recipeCategoryTitle: "Drinks",
+            categoryName: CategoryRecipeName.drinks
+        ),
+        RecipeCategory(
+            recipeCategoryImage: "pancakes",
+            recipeCategoryTitle: "Pancake",
+            categoryName: CategoryRecipeName.pancake
+        ),
+        RecipeCategory(
+            recipeCategoryImage: "desserts",
+            recipeCategoryTitle: "Desserts",
+            categoryName: CategoryRecipeName.desserts
+        )
     ]
 
     // MARK: - Public Methods
@@ -39,7 +71,7 @@ final class RecipePresenter {
         reseiver?.setTitleSection(nameSection: titleSection)
     }
 
-    func chooseRecipe(title: String) {
-        recipeCoordinator?.pushCategoryView(title: title)
+    func chooseRecipe(title: CategoryRecipeName, backTitle: String) {
+        recipeCoordinator?.pushCategoryView(title: title, backTitle: backTitle)
     }
 }
