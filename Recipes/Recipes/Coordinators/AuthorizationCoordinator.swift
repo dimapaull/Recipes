@@ -4,7 +4,7 @@
 import UIKit
 
 /// Координатор авторизации
-final class AuthorizationCoordinator: BaseCoodinator {
+final class AuthorizationCoordinator: BaseCoordinator {
     // MARK: - Public Properties
 
     var rootController: UINavigationController?

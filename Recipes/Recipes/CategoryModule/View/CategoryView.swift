@@ -75,7 +75,7 @@ final class CategoryView: UIViewController {
         tabBarController?.tabBar.isHidden = true
         configureUI()
         configureNavigationBar()
-        presenter?.updateView()
+        presenter?.getDishRecipe()
     }
 
     override func viewWillAppear(_ animated: Bool) {

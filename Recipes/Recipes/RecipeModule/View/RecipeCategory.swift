@@ -7,4 +7,6 @@ struct RecipeCategory {
     let recipeCategoryImage: String
     /// Название категории
     let recipeCategoryTitle: String
+    /// Перечисление категории
+    let categoryName: CategoryRecipeName
 }

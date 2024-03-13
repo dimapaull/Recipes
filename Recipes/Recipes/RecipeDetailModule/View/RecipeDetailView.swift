@@ -84,7 +84,7 @@ final class RecipeDetailView: UIViewController {
         shareButtonImage.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(shareButtonImageTapped))
         )
-        var bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
+        let bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
         bookmarkButtonImage.isUserInteractionEnabled = true
         bookmarkButtonImage.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(bookmarkButtonImageTapped))

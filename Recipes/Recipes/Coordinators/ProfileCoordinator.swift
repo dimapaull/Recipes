@@ -4,7 +4,7 @@
 import UIKit
 
 /// Координатор профиля
-final class ProfileCoordinator: BaseCoodinator {
+final class ProfileCoordinator: BaseCoordinator {
     // MARK: - Public Properties
 
     var rootController: UINavigationController?

@@ -52,13 +52,23 @@ final class CategoryPresenter {
     private weak var recipeCoordinator: RecipeCoordinator?
     private var downloadRecipe: DownloadRecipeProtocol?
     private var reseiver: FileManagerServiceProtocol?
+    private let categoryName: CategoryRecipeName
+    private let networkService: NetworkServiceProtocol?
 
     // MARK: - Initializers
 
-    init(view: CategoryViewProtocol, recipeCoordinator: RecipeCoordinator, downloadRecipe: DownloadRecipeProtocol) {
+    init(
+        view: CategoryViewProtocol,
+        recipeCoordinator: RecipeCoordinator,
+        downloadRecipe: DownloadRecipeProtocol,
+        categoryName: CategoryRecipeName,
+        networkService: NetworkServiceProtocol
+    ) {
         self.downloadRecipe = downloadRecipe
         self.recipeCoordinator = recipeCoordinator
         self.view = view
+        self.categoryName = categoryName
+        self.networkService = networkService
         currentFilterState = .off
         downloadRecipe.startFetch()
         reseiver = FileManagerService.fileManagerService
@@ -68,6 +78,7 @@ final class CategoryPresenter {
 
     private var searchingNames: [RecipeDetail] = []
     private(set) var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
+    var downloadRecipes: [Recipe] = []
 
     static var recipes = [
         RecipeDetail(
@@ -168,7 +179,17 @@ final class CategoryPresenter {
     // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
-        recipeCoordinator?.pushRecipeDetailView(recipe: CategoryPresenter.recipes[section])
+        recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
+        if let recipeUri = downloadRecipes.first?.uri {
+            networkService?.getDetailRecipe(uri: recipeUri) { result in
+                switch result {
+                case let .success(success):
+                    print(success)
+                case let .failure(failure):
+                    print(failure)
+                }
+            }
+        }
     }
 
     func filtredRecipes(searchText: String) {
@@ -182,7 +203,17 @@ final class CategoryPresenter {
         view?.reloadTable()
     }
 
-    func updateView() {
+    func getDishRecipe() {
+        networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: nil) { result in
+            switch result {
+            case let .success(recipes):
+                self.downloadRecipes = recipes
+                print(recipes)
+            case .failure:
+                return
+            }
+        }
+
         downloadRecipe?.updateCell = { [weak self] viewData in
             self?.view?.updateCellState = viewData
         }

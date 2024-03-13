@@ -9,7 +9,7 @@ final class CategoryViewCell: UITableViewCell {
 
     private enum Constants {
         static let timerRecipeImage = UIImage(named: "timerRecipeImage")
-        static let kalRecipeImage = UIImage(named: "kalRecipeImage")
+        static let caloryRecipeImage = UIImage(named: "kalRecipeImage")
         static let pointerImage = UIImage(named: "largePointer")
         static let verdanaSize14 = UIFont(name: "Verdana", size: 14)
         static let verdanaSize12 = UIFont(name: "Verdana", size: 12)
@@ -56,13 +56,13 @@ final class CategoryViewCell: UITableViewCell {
         return label
     }()
 
-    private let kalRecipeImage = {
+    private let caloriesRecipeImageView = {
         let imageView = UIImageView()
-        imageView.image = Constants.kalRecipeImage
+        imageView.image = Constants.caloryRecipeImage
         return imageView
     }()
 
-    private let kalRecipeLabel = {
+    private let caloriesRecipeLabel = {
         let label = UILabel()
         label.clipsToBounds = true
         label.adjustsFontSizeToFitWidth = true
@@ -90,7 +90,7 @@ final class CategoryViewCell: UITableViewCell {
     }()
 
     private lazy var caloriesStackView = {
-        let stackView = UIStackView(arrangedSubviews: [kalRecipeImage, kalRecipeLabel])
+        let stackView = UIStackView(arrangedSubviews: [caloriesRecipeImageView, caloriesRecipeLabel])
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.clipsToBounds = true
@@ -142,7 +142,7 @@ final class CategoryViewCell: UITableViewCell {
         photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
         titleRecipeLabel.text = info?.title
         timeRecipeLabel.text = "\(info?.cookingTime ?? 0) \(Constants.timeText)"
-        kalRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
+        caloriesRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
     }
 
     func showShimmers() {
