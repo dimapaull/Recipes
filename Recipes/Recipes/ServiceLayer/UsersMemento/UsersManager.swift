@@ -3,7 +3,7 @@
 
 import Foundation
 
-/// Менеджер храниилища
+/// Менеджер хранилища
 final class UsersManager {
     // MARK: - Types
 

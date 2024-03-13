@@ -204,7 +204,6 @@ final class CategoryPresenter {
                     for item in recipes.hits {
                         self.downloadRecipes.append(RecipeTest(recipe: item.recipe))
                     }
-                    print(recipes.hits.first?.recipe.uri)
                 }
 
             case let .failure(failure):

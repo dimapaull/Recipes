@@ -21,17 +21,14 @@ final class FileManagerService {
         do {
             try manager.createDirectory(at: newFolderUrl, withIntermediateDirectories: true, attributes: [:])
         } catch {
-            print(error)
+            return
         }
 
         do {
             let fileURL = newFolderUrl.appendingPathComponent("logs.txt")
             try "\(text)".write(to: fileURL, atomically: true, encoding: .utf8)
-
-            let content = try String(contentsOf: fileURL)
-            print(content)
         } catch {
-            print("Error: \(error)")
+            return
         }
     }
 }

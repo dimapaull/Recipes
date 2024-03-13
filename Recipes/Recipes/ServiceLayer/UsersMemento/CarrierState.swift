@@ -8,8 +8,6 @@ final class CarrierState {
     var state: RegisteredUsersMemento?
     var usersManager: UsersManager
 
-    // MARK: - Private Properties
-
     // MARK: - Initializers
 
     init(usersManager: UsersManager) {

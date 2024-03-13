@@ -4,17 +4,17 @@
 import Foundation
 
 /// Объект передачи данных списка рецептов
-struct RecipeListDTO: Decodable {
+struct RecipeListDTO: Codable {
     let hits: [DishRecipeDTO]
 }
 
 /// Объект передачи данных рецепта
-struct DishRecipeDTO: Decodable {
+struct DishRecipeDTO: Codable {
     let recipe: RecipeDTO
 }
 
 /// Объект передачи данных рецепта детального
-struct RecipeDTO: Decodable {
+struct RecipeDTO: Codable {
     let uri: String
     let label: String
     let image: String
@@ -27,7 +27,7 @@ struct RecipeDTO: Decodable {
 }
 
 /// Объект передачи описания рецепта
-struct TotalNutrients: Decodable {
+struct TotalNutrients: Codable {
     let energyCalories: MeasuredCalories?
     let carb: MeasuredGrams?
     let fat: MeasuredGrams?
@@ -47,6 +47,14 @@ struct TotalNutrients: Decodable {
         fat = try? container.decode(MeasuredGrams.self, forKey: .fatGram)
         protein = try? container.decode(MeasuredGrams.self, forKey: .protein)
     }
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(energyCalories, forKey: .energyCalories)
+        try container.encode(carb, forKey: .carbGram)
+        try container.encode(fat, forKey: .fatGram)
+        try container.encode(protein, forKey: .protein)
+    }
 }
 
 /// Объект передачи данных калорий
@@ -59,16 +67,23 @@ struct MeasuredGrams: Codable {
     let quantity: Double
 }
 
-/// Объект полученный в ходе десериализации
+/// Объект получаемый в ходе десериализации
 final class RecipeTest {
-    let label: String
+    // MARK: - Public Properties
+
     let uri: String
-    let image: String
-    let calories: Double
-    let totalTime: Double
-    let totalWeight: Double
-    let totalNutrients: TotalNutrients
-    let ingredientLines: [String]
+
+    // MARK: - Private Properties
+
+    private let label: String
+    private let image: String
+    private let calories: Double
+    private let totalTime: Double
+    private let totalWeight: Double
+    private let totalNutrients: TotalNutrients
+    private let ingredientLines: [String]
+
+    // MARK: - Initializers
 
     init(recipe: RecipeDTO) {
         label = recipe.label
