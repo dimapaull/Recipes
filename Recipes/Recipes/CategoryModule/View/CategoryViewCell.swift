@@ -14,20 +14,20 @@ final class CategoryViewCell: UITableViewCell {
         static let verdanaSize14 = UIFont(name: "Verdana", size: 14)
         static let verdanaSize12 = UIFont(name: "Verdana", size: 12)
         static let timeText = "min"
-        static let foodSuplyText = "kkal"
-        static let protoRecipeCornerRadius = 12.0
-        static let titleRecipeLinesCount = 2
-        static let beginAnimationtimeOffset = 0.33
+        static let foodSuplyText = "kcal"
+        static let photoRecipeCornerRadius = 12.0
+        static let titleRecipeLinesCount = 3
+        static let beginAnimationTimeOffset = 0.33
     }
 
     // MARK: - Visual Components
 
-    private let photoRecipeImage = {
+    private var photoRecipeImage = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.backgroundColor = .red
-        imageView.layer.cornerRadius = Constants.protoRecipeCornerRadius
+        imageView.layer.cornerRadius = Constants.photoRecipeCornerRadius
         return imageView
     }()
 
@@ -80,7 +80,7 @@ final class CategoryViewCell: UITableViewCell {
 
     private lazy var timeStackView = {
         let stackView = UIStackView(arrangedSubviews: [timerRecipeImage, timeRecipeLabel])
-        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 10)
+        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.clipsToBounds = true
         stackView.distribution = .equalSpacing
@@ -103,13 +103,13 @@ final class CategoryViewCell: UITableViewCell {
 
     private lazy var imageViewGradientLayer = createGradientLayer()
     private lazy var titleLabelGradientLayer = createGradientLayer()
-    private lazy var timeStackViewlGradientLayer = createGradientLayer()
+    private lazy var timeStackViewGradientLayer = createGradientLayer()
     private lazy var caloriesStackViewGradientLayer = createGradientLayer()
 
     private lazy var gradientLayers = [
         imageViewGradientLayer,
         titleLabelGradientLayer,
-        timeStackViewlGradientLayer,
+        timeStackViewGradientLayer,
         caloriesStackViewGradientLayer
     ]
 
@@ -132,21 +132,21 @@ final class CategoryViewCell: UITableViewCell {
         super.layoutSubviews()
         imageViewGradientLayer.frame = contentView.bounds
         titleLabelGradientLayer.frame = contentView.bounds
-        timeStackViewlGradientLayer.frame = contentView.bounds
+        timeStackViewGradientLayer.frame = contentView.bounds
         caloriesStackViewGradientLayer.frame = contentView.bounds
     }
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetail?) {
-        photoRecipeImage.image = UIImage(named: info?.imageName ?? "")
-        titleRecipeLabel.text = info?.title
-        timeRecipeLabel.text = "\(info?.cookingTime ?? 0) \(Constants.timeText)"
-        caloriesRecipeLabel.text = "\(info?.kilocalories ?? 0) \(Constants.foodSuplyText)"
+    func configureCell(info: Recipe?) {
+        setupImage(info?.image)
+        titleRecipeLabel.text = info?.label
+        timeRecipeLabel.text = "\(Int(info?.totalTime ?? 0)) \(Constants.timeText)"
+        caloriesRecipeLabel.text = "\(Int(info?.calories ?? 0)) \(Constants.foodSuplyText)"
     }
 
     func showShimmers() {
-        setupIamgeViewShimmer()
+        setupImageViewShimmer()
         setupTitleLabelShimmer()
         setupTimeStackViewShimmer()
         setupCaloriesStackViewShimmer()
@@ -158,6 +158,20 @@ final class CategoryViewCell: UITableViewCell {
 
     // MARK: - Private Methods
 
+    private func setupImage(_ url: String?) {
+        guard let imageUrl = url else { return }
+        NetworkService.downLoadImage(imageUrl) { result in
+            switch result {
+            case let .success(success):
+                DispatchQueue.main.async {
+                    self.photoRecipeImage.image = success
+                }
+            case .failure:
+                break
+            }
+        }
+    }
+
     private func configureUI() {
         contentView.backgroundColor = .white
         contentView.clipsToBounds = true
@@ -165,7 +179,7 @@ final class CategoryViewCell: UITableViewCell {
         setupConstraints()
     }
 
-    private func setupIamgeViewShimmer() {
+    private func setupImageViewShimmer() {
         photoRecipeImage.layer.addSublayer(imageViewGradientLayer)
         let animationGroup = createAnimationGroup()
         animationGroup.beginTime = 0.0
@@ -180,10 +194,10 @@ final class CategoryViewCell: UITableViewCell {
     }
 
     private func setupTimeStackViewShimmer() {
-        timeStackView.layer.addSublayer(timeStackViewlGradientLayer)
+        timeStackView.layer.addSublayer(timeStackViewGradientLayer)
         let animationGroup = createAnimationGroup()
         animationGroup.beginTime = 0.0
-        timeStackViewlGradientLayer.add(animationGroup, forKey: animationGroup.keyPath)
+        timeStackViewGradientLayer.add(animationGroup, forKey: animationGroup.keyPath)
     }
 
     private func setupCaloriesStackViewShimmer() {
@@ -268,7 +282,7 @@ final class CategoryViewCell: UITableViewCell {
         basicAnimation.repeatCount = .infinity
 
         if let previousGroup = previousGroup {
-            basicAnimation.beginTime = previousGroup.beginTime + Constants.beginAnimationtimeOffset
+            basicAnimation.beginTime = previousGroup.beginTime + Constants.beginAnimationTimeOffset
         }
 
         return basicAnimation
