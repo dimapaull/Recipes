@@ -198,15 +198,11 @@ final class CategoryPresenter {
         view?.reloadTable()
     }
 
-    func updateView() {
-        networkService?.getDishRecipe(categoryName: categoryName, searchSymbol: nil) { result in
+    func getDishRecipe() {
+        networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: nil) { result in
             switch result {
             case let .success(recipes):
-                if let recipes = recipes {
-                    for item in recipes.hits {
-                        self.downloadRecipes.append(Recipe(recipe: item.recipe))
-                    }
-                }
+                self.downloadRecipes = recipes
             case .failure:
                 return
             }

@@ -3,5 +3,6 @@
 
 /// Объект передачи данных граммов
 struct MeasuredGramsDTO: Codable {
+    /// Количество
     let quantity: Double
 }

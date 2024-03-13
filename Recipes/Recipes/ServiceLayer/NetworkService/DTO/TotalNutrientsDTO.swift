@@ -3,9 +3,13 @@
 
 /// Объект передачи описания рецепта
 struct TotalNutrientsDTO: Codable {
+    /// Калории
     let energyCalories: MeasuredCaloriesDTO?
+    /// Углеводы
     let carb: MeasuredGramsDTO?
+    /// Жиры
     let fat: MeasuredGramsDTO?
+    /// Белки
     let protein: MeasuredGramsDTO?
 
     enum CodingKeys: String, CodingKey {

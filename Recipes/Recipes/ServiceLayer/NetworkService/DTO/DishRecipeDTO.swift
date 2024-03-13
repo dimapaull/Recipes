@@ -3,5 +3,6 @@
 
 /// Объект передачи данных рецепта
 struct DishRecipeDTO: Codable {
+    /// Рецепт
     let recipe: RecipeDTO
 }

@@ -10,10 +10,10 @@ protocol NetworkServiceProtocol {
     ///  - categoryName: Категория рецепта
     ///  - searchSymbol: Символы вводимые в строке поиска
     ///  - completionHandler: Замыкание, вызываемое после того, как будет завершен процесс запроса в сеть
-    func getDishRecipe(
+    func getDishRecipes(
         categoryName: CategoryRecipeName,
         searchSymbol: String?,
-        completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()
+        completionHandler: @escaping (Result<[Recipe], Error>) -> ()
     )
     /// Запрос рецепта по ссылке
     /// - Parameters:
@@ -21,7 +21,7 @@ protocol NetworkServiceProtocol {
     ///  - completionHandler: Замыкание, вызываемое после того, как будет завершен процесс запроса в сеть
     func getDetailRecipe(
         uri: String,
-        completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()
+        completionHandler: @escaping (Result<RecipeDetailTest, Error>) -> ()
     )
 }
 
@@ -49,9 +49,10 @@ final class NetworkService: NetworkServiceProtocol {
 
     // MARK: - Public Methods
 
-    func getDishRecipe(
-        categoryName: CategoryRecipeName, searchSymbol: String? = nil,
-        completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()
+    func getDishRecipes(
+        categoryName: CategoryRecipeName, 
+        searchSymbol: String? = nil,
+        completionHandler: @escaping (Result<[Recipe], Error>) -> ()
     ) {
         guard let url = createDishRecipeUrlComponent(categoryName, searchSymbol: searchSymbol).url else { return }
 
@@ -62,7 +63,8 @@ final class NetworkService: NetworkServiceProtocol {
             } else if let data = data {
                 do {
                     let obj = try JSONDecoder().decode(RecipeListDTO.self, from: data)
-                    completionHandler(.success(obj))
+                    let recipes = obj.hits.map { Recipe(dto: $0.recipe) }
+                    completionHandler(.success(recipes))
                 } catch {
                     completionHandler(.failure(error))
                 }
@@ -70,7 +72,7 @@ final class NetworkService: NetworkServiceProtocol {
         }.resume()
     }
 
-    func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeListDTO?, Error>) -> ()) {
+    func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeDetailTest, Error>) -> ()) {
         guard let url = createDetailRecipeUrlComponent(uri).url else { return }
 
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
@@ -80,7 +82,8 @@ final class NetworkService: NetworkServiceProtocol {
             } else if let data = data {
                 do {
                     let obj = try JSONDecoder().decode(RecipeListDTO.self, from: data)
-                    completionHandler(.success(obj))
+                    guard let recipe = obj.hits.map({ $0.recipe }).first else { return }
+                    completionHandler(.success(RecipeDetailTest(dto: recipe)))
                 } catch {
                     completionHandler(.failure(error))
                 }

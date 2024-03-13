@@ -3,5 +3,6 @@
 
 /// Объект передачи данных калорий
 struct MeasuredCaloriesDTO: Codable {
+    /// Количество
     let quantity: Double
 }

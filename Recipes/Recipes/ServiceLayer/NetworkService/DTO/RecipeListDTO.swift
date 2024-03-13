@@ -3,5 +3,6 @@
 
 /// Объект передачи данных списка рецептов
 struct RecipeListDTO: Codable {
+    /// Рецепты
     let hits: [DishRecipeDTO]
 }

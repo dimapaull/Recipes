@@ -56,7 +56,7 @@ final class CategoryViewCell: UITableViewCell {
         return label
     }()
 
-    private let caloriesRecipeImage = {
+    private let caloriesRecipeImageView = {
         let imageView = UIImageView()
         imageView.image = Constants.caloryRecipeImage
         return imageView
@@ -90,7 +90,7 @@ final class CategoryViewCell: UITableViewCell {
     }()
 
     private lazy var caloriesStackView = {
-        let stackView = UIStackView(arrangedSubviews: [caloriesRecipeImage, caloriesRecipeLabel])
+        let stackView = UIStackView(arrangedSubviews: [caloriesRecipeImageView, caloriesRecipeLabel])
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.clipsToBounds = true
