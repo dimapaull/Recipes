@@ -10,6 +10,7 @@ final class RecipeDetailPresenter {
     private weak var view: RecipeDetailViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
     private var reseiver: FileManagerServiceProtocol?
+    private var networkService: NetworkServiceProtocol?
 
     // MARK: - Public Properties
 
@@ -21,6 +22,7 @@ final class RecipeDetailPresenter {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
         reseiver = FileManagerService.fileManagerService
+        networkService = NetworkService()
     }
 
     func textTitleSection(titleSection: String) {
@@ -31,4 +33,6 @@ final class RecipeDetailPresenter {
         guard let recipeDetailInfo = recipeDetailInfo else { return }
         FavouriteRecipes.shared.updateFavouriteRecipe(recipeDetailInfo)
     }
+
+    func updateDataRecipeDetail() {}
 }

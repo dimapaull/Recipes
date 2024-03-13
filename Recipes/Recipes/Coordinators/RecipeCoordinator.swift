@@ -6,7 +6,7 @@ import UIKit
 /// Координатор рецептов
 final class RecipeCoordinator: BaseCoordinator {
     private let networkService = NetworkService()
-    
+
     // MARK: - Public Properties
 
     var rootController: UINavigationController?
@@ -25,7 +25,7 @@ final class RecipeCoordinator: BaseCoordinator {
     func pushCategoryView(title: CategoryRecipeName, backTitle: String) {
         let categoryView = CategoryView()
         categoryView.backNavigationTitle = backTitle
-       
+
         let categoryPresenter = CategoryPresenter(
             view: categoryView,
             recipeCoordinator: self,
