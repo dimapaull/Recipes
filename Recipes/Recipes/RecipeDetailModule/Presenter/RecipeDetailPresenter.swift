@@ -16,7 +16,7 @@ final class RecipeDetailPresenter {
     var recipeDetailInfo: RecipeDetail?
 
     // MARK: - Initializers
-//
+
     required init(view: RecipeDetailViewProtocol, recipeCoordinator: RecipeCoordinator) {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
