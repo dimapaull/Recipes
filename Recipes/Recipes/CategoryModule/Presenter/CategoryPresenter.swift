@@ -53,7 +53,7 @@ final class CategoryPresenter {
     private var downloadRecipe: DownloadRecipeProtocol?
     private var reseiver: FileManagerServiceProtocol?
     private let categoryName: CategoryRecipeName
-    private let network = NetworkService()
+    private let networkService: NetworkServiceProtocol?
 
     // MARK: - Initializers
 
@@ -61,12 +61,14 @@ final class CategoryPresenter {
         view: CategoryViewProtocol,
         recipeCoordinator: RecipeCoordinator,
         downloadRecipe: DownloadRecipeProtocol,
-        categoryName: CategoryRecipeName
+        categoryName: CategoryRecipeName,
+        networkService: NetworkServiceProtocol
     ) {
         self.downloadRecipe = downloadRecipe
         self.recipeCoordinator = recipeCoordinator
         self.view = view
         self.categoryName = categoryName
+        self.networkService = networkService
         currentFilterState = .off
         downloadRecipe.startFetch()
         reseiver = FileManagerService.fileManagerService
@@ -179,7 +181,7 @@ final class CategoryPresenter {
     func selectionRow(in section: Int) {
         recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
         if let recipeUri = downloadRecipes.first?.uri {
-            network.getDetailRecipe(uri: recipeUri) { result in
+            networkService?.getDetailRecipe(uri: recipeUri) { result in
                 print(result)
             }
         }
@@ -197,7 +199,7 @@ final class CategoryPresenter {
     }
 
     func updateView() {
-        network.getDishRecipe(categoryName: categoryName) { result in
+        networkService?.getDishRecipe(categoryName: categoryName, searchSymbol: nil) { result in
             switch result {
             case let .success(recipes):
                 if let recipes = recipes {
