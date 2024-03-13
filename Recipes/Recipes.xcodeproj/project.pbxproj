@@ -14,7 +14,7 @@
 		0E238A0C2BA1BC65009A2FFC /* MeasuredCaloriesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E238A0B2BA1BC65009A2FFC /* MeasuredCaloriesDTO.swift */; };
 		0E238A0E2BA1BC7B009A2FFC /* MeasuredGramsDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E238A0D2BA1BC7B009A2FFC /* MeasuredGramsDTO.swift */; };
 		0E238A102BA1BCB4009A2FFC /* Recipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E238A0F2BA1BCB4009A2FFC /* Recipe.swift */; };
-		0E238A132BA208B5009A2FFC /* RecipeDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E238A122BA208B5009A2FFC /* RecipeDetail.swift */; };
+		0E238A132BA208B5009A2FFC /* RecipeDetailTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E238A122BA208B5009A2FFC /* RecipeDetailTest.swift */; };
 		0E2DE64C2B8D4484007D448C /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE64B2B8D4484007D448C /* BaseCoordinator.swift */; };
 		0E2DE64E2B8D4513007D448C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE64D2B8D4513007D448C /* AppCoordinator.swift */; };
 		0E2DE6502B8D4595007D448C /* AuthorizationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE64F2B8D4595007D448C /* AuthorizationCoordinator.swift */; };
@@ -91,7 +91,7 @@
 		0E238A0B2BA1BC65009A2FFC /* MeasuredCaloriesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasuredCaloriesDTO.swift; sourceTree = "<group>"; };
 		0E238A0D2BA1BC7B009A2FFC /* MeasuredGramsDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasuredGramsDTO.swift; sourceTree = "<group>"; };
 		0E238A0F2BA1BCB4009A2FFC /* Recipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recipe.swift; sourceTree = "<group>"; };
-		0E238A122BA208B5009A2FFC /* RecipeDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetail.swift; sourceTree = "<group>"; };
+		0E238A122BA208B5009A2FFC /* RecipeDetailTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailTest.swift; sourceTree = "<group>"; };
 		0E2DE64B2B8D4484007D448C /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		0E2DE64D2B8D4513007D448C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		0E2DE64F2B8D4595007D448C /* AuthorizationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinator.swift; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 				0EE8634A2BA09E5300DA8582 /* NetworkService.swift */,
 				0E238A022BA1269C009A2FFC /* CategoryRecipeName.swift */,
 				0E238A0F2BA1BCB4009A2FFC /* Recipe.swift */,
-				0E238A122BA208B5009A2FFC /* RecipeDetail.swift */,
+				0E238A122BA208B5009A2FFC /* RecipeDetailTest.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -719,7 +719,7 @@
 				C465B0942B935293005D3FE8 /* RecipeDetailView.swift in Sources */,
 				C465B0902B934FFE005D3FE8 /* RecipeDetailPresenter.swift in Sources */,
 				0E744DF62B90C55B00EF101F /* AutoPaddingButton.swift in Sources */,
-				0E238A132BA208B5009A2FFC /* RecipeDetail.swift in Sources */,
+				0E238A132BA208B5009A2FFC /* RecipeDetailTest.swift in Sources */,
 				0ED55CE52B8E4BA800197357 /* ValidateUserData.swift in Sources */,
 				C465B08E2B934C8A005D3FE8 /* RecipeDetail.swift in Sources */,
 				0E6FDB862B8DE9BD005A7D10 /* FavoritiesCoordinator.swift in Sources */,

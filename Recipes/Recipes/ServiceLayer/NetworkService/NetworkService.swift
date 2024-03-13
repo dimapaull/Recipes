@@ -50,7 +50,7 @@ final class NetworkService: NetworkServiceProtocol {
     // MARK: - Public Methods
 
     func getDishRecipes(
-        categoryName: CategoryRecipeName, 
+        categoryName: CategoryRecipeName,
         searchSymbol: String? = nil,
         completionHandler: @escaping (Result<[Recipe], Error>) -> ()
     ) {
@@ -82,7 +82,7 @@ final class NetworkService: NetworkServiceProtocol {
             } else if let data = data {
                 do {
                     let obj = try JSONDecoder().decode(RecipeListDTO.self, from: data)
-                    guard let recipe = obj.hits.map({ $0.recipe }).first else { return }
+                    guard let recipe = obj.hits.map(\.recipe).first else { return }
                     completionHandler(.success(RecipeDetailTest(dto: recipe)))
                 } catch {
                     completionHandler(.failure(error))

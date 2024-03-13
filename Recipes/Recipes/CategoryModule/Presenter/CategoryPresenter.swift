@@ -182,7 +182,12 @@ final class CategoryPresenter {
         recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
         if let recipeUri = downloadRecipes.first?.uri {
             networkService?.getDetailRecipe(uri: recipeUri) { result in
-                print(result)
+                switch result {
+                case let .success(success):
+                    print(success)
+                case let .failure(failure):
+                    print(failure)
+                }
             }
         }
     }
@@ -203,6 +208,7 @@ final class CategoryPresenter {
             switch result {
             case let .success(recipes):
                 self.downloadRecipes = recipes
+                print(recipes)
             case .failure:
                 return
             }

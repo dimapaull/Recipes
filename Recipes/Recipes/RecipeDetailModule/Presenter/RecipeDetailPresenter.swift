@@ -30,6 +30,5 @@ final class RecipeDetailPresenter {
     func addFavouriteRecipe() {
         guard let recipeDetailInfo = recipeDetailInfo else { return }
         FavouriteRecipes.shared.updateFavouriteRecipe(recipeDetailInfo)
-        print(FavouriteRecipes.shared.recipes)
     }
 }

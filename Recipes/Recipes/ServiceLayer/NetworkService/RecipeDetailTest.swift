@@ -1,9 +1,5 @@
-//
-//  RecipeDetail.swift
-//  Recipes
-//
-//  Created by Dmitry Pavlov on 13.03.24.
-//
+// RecipeDetailTest.swift
+// Copyright © RoadMap. All rights reserved.
 
 final class RecipeDetailTest {
     private let label: String
