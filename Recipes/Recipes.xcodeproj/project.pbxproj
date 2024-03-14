@@ -51,6 +51,7 @@
 		0E6FDB8E2B8E18E0005A7D10 /* Verdana.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0E6FDB892B8E18D6005A7D10 /* Verdana.ttf */; };
 		0E6FDB922B8E19C5005A7D10 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E6FDB912B8E19C5005A7D10 /* UIFont+Extension.swift */; };
 		0E744DF62B90C55B00EF101F /* AutoPaddingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E744DF52B90C55B00EF101F /* AutoPaddingButton.swift */; };
+		0E7793DD2BA350F50088FE6B /* Proxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E7793DC2BA350F50088FE6B /* Proxy.swift */; };
 		0EAC5B892B8E956A000108E2 /* PaddingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC5B882B8E956A000108E2 /* PaddingLabel.swift */; };
 		0EAC5B8B2B8EAA71000108E2 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC5B8A2B8EAA70000108E2 /* String+Extension.swift */; };
 		0EAC5B8D2B8FA495000108E2 /* SwiftLintEdits.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC5B8C2B8FA495000108E2 /* SwiftLintEdits.swift */; };
@@ -131,6 +132,7 @@
 		0E6FDB8A2B8E18D7005A7D10 /* Verdana-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Verdana-Italic.ttf"; sourceTree = "<group>"; };
 		0E6FDB912B8E19C5005A7D10 /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		0E744DF52B90C55B00EF101F /* AutoPaddingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoPaddingButton.swift; sourceTree = "<group>"; };
+		0E7793DC2BA350F50088FE6B /* Proxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proxy.swift; sourceTree = "<group>"; };
 		0EAC5B882B8E956A000108E2 /* PaddingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaddingLabel.swift; sourceTree = "<group>"; };
 		0EAC5B8A2B8EAA70000108E2 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		0EAC5B8C2B8FA495000108E2 /* SwiftLintEdits.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftLintEdits.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				0E238A022BA1269C009A2FFC /* CategoryRecipeName.swift */,
 				0E238A0F2BA1BCB4009A2FFC /* Recipe.swift */,
 				0E238A122BA208B5009A2FFC /* RecipeDetailTest.swift */,
+				0E7793DC2BA350F50088FE6B /* Proxy.swift */,
 			);
 			path = NetworkService;
 			sourceTree = "<group>";
@@ -670,6 +673,7 @@
 				0E6B53142B99CEA400F28B7D /* UsersMemento.swift in Sources */,
 				C45563B32B9DF9DA004AF3AF /* FavouriteRecipes.swift in Sources */,
 				0E238A0C2BA1BC65009A2FFC /* MeasuredCaloriesDTO.swift in Sources */,
+				0E7793DD2BA350F50088FE6B /* Proxy.swift in Sources */,
 				0E4F2C0E2B8CAB8400EDF359 /* AuthorizationView.swift in Sources */,
 				C45B61E02B90CD8D00C80F92 /* CategoryViewCell.swift in Sources */,
 				0E2DE64C2B8D4484007D448C /* BaseCoordinator.swift in Sources */,

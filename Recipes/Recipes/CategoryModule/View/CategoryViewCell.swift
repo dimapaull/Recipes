@@ -26,7 +26,7 @@ final class CategoryViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .white
         imageView.layer.cornerRadius = Constants.photoRecipeCornerRadius
         return imageView
     }()
@@ -114,6 +114,8 @@ final class CategoryViewCell: UITableViewCell {
         caloriesStackViewGradientLayer
     ]
 
+    private let networkService = NetworkService()
+
     // MARK: - Initializators
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -160,15 +162,12 @@ final class CategoryViewCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func setupImage(_ url: String?) {
-        guard let imageUrl = url else { return }
-        NetworkService.downLoadImage(imageUrl) { result in
-            switch result {
-            case let .success(success):
-                DispatchQueue.main.async {
-                    self.photoRecipeImage.image = success
-                }
-            case .failure:
-                break
+        guard let url = url, let imageUrl = URL(string: url) else { return }
+        let proxy = Proxy(service: networkService)
+        proxy.getImageFrom(imageUrl) { [weak self] data, _, error in
+            guard let self = self, let data = data, error == nil else { return }
+            DispatchQueue.main.async {
+                self.photoRecipeImage.image = UIImage(data: data)
             }
         }
     }
