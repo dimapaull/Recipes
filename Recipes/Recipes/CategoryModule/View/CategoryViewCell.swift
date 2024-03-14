@@ -44,7 +44,9 @@ final class CategoryViewCell: UITableViewCell {
 
     private let timerRecipeImage = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         imageView.image = Constants.timerRecipeImage
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
@@ -74,16 +76,15 @@ final class CategoryViewCell: UITableViewCell {
     private let pointerRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.pointerImage
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
     private lazy var timeStackView = {
         let stackView = UIStackView(arrangedSubviews: [timerRecipeImage, timeRecipeLabel])
-        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.clipsToBounds = true
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView

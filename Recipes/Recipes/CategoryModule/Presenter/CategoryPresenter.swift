@@ -94,7 +94,7 @@ final class CategoryPresenter {
 //        view?.reloadTable()
     }
 
-    func getDishRecipe(_ searchText: String?) {
+    func getDishRecipe(_ searchText: String?, _ completionHandler: (() -> ())? = nil) {
         downloadRecipe?.startFetch()
         networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: searchText) { result in
             switch result {
@@ -111,6 +111,9 @@ final class CategoryPresenter {
             case .failure:
                 self.downloadRecipe?.stopFetch(.error)
                 return
+            }
+            DispatchQueue.main.async {
+                completionHandler?()
             }
         }
 

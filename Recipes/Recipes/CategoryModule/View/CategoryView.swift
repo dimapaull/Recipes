@@ -25,6 +25,12 @@ final class CategoryView: UIViewController {
 
     // MARK: - Visual Components
 
+    private lazy var reloadControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(reloadControlUsed), for: .valueChanged)
+        return refreshControl
+    }()
+
     private lazy var recipeSearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
@@ -52,6 +58,7 @@ final class CategoryView: UIViewController {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.register(CategoryViewCell.self, forCellReuseIdentifier: String(describing: CategoryViewCell.self))
+        tableView.refreshControl = reloadControl
         return tableView
     }()
 
@@ -169,6 +176,12 @@ final class CategoryView: UIViewController {
 
     @objc private func backBarButtonPressed() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func reloadControlUsed() {
+        presenter?.getDishRecipe(recipeSearchBar.text) {
+            self.reloadControl.endRefreshing()
+        }
     }
 }
 
