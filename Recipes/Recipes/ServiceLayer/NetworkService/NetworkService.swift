@@ -26,7 +26,10 @@ protocol NetworkServiceProtocol {
     )
 }
 
+/// Используется для загрузки изображения из интернета
 protocol DownloadImageProtocol {
+    /// - Parameters:
+    ///  - url: Адрес изображения
     func getImageFrom(_ url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ())
 }
 
@@ -79,7 +82,6 @@ final class NetworkService: NetworkServiceProtocol {
 
     func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeDetailTest, Error>) -> ()) {
         guard let url = makeDetailRecipeUrlComponent(uri).url else { return }
-        print(url)
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
                 completionHandler(.failure(error))
@@ -154,6 +156,8 @@ final class NetworkService: NetworkServiceProtocol {
         return urlComponent
     }
 }
+
+// MARK: - NetworkService + DownloadImageProtocol
 
 extension NetworkService: DownloadImageProtocol {
     func getImageFrom(_ url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {

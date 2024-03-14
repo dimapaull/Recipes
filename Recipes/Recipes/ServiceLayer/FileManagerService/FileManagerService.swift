@@ -4,13 +4,17 @@
 import Foundation
 import UIKit
 
+/// Используется для кеширования данных в песочницу
 protocol FileManagerServiceProtocol: AnyObject {
+    /// Сохраняет логи на экранах пользователя
     func setTitleSection(nameSection: String)
+    /// Получает изображение из песочницы
     func getImageFrom(_ name: String) -> Data?
+    /// Сохраняет изображение в песочницу
     func saveImage(_ data: Data?, imageUri: String)
 }
 
-/// Класс с сервисом
+/// Класс с сервисом сохранения данных в песочницу, имеет синглтон
 final class FileManagerService {
     static let fileManagerService = FileManagerService()
     private var text = ""
@@ -43,6 +47,8 @@ final class FileManagerService {
     }
 }
 
+// MARK: - FileManagerService + FileManagerServiceProtocol
+
 extension FileManagerService: FileManagerServiceProtocol {
     func setTitleSection(nameSection: String) {
         text.append("Пользователь \(nameSection)\n")
@@ -67,7 +73,7 @@ extension FileManagerService: FileManagerServiceProtocol {
         do {
             try jpegData.write(to: path)
         } catch {
-            print(error)
+            return
         }
     }
 }

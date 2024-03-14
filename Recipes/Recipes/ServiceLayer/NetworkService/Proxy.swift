@@ -1,15 +1,22 @@
 // Proxy.swift
 // Copyright © RoadMap. All rights reserved.
 
-import UIKit
+import Foundation
 
+/// Заместитель для скачивания изображения из интернета, скачанное кешируется
 final class Proxy: DownloadImageProtocol {
+    // MARK: - Private Properties
+
     private var service: DownloadImageProtocol?
     private let fileManager = FileManagerService.fileManagerService
+
+    // MARK: - Initializers
 
     init(service: DownloadImageProtocol) {
         self.service = service
     }
+
+    // MARK: - Private Methods
 
     func getImageFrom(_ url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {
         if let imageData = fileManager.getImageFrom(url.absoluteString) {

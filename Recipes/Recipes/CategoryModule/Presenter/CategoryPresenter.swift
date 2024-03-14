@@ -40,11 +40,10 @@ final class CategoryPresenter {
 
     // MARK: - Public Properties
 
-    private var searchingNames: [RecipeDetail] = []
     private(set) var currentRecipes: [Recipe] = []
-    var downloadRecipes: [Recipe] = []
+    private var downloadRecipes: [Recipe] = []
 
-    var currentFilterState: FilterType {
+    private var currentFilterState: FilterType {
         willSet {
             currentRecipes = downloadRecipes
             switch newValue {
@@ -62,11 +61,11 @@ final class CategoryPresenter {
         }
     }
 
+    // MARK: - Public Methods
+
     func textTitleSection(titleSection: String) {
         reseiver?.setTitleSection(nameSection: titleSection)
     }
-
-    // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
 //        recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
@@ -87,11 +86,7 @@ final class CategoryPresenter {
             getDishRecipe(nil)
         } else {
             getDishRecipe(searchText)
-//            currentRecipes = CategoryPresenter.recipes.filter {
-//                $0.title.prefix(searchText.count) == searchText
-//            }
         }
-//        view?.reloadTable()
     }
 
     func getDishRecipe(_ searchText: String?, _ completionHandler: (() -> ())? = nil) {

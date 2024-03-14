@@ -3,11 +3,15 @@
 
 import UIKit
 
+/// Используется при нажатии на обновить во вью с ошибкой
 protocol ErrorViewDelegateProtocol {
     func reload()
 }
 
+/// Вью для отображения ошибки
 final class ErrorView: UIView {
+    // MARK: - Constants
+
     private enum Constants {
         static let errorText = "Failed to load data"
         static let emptyText = "Start typing text"
@@ -45,6 +49,8 @@ final class ErrorView: UIView {
         button.addTarget(self, action: #selector(reloadButtonPressed), for: .touchUpInside)
         return button
     }()
+
+    // MARK: - Public Properties
 
     var delegate: ErrorViewDelegateProtocol?
 
