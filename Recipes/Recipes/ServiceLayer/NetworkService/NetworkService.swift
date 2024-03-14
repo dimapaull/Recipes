@@ -55,7 +55,7 @@ final class NetworkService: NetworkServiceProtocol {
         searchSymbol: String? = nil,
         completionHandler: @escaping (Result<[Recipe], Error>) -> ()
     ) {
-        guard let url = createDishRecipeUrlComponent(categoryName, searchSymbol: searchSymbol).url else { return }
+        guard let url = makeDishRecipeUrlComponent(categoryName, searchSymbol: searchSymbol).url else { return }
 
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
@@ -63,8 +63,8 @@ final class NetworkService: NetworkServiceProtocol {
                 return
             } else if let data = data {
                 do {
-                    let obj = try JSONDecoder().decode(RecipeListDTO.self, from: data)
-                    let recipes = obj.hits.map { Recipe(dto: $0.recipe) }
+                    let recipeListDTO = try JSONDecoder().decode(RecipeListDTO.self, from: data)
+                    let recipes = recipeListDTO.hits.map { Recipe(dto: $0.recipe) }
                     completionHandler(.success(recipes))
                 } catch {
                     completionHandler(.failure(error))
@@ -74,17 +74,16 @@ final class NetworkService: NetworkServiceProtocol {
     }
 
     func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeDetailTest, Error>) -> ()) {
-        guard let url = createDetailRecipeUrlComponent(uri).url else { return }
-
+        guard let url = makeDetailRecipeUrlComponent(uri).url else { return }
+        print(url)
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
                 completionHandler(.failure(error))
                 return
             } else if let data = data {
                 do {
-                    let obj = try JSONDecoder().decode(RecipeListDTO.self, from: data)
-                    guard let recipe = obj.hits.map(\.recipe).first else { return }
-                    print(recipe)
+                    let recipeListDTO = try JSONDecoder().decode(RecipeListDTO.self, from: data)
+                    guard let recipe = recipeListDTO.hits.map(\.recipe).first else { return }
                     completionHandler(.success(RecipeDetailTest(dto: recipe)))
                 } catch {
                     completionHandler(.failure(error))
@@ -95,7 +94,7 @@ final class NetworkService: NetworkServiceProtocol {
 
     // MARK: - Private Methods
 
-    private func createDishRecipeUrlComponent(
+    private func makeDishRecipeUrlComponent(
         _ categoryName: CategoryRecipeName,
         searchSymbol: String?
     ) -> URLComponents {
@@ -134,7 +133,7 @@ final class NetworkService: NetworkServiceProtocol {
         return urlComponent
     }
 
-    private func createDetailRecipeUrlComponent(_ uri: String) -> URLComponents {
+    private func makeDetailRecipeUrlComponent(_ uri: String) -> URLComponents {
         var urlComponent = URLComponents()
         urlComponent.scheme = Constants.scheme
         urlComponent.host = Constants.host

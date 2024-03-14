@@ -97,11 +97,11 @@ final class RecipeDetailImageCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetail?) {
-        titleRecipeLabel.text = info?.title
-        photoRecipeImageView.image = UIImage(named: info?.imageName ?? "")
-        potCountLabel.text = (info?.dishWeight ?? "") + Constants.potChar
-        cookingCountLabel.text = "\(info?.cookingTime ?? 0) \(Constants.cookingMinute)"
+    func configureCell(info: RecipeDetailTest?) {
+        titleRecipeLabel.text = info?.label
+        photoRecipeImageView.image = UIImage(named: info?.image ?? "")
+        potCountLabel.text = String(Int(info?.totalWeight ?? 0.0)) + String(Constants.potChar)
+        cookingCountLabel.text = "\(info?.totalTime ?? 0) \(Constants.cookingMinute)"
     }
 
     // MARK: - Initializators

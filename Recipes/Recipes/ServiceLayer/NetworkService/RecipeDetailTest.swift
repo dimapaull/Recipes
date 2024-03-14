@@ -2,13 +2,13 @@
 // Copyright © RoadMap. All rights reserved.
 
 final class RecipeDetailTest {
-    private let label: String
-    private let image: String
-    private let calories: Double
-    private let totalTime: Double
-    private let totalWeight: Double
-    private let totalNutrients: TotalNutrientsDTO
-    private let ingredientLines: [String]
+    let label: String
+    let image: String
+    let calories: Double
+    let totalTime: Double
+    let totalWeight: Double
+    let totalNutrients: TotalNutrientsDTO
+    let ingredientLines: [String]
 
     init(dto: RecipeDTO) {
         label = dto.label
