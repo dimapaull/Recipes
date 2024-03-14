@@ -5,13 +5,13 @@
 final class Recipe {
     let uri: String
     /// Название рецепта
-    private let label: String
+    let label: String
     /// Картинка рецепта
-    private let image: String
+    let image: String
     /// Кол-во калорий
-    private let calories: Double
+    let calories: Double
     /// Время приготовления
-    private let totalTime: Double
+    let totalTime: Double
 
     init(dto: RecipeDTO) {
         label = dto.label

@@ -2,6 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import UIKit
 
 /// Используется для описания сервиса запросов
 protocol NetworkServiceProtocol {
@@ -147,5 +148,21 @@ final class NetworkService: NetworkServiceProtocol {
             ),
         ]
         return urlComponent
+    }
+
+    /// Загрузка изображения по URL
+    static func downLoadImage(_ urlString: String, completion: @escaping (Result<UIImage?, Error>) -> Void) {
+        if let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { data, _, error in
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+                if let data = data, let image = UIImage(data: data) {
+                    completion(.success(image))
+                    return
+                }
+            }.resume()
+        }
     }
 }

@@ -1,4 +1,4 @@
-// DownloadView.swift
+// DownloadRecipe.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
@@ -8,10 +8,12 @@ protocol DownloadRecipeProtocol {
     var updateCell: ((DownloadState) -> ())? { get set }
     /// Начало загрузки
     func startFetch()
+    /// Остановка загрузки
+    func stopFetch(_ downloadState: DownloadState)
 }
 
 /// Загрузка данных из сети
-final class DownloadView: DownloadRecipeProtocol {
+final class DownloadRecipe: DownloadRecipeProtocol {
     // MARK: - Public Properties
 
     var updateCell: ((DownloadState) -> ())?
@@ -19,16 +21,16 @@ final class DownloadView: DownloadRecipeProtocol {
     // MARK: - Initializers
 
     init() {
-        updateCell?(.initial)
+        updateCell?(.loading)
     }
 
     // MARK: - Public Methods
 
     func startFetch() {
         updateCell?(.loading)
+    }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.updateCell?(.success)
-        }
+    func stopFetch(_ downloadState: DownloadState) {
+        updateCell?(downloadState)
     }
 }

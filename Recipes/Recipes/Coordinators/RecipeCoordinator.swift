@@ -29,7 +29,7 @@ final class RecipeCoordinator: BaseCoordinator {
         let categoryPresenter = CategoryPresenter(
             view: categoryView,
             recipeCoordinator: self,
-            downloadRecipe: DownloadView(),
+            downloadRecipe: DownloadRecipe(),
             categoryName: title,
             networkService: networkService
         )
