@@ -84,6 +84,7 @@ final class NetworkService: NetworkServiceProtocol {
                 do {
                     let obj = try JSONDecoder().decode(RecipeListDTO.self, from: data)
                     guard let recipe = obj.hits.map(\.recipe).first else { return }
+                    print(recipe)
                     completionHandler(.success(RecipeDetailTest(dto: recipe)))
                 } catch {
                     completionHandler(.failure(error))
@@ -155,7 +156,6 @@ final class NetworkService: NetworkServiceProtocol {
         if let url = URL(string: urlString) {
             URLSession.shared.dataTask(with: url) { data, _, error in
                 if let error = error {
-                    print("Error occurred: \(error)")
                     completion(.failure(error))
                     return
                 }

@@ -8,41 +8,6 @@ final class CategoryPresenter {
     // MARK: - Constants
 
     private enum Constants {
-        static let recipeDescription = """
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium size asian eggplants, cut int 1 inch
-        rounds
-        Handful of bird's eye chilies
-        1/2 cup thai basil leaves
-        Juice of 3 limes
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium size asian eggplants, cut int 1 inch
-        rounds
-        Handful of bird's eye chilies
-        1/2 cup thai basil leaves
-        Juice of 3 limes
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium size asian eggplants, cut int 1 inch
-        rounds
-        Handful of bird's eye chilies
-        1/2 cup thai basil leaves
-        Juice of 3 limes
-        """
         static let minimumCountSymbols = 3
     }
 
@@ -78,6 +43,7 @@ final class CategoryPresenter {
     private var searchingNames: [RecipeDetail] = []
     private(set) var currentRecipes: [Recipe] = []
     var downloadRecipes: [Recipe] = []
+
     var currentFilterState: FilterType {
         willSet {
             currentRecipes = downloadRecipes
@@ -117,27 +83,31 @@ final class CategoryPresenter {
     }
 
     func filtredRecipes(searchText: String) {
-//        if searchText.count < Constants.minimumCountSymbols {
-//            currentRecipes = CategoryPresenter.recipes
-//        } else {
+        if searchText.count < Constants.minimumCountSymbols {
+            getDishRecipe(nil)
+        } else {
+            getDishRecipe(searchText)
 //            currentRecipes = CategoryPresenter.recipes.filter {
 //                $0.title.prefix(searchText.count) == searchText
 //            }
-//        }
+        }
 //        view?.reloadTable()
     }
 
-    func getDishRecipe() {
+    func getDishRecipe(_ searchText: String?) {
         downloadRecipe?.startFetch()
-        networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: nil) { result in
+        networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: searchText) { result in
             switch result {
             case let .success(recipes):
                 self.currentRecipes = recipes
                 self.downloadRecipes = recipes
                 DispatchQueue.main.async {
-                    self.downloadRecipe?.stopFetch(.data)
+                    if recipes.isEmpty {
+                        self.downloadRecipe?.stopFetch(.noData)
+                    } else {
+                        self.downloadRecipe?.stopFetch(.data)
+                    }
                 }
-                print(recipes)
             case .failure:
                 self.downloadRecipe?.stopFetch(.error)
                 return

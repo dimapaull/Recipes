@@ -83,7 +83,7 @@ final class CategoryViewCell: UITableViewCell {
         stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
         stackView.isLayoutMarginsRelativeArrangement = true
         stackView.clipsToBounds = true
-        stackView.distribution = .equalSpacing
+        stackView.distribution = .fillEqually
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView

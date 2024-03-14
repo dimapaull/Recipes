@@ -3,6 +3,10 @@
 
 import UIKit
 
+protocol ErrorViewDelegateProtocol {
+    func reload()
+}
+
 final class ErrorView: UIView {
     private enum Constants {
         static let errorText = "Failed to load data"
@@ -31,15 +35,18 @@ final class ErrorView: UIView {
         return label
     }()
 
-    private let reloadButton = {
+    private lazy var reloadButton = {
         let button = UIButton()
         button.setTitle(Constants.reloadText, for: .normal)
         button.setImage(UIImage.findReplace, for: .normal)
         button.layer.cornerRadius = 12
         button.setTitleColor(.appErrorButton, for: .normal)
         button.backgroundColor = .appError
+        button.addTarget(self, action: #selector(reloadButtonPressed), for: .touchUpInside)
         return button
     }()
+
+    var delegate: ErrorViewDelegateProtocol?
 
     // MARK: - Life Cycle
 
@@ -103,5 +110,9 @@ final class ErrorView: UIView {
         reloadButton.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         reloadButton.heightAnchor.constraint(equalToConstant: 32).isActive = true
         reloadButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
+    }
+
+    @objc private func reloadButtonPressed() {
+        delegate?.reload()
     }
 }

@@ -33,6 +33,7 @@ final class CategoryView: UIViewController {
         searchBar.backgroundImage = nil
         searchBar.backgroundColor = .clear
         searchBar.delegate = self
+        searchBar.enablesReturnKeyAutomatically = false
         searchBar.placeholder = Constants.searchBarPlaceholderText
         return searchBar
     }()
@@ -56,6 +57,7 @@ final class CategoryView: UIViewController {
 
     private lazy var errorView = {
         let view = ErrorView()
+        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -66,8 +68,10 @@ final class CategoryView: UIViewController {
     var backNavigationTitle = String()
     var updateCellState: DownloadState = .loading {
         didSet {
-            errorView.configureView(updateCellState)
-            recipeTableView.reloadData()
+            DispatchQueue.main.async {
+                self.errorView.configureView(self.updateCellState)
+                self.recipeTableView.reloadData()
+            }
         }
     }
 
@@ -82,7 +86,7 @@ final class CategoryView: UIViewController {
         tabBarController?.tabBar.isHidden = true
         configureUI()
         configureNavigationBar()
-        presenter?.getDishRecipe()
+        presenter?.getDishRecipe(nil)
         errorView.configureView(updateCellState)
     }
 
@@ -176,7 +180,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        updateCellState == .loading ? 20 : presenter?.currentRecipes.count ?? 0
+        updateCellState == .loading ? 10 : presenter?.currentRecipes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -247,5 +251,13 @@ extension CategoryView: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
+    }
+}
+
+// MARK: - CategoryView + ErrorViewDelegateProtocol
+
+extension CategoryView: ErrorViewDelegateProtocol {
+    func reload() {
+        presenter?.getDishRecipe(recipeSearchBar.text)
     }
 }
