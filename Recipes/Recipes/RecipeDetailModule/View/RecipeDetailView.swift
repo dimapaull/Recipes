@@ -3,7 +3,9 @@
 
 import UIKit
 
-protocol RecipeDetailViewProtocol: AnyObject {}
+protocol RecipeDetailViewProtocol: AnyObject {
+    func reloadTableView()
+}
 
 /// Экран с подробным описанием рецепта
 final class RecipeDetailView: UIViewController {
@@ -61,13 +63,14 @@ final class RecipeDetailView: UIViewController {
         configureUI()
         configureNavigationBar()
         tabBarController?.tabBar.isHidden = true
+        presenter?.getDetailRecipe()
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?
             .textTitleSection(
-                titleSection: "Пользователь открыл рецепт под названием \(presenter?.recipeDetailInfo?.title ?? "")"
+                titleSection: "Пользователь открыл рецепт под названием \(presenter?.downloadDetailRecipe?.label ?? "")"
             )
     }
 
@@ -160,7 +163,7 @@ final class RecipeDetailView: UIViewController {
     }
 
     @objc func shareButtonImageTapped() {
-        presenter?.textTitleSection(titleSection: "поделился рецептом \(presenter?.recipeDetailInfo?.title ?? "")")
+        presenter?.textTitleSection(titleSection: "поделился рецептом \(presenter?.downloadDetailRecipe?.label ?? "")")
     }
 }
 
@@ -185,7 +188,7 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
             ) as? RecipeDetailImageCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(info: presenter?.recipeDetailInfo)
+            cell.configureCell(info: presenter?.downloadDetailRecipe)
             cell.selectionStyle = .none
             return cell
         case .recipeInfo:
@@ -195,7 +198,7 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
             ) as? RecipeDetailCompoundCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(info: presenter?.recipeDetailInfo)
+            cell.configureCell(info: presenter?.downloadDetailRecipe)
             cell.selectionStyle = .none
             return cell
         case .recipeDescription:
@@ -205,7 +208,7 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
             ) as? RecipeDetailDescriptionCell else {
                 return UITableViewCell()
             }
-            cell.configureCell(info: presenter?.recipeDetailInfo)
+            cell.configureCell(info: presenter?.downloadDetailRecipe)
             return cell
         }
     }
@@ -225,4 +228,8 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
 
 // MARK: - RecipeDetailView + RecipeDetailViewProtocol
 
-extension RecipeDetailView: RecipeDetailViewProtocol {}
+extension RecipeDetailView: RecipeDetailViewProtocol {
+    func reloadTableView() {
+        recipeDetailTableView.reloadData()
+    }
+}

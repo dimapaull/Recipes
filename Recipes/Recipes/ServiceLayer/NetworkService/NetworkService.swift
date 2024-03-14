@@ -74,7 +74,7 @@ final class NetworkService: NetworkServiceProtocol {
 
     func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeDetailTest, Error>) -> ()) {
         guard let url = makeDetailRecipeUrlComponent(uri).url else { return }
-
+        print(url)
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
                 completionHandler(.failure(error))

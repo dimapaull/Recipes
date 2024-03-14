@@ -42,9 +42,10 @@ final class RecipeCoordinator: BaseCoordinator {
         let recipeCoordinator = RecipeCoordinator()
         let recipeDetailPresenter = RecipeDetailPresenter(
             view: recipeDetailView,
-            recipeCoordinator: recipeCoordinator
+            recipeCoordinator: recipeCoordinator,
+            networkService: networkService
         )
-        recipeDetailPresenter.recipeDetailInfo = recipe
+//        recipeDetailPresenter.downloadDetailRecipe = recipe
         recipeDetailView.presenter = recipeDetailPresenter
         rootController?.pushViewController(recipeDetailView, animated: true)
     }
