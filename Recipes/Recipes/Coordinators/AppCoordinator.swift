@@ -38,7 +38,7 @@ final class AppCoordinator: BaseCoordinator {
         guard let recipeModule = recipeCoordinator.rootController else { return }
 
         /// Установка экрана с избранными  рецептами
-        let favoritiesCoordinator = FavoritiesCoordinator()
+        let favoritiesCoordinator = FavoritesCoordinator()
         let favoritiesView = appBuilder.makeFavoritesModule(coordinator: favoritiesCoordinator)
         favoritiesCoordinator.setRootViewController(view: favoritiesView)
         add(coordinator: favoritiesCoordinator)

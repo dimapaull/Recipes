@@ -4,18 +4,18 @@
 import UIKit
 
 /// Презентер для экрана избранных рецептов
-final class FavoritiesPresenter {
+final class FavoritesPresenter {
     // MARK: - Private Properties
 
-    private weak var view: FavoritiesViewProtocol?
-    private weak var favoritiesCoordinator: FavoritiesCoordinator?
+    private weak var view: FavoritesViewProtocol?
+    private weak var favoritesCoordinator: FavoritesCoordinator?
     private var reseiver: FileManagerServiceProtocol?
 
     // MARK: - Initializers
 
-    required init(view: FavoritiesViewProtocol, favoritiesCoordinator: FavoritiesCoordinator) {
+    required init(view: FavoritesViewProtocol, favoritesCoordinator: FavoritesCoordinator) {
         self.view = view
-        self.favoritiesCoordinator = favoritiesCoordinator
+        self.favoritesCoordinator = favoritesCoordinator
         reseiver = FileManagerService.fileManagerService
     }
 

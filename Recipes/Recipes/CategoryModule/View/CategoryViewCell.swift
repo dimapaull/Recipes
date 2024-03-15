@@ -22,7 +22,7 @@ final class CategoryViewCell: UITableViewCell {
 
     // MARK: - Visual Components
 
-    private var photoRecipeImage = {
+    private let photoRecipeImage = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -113,6 +113,8 @@ final class CategoryViewCell: UITableViewCell {
         timeStackViewGradientLayer,
         caloriesStackViewGradientLayer
     ]
+    
+    //MARK: - Private Properties
 
     private let networkService = NetworkService()
 
