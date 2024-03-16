@@ -19,7 +19,7 @@ final class FavoritiesPresenter {
         reseiver = FileManagerService.fileManagerService
     }
 
-    private(set) var favouriteRecipes: [RecipeDetail] = FavouriteRecipes.shared.recipes
+    private(set) var favouriteRecipes: [RecipeDetailTest] = FavouriteRecipes.shared.recipes
 
     // MARK: - Public Methods
 
@@ -29,7 +29,7 @@ final class FavoritiesPresenter {
         checkCountRecipes()
     }
 
-    func favouriteRemoveRecipe(recipe: RecipeDetail?) {
+    func favouriteRemoveRecipe(recipe: RecipeDetailTest?) {
         guard let recipe = recipe else { return }
         FavouriteRecipes.shared.updateFavouriteRecipe(recipe)
         favouriteRecipes = FavouriteRecipes.shared.recipes

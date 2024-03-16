@@ -82,6 +82,11 @@
 		C465B09A2B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C465B0992B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift */; };
 		C4BDF79A2B978A97001DC265 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDF7992B978A97001DC265 /* UIColor+Extension.swift */; };
 		C4BDF7A12B9A2791001DC265 /* FileManagerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BDF7A02B9A2791001DC265 /* FileManagerService.swift */; };
+		C4D2A3022BA38A2900936B0D /* ShimmerImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3012BA38A2900936B0D /* ShimmerImageViewCell.swift */; };
+		C4D2A3042BA38A6000936B0D /* ShimmerCompoundViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3032BA38A6000936B0D /* ShimmerCompoundViewCell.swift */; };
+		C4D2A3062BA38A8300936B0D /* ShimmerDescriptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */; };
+		C4D2A3082BA38E2C00936B0D /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */; };
+		C4D2A30A2BA3A51000936B0D /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3092BA3A51000936B0D /* ViewState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -162,6 +167,11 @@
 		C465B0992B9353C9005D3FE8 /* RecipeDetailDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDetailDescriptionCell.swift; sourceTree = "<group>"; };
 		C4BDF7992B978A97001DC265 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		C4BDF7A02B9A2791001DC265 /* FileManagerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerService.swift; sourceTree = "<group>"; };
+		C4D2A3012BA38A2900936B0D /* ShimmerImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerImageViewCell.swift; sourceTree = "<group>"; };
+		C4D2A3032BA38A6000936B0D /* ShimmerCompoundViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerCompoundViewCell.swift; sourceTree = "<group>"; };
+		C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDescriptionViewCell.swift; sourceTree = "<group>"; };
+		C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
+		C4D2A3092BA3A51000936B0D /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -424,6 +434,7 @@
 				C4BDF7992B978A97001DC265 /* UIColor+Extension.swift */,
 				0EAC5B8A2B8EAA70000108E2 /* String+Extension.swift */,
 				C45B61E72B91003000C80F92 /* UIView+Extension.swift */,
+				C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -506,6 +517,7 @@
 			children = (
 				C465B08A2B934A9C005D3FE8 /* Model */,
 				C465B08B2B934AA5005D3FE8 /* View */,
+				C4D2A3002BA3899C00936B0D /* ShimmerViewCell */,
 				C465B08C2B934AB5005D3FE8 /* Presenter */,
 			);
 			path = RecipeDetailModule;
@@ -522,6 +534,7 @@
 		C465B08B2B934AA5005D3FE8 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C4D2A3092BA3A51000936B0D /* ViewState.swift */,
 				C465B0932B935293005D3FE8 /* RecipeDetailView.swift */,
 				C465B0952B93531A005D3FE8 /* RecipeDetailImageCell.swift */,
 				C465B0972B9353A1005D3FE8 /* RecipeDetailCompoundCell.swift */,
@@ -544,6 +557,16 @@
 				C4BDF7A02B9A2791001DC265 /* FileManagerService.swift */,
 			);
 			path = FileManagerService;
+			sourceTree = "<group>";
+		};
+		C4D2A3002BA3899C00936B0D /* ShimmerViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				C4D2A3012BA38A2900936B0D /* ShimmerImageViewCell.swift */,
+				C4D2A3032BA38A6000936B0D /* ShimmerCompoundViewCell.swift */,
+				C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */,
+			);
+			path = ShimmerViewCell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -671,6 +694,7 @@
 				C45563B32B9DF9DA004AF3AF /* FavouriteRecipes.swift in Sources */,
 				0E238A0C2BA1BC65009A2FFC /* MeasuredCaloriesDTO.swift in Sources */,
 				0E4F2C0E2B8CAB8400EDF359 /* AuthorizationView.swift in Sources */,
+				C4D2A3082BA38E2C00936B0D /* UIStackView+Extension.swift in Sources */,
 				C45B61E02B90CD8D00C80F92 /* CategoryViewCell.swift in Sources */,
 				0E2DE64C2B8D4484007D448C /* BaseCoordinator.swift in Sources */,
 				C45B61D42B8E552200C80F92 /* ProfileBonusesTableViewCell.swift in Sources */,
@@ -693,6 +717,7 @@
 				C45B61DA2B8E91A600C80F92 /* PolicyView.swift in Sources */,
 				C45B61E62B90FD7A00C80F92 /* RecipeCategoryViewCell.swift in Sources */,
 				C45B61D82B8E55DC00C80F92 /* LogOutTableViewCell.swift in Sources */,
+				C4D2A3042BA38A6000936B0D /* ShimmerCompoundViewCell.swift in Sources */,
 				C45B61EE2B91237400C80F92 /* FooterRecipeCategoryViewCell.swift in Sources */,
 				0E238A032BA1269C009A2FFC /* CategoryRecipeName.swift in Sources */,
 				0EE8634B2BA09E5300DA8582 /* NetworkService.swift in Sources */,
@@ -717,12 +742,15 @@
 				0E6FDB842B8DE918005A7D10 /* FavoritiesView.swift in Sources */,
 				0E5FD6CF2B90B8EB00124D9B /* FilterControlView.swift in Sources */,
 				0EAC5B902B908B9D000108E2 /* CategoryView.swift in Sources */,
+				C4D2A3062BA38A8300936B0D /* ShimmerDescriptionViewCell.swift in Sources */,
 				0EAC5B8D2B8FA495000108E2 /* SwiftLintEdits.swift in Sources */,
 				C4BDF79A2B978A97001DC265 /* UIColor+Extension.swift in Sources */,
 				C465B0942B935293005D3FE8 /* RecipeDetailView.swift in Sources */,
 				C465B0902B934FFE005D3FE8 /* RecipeDetailPresenter.swift in Sources */,
 				0E4B391D2BA24F8B008CE44A /* ErrorView.swift in Sources */,
+				C4D2A3022BA38A2900936B0D /* ShimmerImageViewCell.swift in Sources */,
 				0E744DF62B90C55B00EF101F /* AutoPaddingButton.swift in Sources */,
+				C4D2A30A2BA3A51000936B0D /* ViewState.swift in Sources */,
 				0E238A132BA208B5009A2FFC /* RecipeDetailTest.swift in Sources */,
 				0ED55CE52B8E4BA800197357 /* ValidateUserData.swift in Sources */,
 				C465B08E2B934C8A005D3FE8 /* RecipeDetail.swift in Sources */,

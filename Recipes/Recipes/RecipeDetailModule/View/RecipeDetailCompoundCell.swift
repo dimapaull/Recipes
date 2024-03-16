@@ -174,10 +174,10 @@ final class RecipeDetailCompoundCell: UITableViewCell {
     // MARK: - Public Methods
 
     func configureCell(info: RecipeDetailTest?) {
-        enercKcalLabel.text = "\(info?.calories ?? 0) \(Constants.kCal)"
+        enercKcalLabel.text = "\(Int(info?.calories ?? 0)) \(Constants.kCal)"
         carbohydratesLabel.text = String(Int(info?.totalNutrients.carb?.quantity ?? 0)) + Constants.potChar
-        fatsLabel.text = (info?.ingredientLines[1] ?? "") + Constants.potChar
-        proteinsLabel.text = (info?.ingredientLines[2] ?? "") + Constants.potChar
+        fatsLabel.text = String(Int(info?.totalNutrients.fat?.quantity ?? 0)) + Constants.potChar
+        proteinsLabel.text = String(Int(info?.totalNutrients.protein?.quantity ?? 0)) + Constants.potChar
     }
 
     // MARK: - Initializators

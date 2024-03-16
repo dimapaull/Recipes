@@ -1,7 +1,7 @@
 // RecipeDetailTest.swift
 // Copyright © RoadMap. All rights reserved.
 
-final class RecipeDetailTest {
+final class RecipeDetailTest: Codable {
     let label: String
     let image: String
     let calories: Double

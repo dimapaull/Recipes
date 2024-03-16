@@ -69,6 +69,11 @@ final class CategoryPresenter {
     // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
+        if let recipeUri = downloadRecipes.first?.uri {
+            recipeCoordinator?.pushRecipeDetailView(recipe: recipeUri)
+        } else {
+            return
+        }
 //        recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
 //        if let recipeUri = downloadRecipes.first?.uri {
 //            networkService?.getDetailRecipe(uri: recipeUri) { result in
