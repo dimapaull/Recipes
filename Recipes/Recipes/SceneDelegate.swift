@@ -9,10 +9,10 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo _: UISceneSession, options _: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        configueWindow(windowScene)
+        configureWindow(windowScene)
     }
 
-    private func configueWindow(_ scene: UIWindowScene) {
+    private func configureWindow(_ scene: UIWindowScene) {
         window = UIWindow(windowScene: scene)
         if let window {
             window.makeKeyAndVisible()

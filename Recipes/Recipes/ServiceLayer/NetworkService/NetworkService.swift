@@ -26,6 +26,13 @@ protocol NetworkServiceProtocol {
     )
 }
 
+/// Используется для загрузки изображения из интернета
+protocol DownloadImageProtocol {
+    /// - Parameters:
+    ///  - url: Адрес изображения
+    func getImageFrom(_ url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ())
+}
+
 /// Сервис для работы с сетью, запрашивает данные о рецептах
 final class NetworkService: NetworkServiceProtocol {
     // MARK: - Constants
@@ -75,7 +82,6 @@ final class NetworkService: NetworkServiceProtocol {
 
     func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeDetailTest, Error>) -> ()) {
         guard let url = makeDetailRecipeUrlComponent(uri).url else { return }
-        print(url)
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
                 completionHandler(.failure(error))
@@ -149,20 +155,16 @@ final class NetworkService: NetworkServiceProtocol {
         ]
         return urlComponent
     }
+}
 
-    /// Загрузка изображения по URL
-    static func downLoadImage(_ urlString: String, completion: @escaping (Result<UIImage?, Error>) -> Void) {
-        if let url = URL(string: urlString) {
-            URLSession.shared.dataTask(with: url) { data, _, error in
-                if let error = error {
-                    completion(.failure(error))
-                    return
-                }
-                if let data = data, let image = UIImage(data: data) {
-                    completion(.success(image))
-                    return
-                }
-            }.resume()
-        }
+// MARK: - NetworkService + DownloadImageProtocol
+
+extension NetworkService: DownloadImageProtocol {
+    func getImageFrom(_ url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        let urlSession = URLSession(configuration: .default)
+        urlSession.configuration.requestCachePolicy = .reloadIgnoringLocalCacheData
+        urlSession.configuration.urlCache = nil
+
+        urlSession.dataTask(with: url, completionHandler: completionHandler).resume()
     }
 }

@@ -12,13 +12,14 @@ final class CategoryPresenter {
     }
 
     // MARK: - Private Properties
-
-    private weak var view: CategoryViewProtocol?
-    private weak var recipeCoordinator: RecipeCoordinator?
-    private var downloadRecipe: DownloadRecipeProtocol?
-    private var reseiver: FileManagerServiceProtocol?
+    
     private let categoryName: CategoryRecipeName
     private let networkService: NetworkServiceProtocol?
+    private var downloadRecipe: DownloadRecipeProtocol?
+    private var reseiver: FileManagerServiceProtocol?
+    private weak var view: CategoryViewProtocol?
+    private weak var recipeCoordinator: RecipeCoordinator?
+  
 
     // MARK: - Initializers
 
@@ -40,11 +41,10 @@ final class CategoryPresenter {
 
     // MARK: - Public Properties
 
-    private var searchingNames: [RecipeDetail] = []
     private(set) var currentRecipes: [Recipe] = []
-    var downloadRecipes: [Recipe] = []
+    private var downloadRecipes: [Recipe] = []
 
-    var currentFilterState: FilterType {
+    private var currentFilterState: FilterType {
         willSet {
             currentRecipes = downloadRecipes
             switch newValue {
@@ -62,11 +62,11 @@ final class CategoryPresenter {
         }
     }
 
+    // MARK: - Public Methods
+
     func textTitleSection(titleSection: String) {
         reseiver?.setTitleSection(nameSection: titleSection)
     }
-
-    // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
         //        if let recipeUri = downloadRecipes.first?.uri {
@@ -97,9 +97,10 @@ final class CategoryPresenter {
             //            }
         }
         //        view?.reloadTable()
+        }
     }
 
-    func getDishRecipe(_ searchText: String?) {
+    func getDishRecipe(_ searchText: String?, _ completionHandler: (() -> ())? = nil) {
         downloadRecipe?.startFetch()
         networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: searchText) { result in
             switch result {
@@ -116,6 +117,9 @@ final class CategoryPresenter {
             case .failure:
                 self.downloadRecipe?.stopFetch(.error)
                 return
+            }
+            DispatchQueue.main.async {
+                completionHandler?()
             }
         }
 

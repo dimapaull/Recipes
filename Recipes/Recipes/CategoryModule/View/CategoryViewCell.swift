@@ -22,11 +22,11 @@ final class CategoryViewCell: UITableViewCell {
 
     // MARK: - Visual Components
 
-    private var photoRecipeImage = {
+    private let photoRecipeImage = {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .red
+        imageView.backgroundColor = .white
         imageView.layer.cornerRadius = Constants.photoRecipeCornerRadius
         return imageView
     }()
@@ -44,7 +44,9 @@ final class CategoryViewCell: UITableViewCell {
 
     private let timerRecipeImage = {
         let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
         imageView.image = Constants.timerRecipeImage
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
@@ -74,16 +76,15 @@ final class CategoryViewCell: UITableViewCell {
     private let pointerRecipeImage = {
         let imageView = UIImageView()
         imageView.image = Constants.pointerImage
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
     private lazy var timeStackView = {
         let stackView = UIStackView(arrangedSubviews: [timerRecipeImage, timeRecipeLabel])
-        stackView.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 20)
-        stackView.isLayoutMarginsRelativeArrangement = true
         stackView.clipsToBounds = true
-        stackView.distribution = .fillEqually
+        stackView.distribution = .fillProportionally
         stackView.axis = .horizontal
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
@@ -112,6 +113,10 @@ final class CategoryViewCell: UITableViewCell {
         timeStackViewGradientLayer,
         caloriesStackViewGradientLayer
     ]
+    
+    //MARK: - Private Properties
+
+    private let networkService = NetworkService()
 
     // MARK: - Initializators
 
@@ -159,15 +164,12 @@ final class CategoryViewCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func setupImage(_ url: String?) {
-        guard let imageUrl = url else { return }
-        NetworkService.downLoadImage(imageUrl) { result in
-            switch result {
-            case let .success(success):
-                DispatchQueue.main.async {
-                    self.photoRecipeImage.image = success
-                }
-            case .failure:
-                break
+        guard let url = url, let imageUrl = URL(string: url) else { return }
+        let proxy = Proxy(service: networkService)
+        proxy.getImageFrom(imageUrl) { [weak self] data, _, error in
+            guard let self = self, let data = data, error == nil else { return }
+            DispatchQueue.main.async {
+                self.photoRecipeImage.image = UIImage(data: data)
             }
         }
     }
