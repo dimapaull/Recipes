@@ -9,25 +9,33 @@ final class RecipeDetailPresenter {
 
     private weak var view: RecipeDetailViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
-    private var reseiver: FileManagerServiceProtocol?
     private var downloadRecipe: DownloadRecipeProtocol?
+    private var reseiver: FileManagerServiceProtocol?
     private let networkService: NetworkServiceProtocol?
 
     // MARK: - Public Properties
 
-//    var recipeDetailInfo: RecipeDetail?
     var downloadDetailRecipe: RecipeDetailTest?
+    var state: ViewState<RecipeDetailTest> = .loading {
+        didSet {
+            view?.updateState()
+        }
+    }
+
+    var detailURI: String = ""
 
     // MARK: - Initializers
 
     required init(
         view: RecipeDetailViewProtocol,
         recipeCoordinator: RecipeCoordinator,
+        downloadRecipe: DownloadRecipeProtocol,
         networkService: NetworkServiceProtocol
     ) {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
         reseiver = FileManagerService.fileManagerService
+        self.downloadRecipe = downloadRecipe
         self.networkService = networkService
     }
 
@@ -36,22 +44,25 @@ final class RecipeDetailPresenter {
     }
 
     func addFavouriteRecipe() {
-//        guard let recipeDetailInfo = recipeDetailInfo else { return }
-//        FavouriteRecipes.shared.updateFavouriteRecipe(recipeDetailInfo)
+        guard let downloadDetailRecipe = downloadDetailRecipe else { return }
+        FavouriteRecipes.shared.updateFavouriteRecipe(downloadDetailRecipe)
+        view?.setBookmarkButtonImage()
     }
 
-    func getDetailRecipe() {
-        let recipeUri = "http://www.edamam.com/ontologies/edamam.owl#recipe_e074fb5e814ed30309780398e68c2b90"
-        networkService?.getDetailRecipe(uri: recipeUri, completionHandler: { result in
-            switch result {
-            case let .success(success):
-                DispatchQueue.main.async {
-                    self.downloadDetailRecipe = success
-                    self.view?.reloadTableView()
-                    print(success)
+    func getDetailRecipe(_ completionHandler: (() -> ())? = nil) {
+        print(detailURI)
+        networkService?.getDetailRecipe(uri: detailURI, completionHandler: { [weak self] result in
+            DispatchQueue.main.async {
+                switch result {
+                case let .success(recipeDetailTest):
+                    self?.downloadDetailRecipe = recipeDetailTest
+                    self?.state = .data(recipeDetailTest)
+                    self?.view?.updateState()
+                    completionHandler?()
+                case let .failure(error):
+                    self?.state = .error(error)
+                    completionHandler?()
                 }
-            case let .failure(failure):
-                print(failure)
             }
         })
     }
