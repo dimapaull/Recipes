@@ -12,13 +12,14 @@ final class CategoryPresenter {
     }
 
     // MARK: - Private Properties
-
-    private weak var view: CategoryViewProtocol?
-    private weak var recipeCoordinator: RecipeCoordinator?
-    private var downloadRecipe: DownloadRecipeProtocol?
-    private var reseiver: FileManagerServiceProtocol?
+    
     private let categoryName: CategoryRecipeName
     private let networkService: NetworkServiceProtocol?
+    private var downloadRecipe: DownloadRecipeProtocol?
+    private var reseiver: FileManagerServiceProtocol?
+    private weak var view: CategoryViewProtocol?
+    private weak var recipeCoordinator: RecipeCoordinator?
+  
 
     // MARK: - Initializers
 
