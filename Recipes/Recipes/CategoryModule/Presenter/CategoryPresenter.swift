@@ -69,22 +69,22 @@ final class CategoryPresenter {
     // MARK: - Public Methods
 
     func selectionRow(in section: Int) {
-        if let recipeUri = downloadRecipes.first?.uri {
-            recipeCoordinator?.pushRecipeDetailView(recipe: recipeUri)
-        } else {
-            return
-        }
-//        recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
-//        if let recipeUri = downloadRecipes.first?.uri {
-//            networkService?.getDetailRecipe(uri: recipeUri) { result in
-//                switch result {
-//                case let .success(success):
-//                    print(success)
-//                case let .failure(failure):
-//                    print(failure)
-//                }
-//            }
-//        }
+        //        if let recipeUri = downloadRecipes.first?.uri {
+        //            recipeCoordinator?.pushRecipeDetailView(recipe: recipeUri)
+        //        } else {
+        //            return
+        //        }
+        recipeCoordinator?.pushRecipeDetailView(uri: currentRecipes[section].uri)
+        //        if let recipeUri = downloadRecipes.first?.uri {
+        //            networkService?.getDetailRecipe(uri: recipeUri) { result in
+        //                switch result {
+        //                case let .success(success):
+        //                    print(success)
+        //                case let .failure(failure):
+        //                    print(failure)
+        //                }
+        //            }
+        //        }
     }
 
     func filtredRecipes(searchText: String) {
@@ -92,11 +92,11 @@ final class CategoryPresenter {
             getDishRecipe(nil)
         } else {
             getDishRecipe(searchText)
-//            currentRecipes = CategoryPresenter.recipes.filter {
-//                $0.title.prefix(searchText.count) == searchText
-//            }
+            //            currentRecipes = CategoryPresenter.recipes.filter {
+            //                $0.title.prefix(searchText.count) == searchText
+            //            }
         }
-//        view?.reloadTable()
+        //        view?.reloadTable()
     }
 
     func getDishRecipe(_ searchText: String?) {

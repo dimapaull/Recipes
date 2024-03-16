@@ -22,6 +22,8 @@ final class RecipeDetailPresenter {
         }
     }
 
+    var detailURI: String = ""
+
     // MARK: - Initializers
 
     required init(
@@ -47,17 +49,19 @@ final class RecipeDetailPresenter {
         view?.setBookmarkButtonImage()
     }
 
-    func getDetailRecipe() {
-        let recipeUri = "http://www.edamam.com/ontologies/edamam.owl#recipe_e074fb5e814ed30309780398e68c2b90"
-        networkService?.getDetailRecipe(uri: recipeUri, completionHandler: { [weak self] result in
+    func getDetailRecipe(_ completionHandler: (() -> ())? = nil) {
+        print(detailURI)
+        networkService?.getDetailRecipe(uri: detailURI, completionHandler: { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
                 case let .success(recipeDetailTest):
                     self?.downloadDetailRecipe = recipeDetailTest
                     self?.state = .data(recipeDetailTest)
                     self?.view?.updateState()
+                    completionHandler?()
                 case let .failure(error):
                     self?.state = .error(error)
+                    completionHandler?()
                 }
             }
         })

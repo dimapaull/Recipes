@@ -111,7 +111,7 @@ final class RecipeDetailImageCell: UITableViewCell {
             }
         })
         potCountLabel.text = String(Int(info?.totalWeight ?? 0.0)) + String(Constants.potChar)
-        cookingCountLabel.text = "\(info?.totalTime ?? 0) \(Constants.cookingMinute)"
+        cookingCountLabel.text = "\(Int(info?.totalTime ?? 0)) \(Constants.cookingMinute)"
     }
 
     // MARK: - Initializators

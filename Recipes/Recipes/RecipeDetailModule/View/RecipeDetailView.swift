@@ -5,8 +5,8 @@ import UIKit
 
 /// Протокол для управления View
 protocol RecipeDetailViewProtocol: AnyObject {
-    /// Обновление таблицы
-    func reloadTableView()
+//    /// Обновление таблицы
+//    func reloadTableView()
     /// Установка картинки для кнопки "В избранное"
     func setBookmarkButtonImage()
     /// Обновление состояния View
@@ -90,7 +90,7 @@ final class RecipeDetailView: UIViewController {
 
     private lazy var refreshControll: UIRefreshControl = {
         let refreshControll = UIRefreshControl()
-        refreshControll.addTarget(self, action: #selector(swipeTableView), for: .touchUpInside)
+        refreshControll.addTarget(self, action: #selector(swipeTableView), for: .valueChanged)
         return refreshControll
     }()
 
@@ -140,12 +140,6 @@ final class RecipeDetailView: UIViewController {
         shareButtonImage.addGestureRecognizer(
             UITapGestureRecognizer(target: self, action: #selector(shareButtonImageTapped))
         )
-
-//        let bookmarkButtonImage = UIImageView(image: Constants.bookmarkButtonImage)
-//        bookmarkButtonImage.isUserInteractionEnabled = true
-//        bookmarkButtonImage.addGestureRecognizer(
-//            UITapGestureRecognizer(target: self, action: #selector(bookmarkButtonImageTapped))
-//        )
 
         let rightStackView = UIStackView(arrangedSubviews: [shareButtonImage, bookmarkButtonImage])
         rightStackView.distribution = .equalSpacing
@@ -257,7 +251,9 @@ final class RecipeDetailView: UIViewController {
     }
 
     @objc private func swipeTableView() {
-        presenter?.getDetailRecipe()
+        presenter?.getDetailRecipe {
+            self.refreshControll.endRefreshing()
+        }
     }
 
     @objc private func backBarButtonPressed() {
@@ -265,7 +261,6 @@ final class RecipeDetailView: UIViewController {
     }
 
     @objc func bookmarkButtonImageTapped() {
-//        alertBookmarkButton()
         presenter?.addFavouriteRecipe()
     }
 
@@ -292,6 +287,7 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cells = cellsType[indexPath.section]
+        print(presenter?.state)
         switch presenter?.state {
         case .loading:
             recipeDetailTableView.isScrollEnabled = false
@@ -382,9 +378,9 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
 // MARK: - RecipeDetailView + RecipeDetailViewProtocol
 
 extension RecipeDetailView: RecipeDetailViewProtocol {
-    func reloadTableView() {
-        recipeDetailTableView.reloadData()
-    }
+//    func reloadTableView() {
+//        recipeDetailTableView.reloadData()
+//    }
 
     func setBookmarkButtonImage() {
         bookmarkButtonImage.setImage(Constants.bookmarkRedButtonImage, for: .normal)

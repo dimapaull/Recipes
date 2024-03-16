@@ -37,7 +37,7 @@ final class RecipeCoordinator: BaseCoordinator {
         rootController?.pushViewController(categoryView, animated: true)
     }
 
-    func pushRecipeDetailView(recipe: String) {
+    func pushRecipeDetailView(uri: String) {
         let recipeDetailView = RecipeDetailView()
         let recipeCoordinator = RecipeCoordinator()
         let recipeDetailPresenter = RecipeDetailPresenter(
@@ -46,7 +46,7 @@ final class RecipeCoordinator: BaseCoordinator {
             downloadRecipe: DownloadRecipe(),
             networkService: networkService
         )
-//        recipeDetailPresenter.downloadDetailRecipe = recipe
+        recipeDetailPresenter.detailURI = uri
         recipeDetailView.presenter = recipeDetailPresenter
         rootController?.pushViewController(recipeDetailView, animated: true)
     }
