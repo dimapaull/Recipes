@@ -88,6 +88,7 @@
 		C4D2A3062BA38A8300936B0D /* ShimmerDescriptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */; };
 		C4D2A3082BA38E2C00936B0D /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */; };
 		C4D2A30A2BA3A51000936B0D /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3092BA3A51000936B0D /* ViewState.swift */; };
+		C4D2A32A2BA789C400936B0D /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3282BA789C400936B0D /* CoreData.xcdatamodeld */; };
 		EA1A8FEAB6BE7CAF22C41F40 /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F4E378ACAC697A5E08297A4 /* Pods_Recipes.framework */; };
 /* End PBXBuildFile section */
 
@@ -177,6 +178,7 @@
 		C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDescriptionViewCell.swift; sourceTree = "<group>"; };
 		C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		C4D2A3092BA3A51000936B0D /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
+		C4D2A3292BA789C400936B0D /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		F3ED623D59BC14013D20658D /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.release.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -298,6 +300,7 @@
 		0E4F2C082B8CAB8400EDF359 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				C4D2A3282BA789C400936B0D /* CoreData.xcdatamodeld */,
 				0E4F2C092B8CAB8400EDF359 /* AppDelegate.swift */,
 				0E4F2C0B2B8CAB8400EDF359 /* SceneDelegate.swift */,
 				0E4F2C342B8CE9AD00EDF359 /* MainModuleBuilder.swift */,
@@ -525,7 +528,6 @@
 				4C34CBA2091B7854D65F33D9 /* Pods-Recipes.debug.xcconfig */,
 				F3ED623D59BC14013D20658D /* Pods-Recipes.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -760,6 +762,7 @@
 			files = (
 				0E6FDB822B8DE900005A7D10 /* FavoritiesPresenter.swift in Sources */,
 				0E6B53142B99CEA400F28B7D /* UsersMemento.swift in Sources */,
+				C4D2A32A2BA789C400936B0D /* CoreData.xcdatamodeld in Sources */,
 				C45563B32B9DF9DA004AF3AF /* FavouriteRecipes.swift in Sources */,
 				0E238A0C2BA1BC65009A2FFC /* MeasuredCaloriesDTO.swift in Sources */,
 				0E7793DD2BA350F50088FE6B /* Proxy.swift in Sources */,
@@ -1058,6 +1061,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C4D2A3282BA789C400936B0D /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C4D2A3292BA789C400936B0D /* CoreData.xcdatamodel */,
+			);
+			currentVersion = C4D2A3292BA789C400936B0D /* CoreData.xcdatamodel */;
+			name = CoreData.xcdatamodeld;
+			path = "/Users/fenix/Development/RM v4/UIKit/Recipes/Recipes/Recipes/CoreData.xcdatamodeld";
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0E4F2BFE2B8CAB8300EDF359 /* Project object */;
 }
