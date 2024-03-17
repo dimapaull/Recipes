@@ -1,22 +1,15 @@
-//
-//  Photo+CoreDataProperties.swift
-//  
-//
-//  Created by Dmitry Pavlov on 17.03.24.
-//
-//
+// Photo+CoreDataProperties.swift
+// Copyright © RoadMap. All rights reserved.
 
-import Foundation
 import CoreData
+import Foundation
 
-
-extension Photo {
-
-    @nonobjc public class func fetchRequest() -> NSFetchRequest<Photo> {
-        return NSFetchRequest<Photo>(entityName: "Photo")
+///
+public extension Photo {
+    @nonobjc class func fetchRequest() -> NSFetchRequest<Photo> {
+        NSFetchRequest<Photo>(entityName: "Photo")
     }
 
-    @NSManaged public var url: String?
-    @NSManaged public var id: Int16
-
+    @NSManaged var url: String?
+    @NSManaged var id: Int16
 }

@@ -1,15 +1,8 @@
-//
-//  Photo+CoreDataClass.swift
-//  
-//
-//  Created by Dmitry Pavlov on 17.03.24.
-//
-//
+// Photo+CoreDataClass.swift
+// Copyright © RoadMap. All rights reserved.
 
-import Foundation
 import CoreData
+import Foundation
 
 @objc(Photo)
-public class Photo: NSManagedObject {
-
-}
+public class Photo: NSManagedObject {}
