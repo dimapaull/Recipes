@@ -8,4 +8,6 @@ target 'Recipes' do
   # Pods for Recipes
   pod "Keychain"
 
+  pod "KeychainSwift"
+
 end
