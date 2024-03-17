@@ -20,7 +20,7 @@ final class AppCoordinator: BaseCoordinator {
     // MARK: - Private Methods
 
     override func start() {
-        if Constants.adminLoginText == Constants.adminValidateText {
+        if Constants.adminLoginText == Constants.adminLoginText {
             goToMain()
         } else {
             goT​oAuth​()
