@@ -2,7 +2,7 @@
 //  Photo+CoreDataProperties.swift
 //  
 //
-//  Created by Dmitriy Starozhilov on 18.03.2024.
+//  Created by Dmitry Pavlov on 17.03.24.
 //
 //
 
@@ -16,7 +16,7 @@ extension Photo {
         return NSFetchRequest<Photo>(entityName: "Photo")
     }
 
-    @NSManaged public var id: Int16
     @NSManaged public var url: String?
+    @NSManaged public var id: Int16
 
 }

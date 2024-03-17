@@ -22,6 +22,7 @@
 		0E2DE6542B8D45BB007D448C /* RecipeCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE6532B8D45BB007D448C /* RecipeCoordinator.swift */; };
 		0E2DE65C2B8D4C0A007D448C /* RecipePesenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE65B2B8D4C0A007D448C /* RecipePesenter.swift */; };
 		0E2DE6602B8D5008007D448C /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E2DE65F2B8D5008007D448C /* MainTabBarViewController.swift */; };
+		0E416BF72BA78CC700137613 /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0E416BF52BA78CC700137613 /* CoreData.xcdatamodeld */; };
 		0E476ECC2B97C42900516AE8 /* DownloadState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E476ECB2B97C42900516AE8 /* DownloadState.swift */; };
 		0E476ECE2B984EAD00516AE8 /* DownloadRecipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E476ECD2B984EAD00516AE8 /* DownloadRecipe.swift */; };
 		0E4B391D2BA24F8B008CE44A /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0E4B391C2BA24F8A008CE44A /* ErrorView.swift */; };
@@ -88,7 +89,6 @@
 		C4D2A3062BA38A8300936B0D /* ShimmerDescriptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */; };
 		C4D2A3082BA38E2C00936B0D /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */; };
 		C4D2A30A2BA3A51000936B0D /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3092BA3A51000936B0D /* ViewState.swift */; };
-		C4D2A32A2BA789C400936B0D /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3282BA789C400936B0D /* CoreData.xcdatamodeld */; };
 		EA1A8FEAB6BE7CAF22C41F40 /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F4E378ACAC697A5E08297A4 /* Pods_Recipes.framework */; };
 /* End PBXBuildFile section */
 
@@ -108,6 +108,7 @@
 		0E2DE6532B8D45BB007D448C /* RecipeCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeCoordinator.swift; sourceTree = "<group>"; };
 		0E2DE65B2B8D4C0A007D448C /* RecipePesenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipePesenter.swift; sourceTree = "<group>"; };
 		0E2DE65F2B8D5008007D448C /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		0E416BF62BA78CC700137613 /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		0E476ECB2B97C42900516AE8 /* DownloadState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadState.swift; sourceTree = "<group>"; };
 		0E476ECD2B984EAD00516AE8 /* DownloadRecipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadRecipe.swift; sourceTree = "<group>"; };
 		0E4B391C2BA24F8A008CE44A /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -178,7 +179,6 @@
 		C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDescriptionViewCell.swift; sourceTree = "<group>"; };
 		C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		C4D2A3092BA3A51000936B0D /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
-		C4D2A3292BA789C400936B0D /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
 		F3ED623D59BC14013D20658D /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.release.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -300,7 +300,6 @@
 		0E4F2C082B8CAB8400EDF359 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				C4D2A3282BA789C400936B0D /* CoreData.xcdatamodeld */,
 				0E4F2C092B8CAB8400EDF359 /* AppDelegate.swift */,
 				0E4F2C0B2B8CAB8400EDF359 /* SceneDelegate.swift */,
 				0E4F2C342B8CE9AD00EDF359 /* MainModuleBuilder.swift */,
@@ -320,6 +319,7 @@
 				0E6FDB7B2B8DE50D005A7D10 /* Colors.xcassets */,
 				0E4F2C142B8CAB8B00EDF359 /* LaunchScreen.storyboard */,
 				0E4F2C172B8CAB8B00EDF359 /* Info.plist */,
+				0E416BF52BA78CC700137613 /* CoreData.xcdatamodeld */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -762,7 +762,7 @@
 			files = (
 				0E6FDB822B8DE900005A7D10 /* FavoritiesPresenter.swift in Sources */,
 				0E6B53142B99CEA400F28B7D /* UsersMemento.swift in Sources */,
-				C4D2A32A2BA789C400936B0D /* CoreData.xcdatamodeld in Sources */,
+				0E416BF72BA78CC700137613 /* CoreData.xcdatamodeld in Sources */,
 				C45563B32B9DF9DA004AF3AF /* FavouriteRecipes.swift in Sources */,
 				0E238A0C2BA1BC65009A2FFC /* MeasuredCaloriesDTO.swift in Sources */,
 				0E7793DD2BA350F50088FE6B /* Proxy.swift in Sources */,
@@ -1063,14 +1063,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		C4D2A3282BA789C400936B0D /* CoreData.xcdatamodeld */ = {
+		0E416BF52BA78CC700137613 /* CoreData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				C4D2A3292BA789C400936B0D /* CoreData.xcdatamodel */,
+				0E416BF62BA78CC700137613 /* CoreData.xcdatamodel */,
 			);
-			currentVersion = C4D2A3292BA789C400936B0D /* CoreData.xcdatamodel */;
-			name = CoreData.xcdatamodeld;
-			path = "/Users/fenix/Development/RM v4/UIKit/Recipes/Recipes/Recipes/CoreData.xcdatamodeld";
+			currentVersion = 0E416BF62BA78CC700137613 /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

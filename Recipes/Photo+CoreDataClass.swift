@@ -2,7 +2,7 @@
 //  Photo+CoreDataClass.swift
 //  
 //
-//  Created by Dmitriy Starozhilov on 18.03.2024.
+//  Created by Dmitry Pavlov on 17.03.24.
 //
 //
 
