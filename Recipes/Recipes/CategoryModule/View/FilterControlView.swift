@@ -29,7 +29,7 @@ final class FilterControlView: UIView {
 
     // MARK: - Public Properties
 
-    weak var delagate: FilterableDelegate?
+    weak var delegate: FilterableDelegate?
     var dataSource: FilterControlViewDataSource? {
         didSet {
             setupView()
@@ -72,7 +72,7 @@ final class FilterControlView: UIView {
     }
 
     @objc private func filterButtonPressed(_ sender: AutoAddPaddingButton) {
-        delagate?.choosedFilter(
+        delegate?.choosedFilter(
             tag: sender.tag,
             completion: { [weak self] isPressed in
                 self?.filterButtons[sender.tag].buttonState = isPressed

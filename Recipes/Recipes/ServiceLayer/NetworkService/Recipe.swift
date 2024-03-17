@@ -4,10 +4,14 @@
 /// Объект получаемый в ходе десериализации
 final class Recipe {
     let uri: String
-    private let label: String
-    private let image: String
-    private let calories: Double
-    private let totalTime: Double
+    /// Название рецепта
+    let label: String
+    /// Картинка рецепта
+    let image: String
+    /// Кол-во калорий
+    let calories: Double
+    /// Время приготовления
+    let totalTime: Double
 
     init(dto: RecipeDTO) {
         label = dto.label

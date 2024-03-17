@@ -35,6 +35,7 @@ final class RecipeDetailImageCell: UITableViewCell {
     private let photoRecipeImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = Constants.photoRecipeCornerRadius
         return imageView
     }()
@@ -95,13 +96,22 @@ final class RecipeDetailImageCell: UITableViewCell {
         return label
     }()
 
+    let networkService = NetworkService()
+
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetail?) {
-        titleRecipeLabel.text = info?.title
-        photoRecipeImageView.image = UIImage(named: info?.imageName ?? "")
-        potCountLabel.text = (info?.dishWeight ?? "") + Constants.potChar
-        cookingCountLabel.text = "\(info?.cookingTime ?? 0) \(Constants.cookingMinute)"
+    func configureCell(info: RecipeDetailTest?) {
+        titleRecipeLabel.text = info?.label
+        guard let url = info?.image, let imageURL = URL(string: url) else { return }
+        let proxy = Proxy(service: networkService)
+        proxy.getImageFrom(imageURL) { data, _, error in
+            DispatchQueue.main.async {
+                guard let data = data, error == nil else { return }
+                self.photoRecipeImageView.image = UIImage(data: data)
+            }
+        }
+        potCountLabel.text = String(Int(info?.totalWeight ?? 0.0)) + String(Constants.potChar)
+        cookingCountLabel.text = "\(Int(info?.totalTime ?? 0)) \(Constants.cookingMinute)"
     }
 
     // MARK: - Initializators

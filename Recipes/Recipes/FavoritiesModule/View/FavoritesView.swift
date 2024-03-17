@@ -1,9 +1,9 @@
-// FavoritiesView.swift
+// FavoritesView.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
-protocol FavoritiesViewProtocol: AnyObject {
+protocol FavoritesViewProtocol: AnyObject {
     /// Добавление таблицы на основное вью
     func setupTableView()
     /// Удаление таблицы с основного вью
@@ -15,7 +15,7 @@ protocol FavoritiesViewProtocol: AnyObject {
 }
 
 /// Экран избранных рецептов
-final class FavoritiesView: UIViewController {
+final class FavoritesView: UIViewController {
     // MARK: - Constants
 
     private enum Constants {
@@ -29,7 +29,7 @@ final class FavoritiesView: UIViewController {
 
     // MARK: - Visual Components
 
-    private let emptyFavoritiesView = {
+    private let emptyFavoritesView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -76,7 +76,7 @@ final class FavoritiesView: UIViewController {
 
     // MARK: - Public Properties
 
-    var presenter: FavoritiesPresenter?
+    var presenter: FavoritesPresenter?
 
     // MARK: - Life Cycle
 
@@ -101,33 +101,33 @@ final class FavoritiesView: UIViewController {
     }
 
     private func setupFavoriteImageView() {
-        emptyFavoritiesView.addSubview(favoriteImageView)
+        emptyFavoritesView.addSubview(favoriteImageView)
         favoriteImageView.heightAnchor.constraint(equalToConstant: 24).isActive = true
         favoriteImageView.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        favoriteImageView.centerXAnchor.constraint(equalTo: emptyFavoritiesView.centerXAnchor).isActive = true
-        favoriteImageView.topAnchor.constraint(equalTo: emptyFavoritiesView.topAnchor, constant: 13).isActive = true
+        favoriteImageView.centerXAnchor.constraint(equalTo: emptyFavoritesView.centerXAnchor).isActive = true
+        favoriteImageView.topAnchor.constraint(equalTo: emptyFavoritesView.topAnchor, constant: 13).isActive = true
     }
 
     private func setupEmptyTitleLabel() {
-        emptyFavoritiesView.addSubview(emptyTitleLabel)
+        emptyFavoritesView.addSubview(emptyTitleLabel)
         emptyTitleLabel.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        emptyTitleLabel.widthAnchor.constraint(equalTo: emptyFavoritiesView.widthAnchor).isActive = true
-        emptyTitleLabel.centerXAnchor.constraint(equalTo: emptyFavoritiesView.centerXAnchor).isActive = true
+        emptyTitleLabel.widthAnchor.constraint(equalTo: emptyFavoritesView.widthAnchor).isActive = true
+        emptyTitleLabel.centerXAnchor.constraint(equalTo: emptyFavoritesView.centerXAnchor).isActive = true
         emptyTitleLabel.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor, constant: 20).isActive = true
     }
 
     private func setupEmptyContentLabel() {
-        emptyFavoritiesView.addSubview(emptyContentLabel)
+        emptyFavoritesView.addSubview(emptyContentLabel)
         emptyContentLabel.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        emptyContentLabel.widthAnchor.constraint(equalTo: emptyFavoritiesView.widthAnchor).isActive = true
-        emptyContentLabel.centerXAnchor.constraint(equalTo: emptyFavoritiesView.centerXAnchor).isActive = true
-        emptyContentLabel.bottomAnchor.constraint(equalTo: emptyFavoritiesView.bottomAnchor).isActive = true
+        emptyContentLabel.widthAnchor.constraint(equalTo: emptyFavoritesView.widthAnchor).isActive = true
+        emptyContentLabel.centerXAnchor.constraint(equalTo: emptyFavoritesView.centerXAnchor).isActive = true
+        emptyContentLabel.bottomAnchor.constraint(equalTo: emptyFavoritesView.bottomAnchor).isActive = true
     }
 }
 
-// MARK: - FavoritiesView + UITableViewDataSource
+// MARK: - FavoritesView + UITableViewDataSource
 
-extension FavoritiesView: UITableViewDataSource {
+extension FavoritesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
@@ -140,14 +140,14 @@ extension FavoritiesView: UITableViewDataSource {
         guard let cell = favoriteTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.favouriteRecipes[indexPath.section])
+        // cell.configureCell(info: presenter?.favouriteRecipes[indexPath.section])
         return cell
     }
 }
 
-// MARK: - FavoritiesView + UITableViewDelegate
+// MARK: - FavoritesView + UITableViewDelegate
 
-extension FavoritiesView: UITableViewDelegate {
+extension FavoritesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = UIColor.clear
@@ -180,9 +180,9 @@ extension FavoritiesView: UITableViewDelegate {
     }
 }
 
-// MARK: - FavoritiesView + FavoritiesViewProtocol
+// MARK: - FavoritesView + FavoritesViewProtocol
 
-extension FavoritiesView: FavoritiesViewProtocol {
+extension FavoritesView: FavoritesViewProtocol {
     func setupTableView() {
         view.addSubview(favoriteTableView)
         favoriteTableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12)
@@ -197,19 +197,19 @@ extension FavoritiesView: FavoritiesViewProtocol {
     }
 
     func setupEmptyView() {
-        view.addSubview(emptyFavoritiesView)
-        emptyFavoritiesView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        view.addSubview(emptyFavoritesView)
+        emptyFavoritesView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
             .isActive = true
-        emptyFavoritiesView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        emptyFavoritiesView.heightAnchor.constraint(equalToConstant: 132).isActive = true
-        emptyFavoritiesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
-        emptyFavoritiesView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
+        emptyFavoritesView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        emptyFavoritesView.heightAnchor.constraint(equalToConstant: 132).isActive = true
+        emptyFavoritesView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
+        emptyFavoritesView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20).isActive = true
         setupFavoriteImageView()
         setupEmptyTitleLabel()
         setupEmptyContentLabel()
     }
 
     func removeEmptyView() {
-        emptyFavoritiesView.removeFromSuperview()
+        emptyFavoritesView.removeFromSuperview()
     }
 }

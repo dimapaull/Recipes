@@ -9,7 +9,7 @@ final class MainModuleBuilder {
 
     private enum Constants {
         static let recipeTabBarTitle = "Recipe"
-        static let favoritiesTabBarTitle = "Favorities"
+        static let favoritesTabBarTitle = "Favorities"
         static let profileTabBarTitle = "Profile"
     }
 
@@ -24,11 +24,11 @@ final class MainModuleBuilder {
         return view
     }
 
-    func makeFavoritesModule(coordinator: FavoritiesCoordinator) -> FavoritiesView {
-        let view = FavoritiesView()
-        let favoritiesPresenter = FavoritiesPresenter(view: view, favoritiesCoordinator: coordinator)
-        view.presenter = favoritiesPresenter
-        view.tabBarItem = UITabBarItem(title: Constants.favoritiesTabBarTitle, image: .favoritesBar, tag: 1)
+    func makeFavoritesModule(coordinator: FavoritesCoordinator) -> FavoritesView {
+        let view = FavoritesView()
+        let favoritesPresenter = FavoritesPresenter(view: view, favoritesCoordinator: coordinator)
+        view.presenter = favoritesPresenter
+        view.tabBarItem = UITabBarItem(title: Constants.favoritesTabBarTitle, image: .favoritesBar, tag: 1)
         view.tabBarItem.selectedImage = .currentFavoritesBar
         return view
     }

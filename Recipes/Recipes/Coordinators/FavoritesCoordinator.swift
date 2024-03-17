@@ -1,10 +1,10 @@
-// FavoritiesCoordinator.swift
+// FavoritesCoordinator.swift
 // Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Координатор избранных рецептов
-final class FavoritiesCoordinator: BaseCoordinator {
+final class FavoritesCoordinator: BaseCoordinator {
     // MARK: - Public Properties
 
     var rootController: UINavigationController?
@@ -20,10 +20,10 @@ final class FavoritiesCoordinator: BaseCoordinator {
         onFinishFlow?()
     }
 
-    func pushFavoritiesView() {
-        let favoritiesView = FavoritiesView()
-        let favoritiesPresenter = FavoritiesPresenter(view: favoritiesView, favoritiesCoordinator: self)
-        favoritiesView.presenter = favoritiesPresenter
-        rootController?.pushViewController(favoritiesView, animated: true)
+    func pushFavoritesView() {
+        let favoritesView = FavoritesView()
+        let favoritesPresenter = FavoritesPresenter(view: favoritesView, favoritesCoordinator: self)
+        favoritesView.presenter = favoritesPresenter
+        rootController?.pushViewController(favoritesView, animated: true)
     }
 }

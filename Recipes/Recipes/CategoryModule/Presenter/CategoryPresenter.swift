@@ -8,52 +8,17 @@ final class CategoryPresenter {
     // MARK: - Constants
 
     private enum Constants {
-        static let recipeDescription = """
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium size asian eggplants, cut int 1 inch
-        rounds
-        Handful of bird's eye chilies
-        1/2 cup thai basil leaves
-        Juice of 3 limes
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium size asian eggplants, cut int 1 inch
-        rounds
-        Handful of bird's eye chilies
-        1/2 cup thai basil leaves
-        Juice of 3 limes
-        1/2 to 2 fish heads, depending on size, about 5 pounds total
-        2 tablespoons vegetable oil
-        1/4 cup red or green thai curry paste
-        3 tablespoons fish sauce or anchovy sauce
-        1 tablespoon sugar
-        1 can coconut milk, about 12 ounces
-        3 medium size asian eggplants, cut int 1 inch
-        rounds
-        Handful of bird's eye chilies
-        1/2 cup thai basil leaves
-        Juice of 3 limes
-        """
         static let minimumCountSymbols = 3
     }
 
     // MARK: - Private Properties
 
-    private weak var view: CategoryViewProtocol?
-    private weak var recipeCoordinator: RecipeCoordinator?
-    private var downloadRecipe: DownloadRecipeProtocol?
-    private var reseiver: FileManagerServiceProtocol?
     private let categoryName: CategoryRecipeName
     private let networkService: NetworkServiceProtocol?
+    private var downloadRecipe: DownloadRecipeProtocol?
+    private var reseiver: FileManagerServiceProtocol?
+    private weak var view: CategoryViewProtocol?
+    private weak var recipeCoordinator: RecipeCoordinator?
 
     // MARK: - Initializers
 
@@ -70,147 +35,86 @@ final class CategoryPresenter {
         self.categoryName = categoryName
         self.networkService = networkService
         currentFilterState = .off
-        downloadRecipe.startFetch()
         reseiver = FileManagerService.fileManagerService
     }
 
     // MARK: - Public Properties
 
-    private var searchingNames: [RecipeDetail] = []
-    private(set) var currentRecipes: [RecipeDetail] = CategoryPresenter.recipes
-    var downloadRecipes: [Recipe] = []
+    private(set) var currentRecipes: [Recipe] = []
+    private var downloadRecipes: [Recipe] = []
 
-    static var recipes = [
-        RecipeDetail(
-            title: "Simple Fish And Corn",
-            imageName: "chickenFish",
-            dishWeight: "793",
-            cookingTime: 60,
-            kilocalories: 1322,
-            carbohydrates: "10,78",
-            fats: "10,00",
-            proteins: "97,30",
-            description: Constants.recipeDescription
-        ),
-
-        RecipeDetail(
-            title: "Baked Fish with Lemon Herb Sauce",
-            imageName: "bakeFish",
-            dishWeight: "793",
-            cookingTime: 90,
-            kilocalories: 616,
-            carbohydrates: "10,78",
-            fats: "10,00",
-            proteins: "97,30",
-            description: Constants.recipeDescription
-        ),
-
-        RecipeDetail(
-            title: "Lemon and Chilli Fish Burrito",
-            imageName: "lemonAndChill",
-            dishWeight: "793",
-            cookingTime: 90,
-            kilocalories: 226,
-            carbohydrates: "10,78",
-            fats: "10,00",
-            proteins: "97,30",
-            description: Constants.recipeDescription
-        ),
-
-        RecipeDetail(
-            title: "Fast Roast Fish & Show Peas Recipes",
-            imageName: "fastRoast",
-            dishWeight: "793",
-            cookingTime: 80,
-            kilocalories: 94,
-            carbohydrates: "10,78",
-            fats: "10,00",
-            proteins: "97,30",
-            description: Constants.recipeDescription
-        ),
-
-        RecipeDetail(
-            title: "Salmon with Cantaloupe and Fried Shallots",
-            imageName: "salmon",
-            dishWeight: "793",
-            cookingTime: 100,
-            kilocalories: 410,
-            carbohydrates: "10,78",
-            fats: "10,00",
-            proteins: "97,30",
-            description: Constants.recipeDescription
-        ),
-
-        RecipeDetail(
-            title: "Chilli and Tomato Fish",
-            imageName: "chillAndTomato",
-            dishWeight: "793",
-            cookingTime: 100,
-            kilocalories: 174,
-            carbohydrates: "10,78",
-            fats: "10,00",
-            proteins: "97,30",
-            description: Constants.recipeDescription
-        ),
-    ]
-
-    var currentFilterState: FilterType {
+    private var currentFilterState: FilterType {
         willSet {
-            currentRecipes = CategoryPresenter.recipes
+            currentRecipes = downloadRecipes
             switch newValue {
             case .time:
-                currentRecipes.sort { $0.cookingTime < $1.cookingTime }
+                currentRecipes.sort { $0.totalTime < $1.totalTime }
             case .calories:
-                currentRecipes.sort { $0.kilocalories < $1.kilocalories }
+                currentRecipes.sort { $0.calories < $1.calories }
             case .twice:
                 currentRecipes.sort {
-                    ($0.cookingTime + $0.kilocalories) < ($1.cookingTime + $1.kilocalories)
+                    ($0.totalTime + $0.calories) < ($1.totalTime + $1.calories)
                 }
             default:
-                currentRecipes = CategoryPresenter.recipes
+                currentRecipes = downloadRecipes
             }
         }
     }
+
+    // MARK: - Public Methods
 
     func textTitleSection(titleSection: String) {
         reseiver?.setTitleSection(nameSection: titleSection)
     }
 
-    // MARK: - Public Methods
-
     func selectionRow(in section: Int) {
-        recipeCoordinator?.pushRecipeDetailView(recipe: currentRecipes[section])
-        if let recipeUri = downloadRecipes.first?.uri {
-            networkService?.getDetailRecipe(uri: recipeUri) { result in
-                switch result {
-                case let .success(success):
-                    print(success)
-                case let .failure(failure):
-                    print(failure)
-                }
-            }
-        }
+        //        if let recipeUri = downloadRecipes.first?.uri {
+        //            recipeCoordinator?.pushRecipeDetailView(recipe: recipeUri)
+        //        } else {
+        //            return
+        //        }
+        recipeCoordinator?.pushRecipeDetailView(uri: currentRecipes[section].uri)
+        //        if let recipeUri = downloadRecipes.first?.uri {
+        //            networkService?.getDetailRecipe(uri: recipeUri) { result in
+        //                switch result {
+        //                case let .success(success):
+        //                    print(success)
+        //                case let .failure(failure):
+        //                    print(failure)
+        //                }
+        //            }
+        //        }
     }
 
     func filtredRecipes(searchText: String) {
         if searchText.count < Constants.minimumCountSymbols {
-            currentRecipes = CategoryPresenter.recipes
+            getDishRecipe(nil)
         } else {
-            currentRecipes = CategoryPresenter.recipes.filter {
-                $0.title.prefix(searchText.count) == searchText
-            }
+            getDishRecipe(searchText)
         }
-        view?.reloadTable()
+        //        view?.reloadTable()
     }
 
-    func getDishRecipe() {
-        networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: nil) { result in
+    func getDishRecipe(_ searchText: String?, _ completionHandler: (() -> ())? = nil) {
+        downloadRecipe?.startFetch()
+        networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: searchText) { result in
             switch result {
             case let .success(recipes):
+                self.currentRecipes = recipes
                 self.downloadRecipes = recipes
-                print(recipes)
+                DispatchQueue.main.async {
+                    if recipes.isEmpty {
+                        self.downloadRecipe?.stopFetch(.noData)
+                    } else {
+                        self.downloadRecipe?.stopFetch(.data)
+                    }
+                }
             case .failure:
+                self.downloadRecipe?.stopFetch(.error)
                 return
+            }
+            DispatchQueue.main.async {
+                completionHandler?()
             }
         }
 

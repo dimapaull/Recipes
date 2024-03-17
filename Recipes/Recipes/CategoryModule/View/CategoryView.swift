@@ -3,7 +3,7 @@
 
 import UIKit
 
-/// Нужен для упраления вью
+/// Нужен для управления вью
 protocol CategoryViewProtocol: AnyObject {
     /// Принимает состояние процесса скачивания рецепта
     var updateCellState: DownloadState { get set }
@@ -25,6 +25,12 @@ final class CategoryView: UIViewController {
 
     // MARK: - Visual Components
 
+    private lazy var reloadControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(reloadControlUsed), for: .valueChanged)
+        return refreshControl
+    }()
+
     private lazy var recipeSearchBar = {
         let searchBar = UISearchBar()
         searchBar.searchBarStyle = .minimal
@@ -33,6 +39,7 @@ final class CategoryView: UIViewController {
         searchBar.backgroundImage = nil
         searchBar.backgroundColor = .clear
         searchBar.delegate = self
+        searchBar.enablesReturnKeyAutomatically = false
         searchBar.placeholder = Constants.searchBarPlaceholderText
         return searchBar
     }()
@@ -40,7 +47,7 @@ final class CategoryView: UIViewController {
     private lazy var filterControlView = {
         let controlView = FilterControlView()
         controlView.dataSource = self
-        controlView.delagate = presenter
+        controlView.delegate = presenter
         return controlView
     }()
 
@@ -51,16 +58,27 @@ final class CategoryView: UIViewController {
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
         tableView.register(CategoryViewCell.self, forCellReuseIdentifier: String(describing: CategoryViewCell.self))
+        tableView.refreshControl = reloadControl
         return tableView
+    }()
+
+    private lazy var errorView = {
+        let view = ErrorView()
+        view.delegate = self
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
 
     // MARK: - Public Properties
 
     var presenter: CategoryPresenter?
     var backNavigationTitle = String()
-    var updateCellState: DownloadState = .initial {
+    var updateCellState: DownloadState = .loading {
         didSet {
-            recipeTableView.reloadData()
+            DispatchQueue.main.async {
+                self.errorView.configureView(self.updateCellState)
+                self.recipeTableView.reloadData()
+            }
         }
     }
 
@@ -75,7 +93,8 @@ final class CategoryView: UIViewController {
         tabBarController?.tabBar.isHidden = true
         configureUI()
         configureNavigationBar()
-        presenter?.getDishRecipe()
+        presenter?.getDishRecipe(nil)
+        errorView.configureView(updateCellState)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -114,6 +133,15 @@ final class CategoryView: UIViewController {
         setupSearchBarConstraints()
         setupFilterControlViewConstraints()
         setupRecipeTableViewConstraints()
+        addErrorView()
+    }
+
+    private func addErrorView() {
+        view.addSubview(errorView)
+        errorView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        errorView.heightAnchor.constraint(equalToConstant: 140).isActive = true
+        errorView.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        errorView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
     }
 
     private func addSubiews() {
@@ -149,6 +177,12 @@ final class CategoryView: UIViewController {
     @objc private func backBarButtonPressed() {
         navigationController?.popViewController(animated: true)
     }
+
+    @objc private func reloadControlUsed() {
+        presenter?.getDishRecipe(recipeSearchBar.text) {
+            self.reloadControl.endRefreshing()
+        }
+    }
 }
 
 // MARK: - CategoryView + UITableViewDataSource
@@ -159,7 +193,7 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
-        presenter?.currentRecipes.count ?? 0
+        updateCellState == .loading ? 10 : presenter?.currentRecipes.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -176,18 +210,22 @@ extension CategoryView: UITableViewDataSource, UITableViewDelegate {
         guard let cell = recipeTableView
             .dequeueReusableCell(withIdentifier: String(describing: CategoryViewCell.self)) as? CategoryViewCell
         else { return UITableViewCell() }
-        cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
+        if updateCellState != .loading {
+            cell.configureCell(info: presenter?.currentRecipes[indexPath.section])
+        }
         switch updateCellState {
-        case .initial:
-            break
         case .loading:
+            recipeTableView.isHidden = false
             recipeTableView.isScrollEnabled = false
             cell.showShimmers()
-        case .success:
+        case .data:
+            recipeTableView.isHidden = false
             recipeTableView.isScrollEnabled = true
             cell.removeShimmers()
-        case .failture:
-            cell.showShimmers()
+        case .noData:
+            recipeTableView.isHidden = true
+        case .error:
+            recipeTableView.isHidden = true
         }
         return cell
     }
@@ -226,5 +264,13 @@ extension CategoryView: UISearchBarDelegate {
 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true)
+    }
+}
+
+// MARK: - CategoryView + ErrorViewDelegateProtocol
+
+extension CategoryView: ErrorViewDelegateProtocol {
+    func reload() {
+        presenter?.getDishRecipe(recipeSearchBar.text)
     }
 }
