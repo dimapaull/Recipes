@@ -4,7 +4,7 @@
 import CoreData
 import UIKit
 
-/// Класс для работы с CoreData
+/// Класс для работы с CoreData!
 public final class CoreDataManager: NSObject {
     public static let shared = CoreDataManager()
     override private init() {}
