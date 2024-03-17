@@ -1,3 +1,20 @@
+<<<<<<< Updated upstream
 PODFILE CHECKSUM: c9560d33d803e0f9ebde0623523c9d5a36f58ddb
+=======
+PODS:
+  - KeychainSwift (21.0.0)
+
+DEPENDENCIES:
+  - KeychainSwift
+
+SPEC REPOS:
+  trunk:
+    - KeychainSwift
+
+SPEC CHECKSUMS:
+  KeychainSwift: 4a71a45c802fd9e73906457c2dcbdbdc06c9419d
+
+PODFILE CHECKSUM: 8667d8996222596cce4e3e6b6f85fdc61ccebcd4
+>>>>>>> Stashed changes
 
 COCOAPODS: 1.14.2

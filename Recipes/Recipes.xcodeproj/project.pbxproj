@@ -61,7 +61,11 @@
 		0ED55CE52B8E4BA800197357 /* ValidateUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED55CE42B8E4BA800197357 /* ValidateUserData.swift */; };
 		0EE8634B2BA09E5300DA8582 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE8634A2BA09E5300DA8582 /* NetworkService.swift */; };
 		0EE8634D2BA0B48900DA8582 /* DishRecipeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE8634C2BA0B48900DA8582 /* DishRecipeDTO.swift */; };
+<<<<<<< Updated upstream
 		22B26D3E4982C3B006C350A9 /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E748A270AB51BD3A5839DA5 /* Pods_Recipes.framework */; };
+=======
+		1DF7707117AC6270A0EDB029 /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73F7BDB46FC762DDCC9CA3E5 /* Pods_Recipes.framework */; };
+>>>>>>> Stashed changes
 		C45563B32B9DF9DA004AF3AF /* FavouriteRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45563B22B9DF9DA004AF3AF /* FavouriteRecipes.swift */; };
 		C45B61D22B8E412100C80F92 /* ProfileAvatarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61D12B8E412100C80F92 /* ProfileAvatarTableViewCell.swift */; };
 		C45B61D42B8E552200C80F92 /* ProfileBonusesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45B61D32B8E552200C80F92 /* ProfileBonusesTableViewCell.swift */; };
@@ -151,9 +155,15 @@
 		0ED55CE42B8E4BA800197357 /* ValidateUserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateUserData.swift; sourceTree = "<group>"; };
 		0EE8634A2BA09E5300DA8582 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		0EE8634C2BA0B48900DA8582 /* DishRecipeDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRecipeDTO.swift; sourceTree = "<group>"; };
+<<<<<<< Updated upstream
 		1E748A270AB51BD3A5839DA5 /* Pods_Recipes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		256AB136B497AECA6F653693 /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.release.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
 		3AF53F3095DE6E3C6BB72296 /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.debug.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
+=======
+		6DEDB46F7F1C55F2F45588D1 /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.debug.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
+		73F7BDB46FC762DDCC9CA3E5 /* Pods_Recipes.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Recipes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B18E552FB101336F9997BE82 /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.release.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
+>>>>>>> Stashed changes
 		C45563B22B9DF9DA004AF3AF /* FavouriteRecipes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FavouriteRecipes.swift; path = Recipes/FavouriteRecipes.swift; sourceTree = SOURCE_ROOT; };
 		C45B61D12B8E412100C80F92 /* ProfileAvatarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileAvatarTableViewCell.swift; sourceTree = "<group>"; };
 		C45B61D32B8E552200C80F92 /* ProfileBonusesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileBonusesTableViewCell.swift; sourceTree = "<group>"; };
@@ -191,7 +201,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+<<<<<<< Updated upstream
 				22B26D3E4982C3B006C350A9 /* Pods_Recipes.framework in Frameworks */,
+=======
+				1DF7707117AC6270A0EDB029 /* Pods_Recipes.framework in Frameworks */,
+>>>>>>> Stashed changes
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,8 +312,13 @@
 				C4D2A30D2BA72BF300936B0D /* CoreData.xcdatamodeld */,
 				0E4F2C082B8CAB8400EDF359 /* Recipes */,
 				0E4F2C072B8CAB8400EDF359 /* Products */,
+<<<<<<< Updated upstream
 				023299FDFE43B0485275CC4E /* Pods */,
 				3ADA4CE289DA897C495D3151 /* Frameworks */,
+=======
+				C0A05D351D32E8FADA463D3C /* Pods */,
+				781B52F02787AD405401C1C3 /* Frameworks */,
+>>>>>>> Stashed changes
 			);
 			sourceTree = "<group>";
 		};
@@ -528,14 +547,34 @@
 			path = ServiceLayer;
 			sourceTree = "<group>";
 		};
+<<<<<<< Updated upstream
 		3ADA4CE289DA897C495D3151 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				1E748A270AB51BD3A5839DA5 /* Pods_Recipes.framework */,
+=======
+		781B52F02787AD405401C1C3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				73F7BDB46FC762DDCC9CA3E5 /* Pods_Recipes.framework */,
+>>>>>>> Stashed changes
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+<<<<<<< Updated upstream
+=======
+		C0A05D351D32E8FADA463D3C /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				6DEDB46F7F1C55F2F45588D1 /* Pods-Recipes.debug.xcconfig */,
+				B18E552FB101336F9997BE82 /* Pods-Recipes.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+>>>>>>> Stashed changes
 		C45B61D02B8E40DC00C80F92 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -620,12 +659,17 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0E4F2C1A2B8CAB8B00EDF359 /* Build configuration list for PBXNativeTarget "Recipes" */;
 			buildPhases = (
+<<<<<<< Updated upstream
 				8F1DA0C4DCED6B0505BD1673 /* [CP] Check Pods Manifest.lock */,
+=======
+				8E9C1B5CAACEC7C128893CE8 /* [CP] Check Pods Manifest.lock */,
+>>>>>>> Stashed changes
 				0E4F2C202B8CB07C00EDF359 /* SwiftFormatter */,
 				0E4F2C212B8CB09300EDF359 /* SwiftLint */,
 				0E4F2C022B8CAB8400EDF359 /* Sources */,
 				0E4F2C032B8CAB8400EDF359 /* Frameworks */,
 				0E4F2C042B8CAB8400EDF359 /* Resources */,
+				70D146EFCED9991072004B16 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -727,7 +771,28 @@
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
+<<<<<<< Updated upstream
 		8F1DA0C4DCED6B0505BD1673 /* [CP] Check Pods Manifest.lock */ = {
+=======
+		70D146EFCED9991072004B16 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Recipes/Pods-Recipes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Recipes/Pods-Recipes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Recipes/Pods-Recipes-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8E9C1B5CAACEC7C128893CE8 /* [CP] Check Pods Manifest.lock */ = {
+>>>>>>> Stashed changes
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -971,7 +1036,11 @@
 		};
 		0E4F2C1B2B8CAB8B00EDF359 /* Debug */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< Updated upstream
 			baseConfigurationReference = 3AF53F3095DE6E3C6BB72296 /* Pods-Recipes.debug.xcconfig */;
+=======
+			baseConfigurationReference = 6DEDB46F7F1C55F2F45588D1 /* Pods-Recipes.debug.xcconfig */;
+>>>>>>> Stashed changes
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1005,7 +1074,11 @@
 		};
 		0E4F2C1C2B8CAB8B00EDF359 /* Release */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< Updated upstream
 			baseConfigurationReference = 256AB136B497AECA6F653693 /* Pods-Recipes.release.xcconfig */;
+=======
+			baseConfigurationReference = B18E552FB101336F9997BE82 /* Pods-Recipes.release.xcconfig */;
+>>>>>>> Stashed changes
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
