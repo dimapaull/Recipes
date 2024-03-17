@@ -113,8 +113,8 @@ final class CategoryViewCell: UITableViewCell {
         timeStackViewGradientLayer,
         caloriesStackViewGradientLayer
     ]
-    
-    //MARK: - Private Properties
+
+    // MARK: - Private Properties
 
     private let networkService = NetworkService()
 

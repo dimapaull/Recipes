@@ -19,13 +19,14 @@ final class Proxy: DownloadImageProtocol {
     // MARK: - Private Methods
 
     func getImageFrom(_ url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        if let imageData = fileManager.getImageFrom(url.absoluteString) {
-            completionHandler(imageData, nil, nil)
+        let imageName = url.lastPathComponent
+        if let casheData = fileManager.getImageFrom(name: imageName) {
+            completionHandler(casheData, nil, nil)
         } else {
-            service?.getImageFrom(url, completionHandler: { [weak self] data, response, error in
-                self?.fileManager.saveImage(data, imageUri: url.absoluteString)
+            service?.getImageFrom(url) { data, response, error in
+                self.fileManager.saveImage(data: data, imageUri: imageName)
                 completionHandler(data, response, error)
-            })
+            }
         }
     }
 }
