@@ -6,7 +6,6 @@ target 'Recipes' do
   use_frameworks!
 
   # Pods for Recipes
-  pod "Keychain"
 
   pod "KeychainSwift"
 
