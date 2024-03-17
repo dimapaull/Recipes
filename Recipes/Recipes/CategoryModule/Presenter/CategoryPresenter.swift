@@ -12,14 +12,13 @@ final class CategoryPresenter {
     }
 
     // MARK: - Private Properties
-    
+
     private let categoryName: CategoryRecipeName
     private let networkService: NetworkServiceProtocol?
     private var downloadRecipe: DownloadRecipeProtocol?
     private var reseiver: FileManagerServiceProtocol?
     private weak var view: CategoryViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
-  
 
     // MARK: - Initializers
 
@@ -92,12 +91,8 @@ final class CategoryPresenter {
             getDishRecipe(nil)
         } else {
             getDishRecipe(searchText)
-            //            currentRecipes = CategoryPresenter.recipes.filter {
-            //                $0.title.prefix(searchText.count) == searchText
-            //            }
         }
         //        view?.reloadTable()
-        }
     }
 
     func getDishRecipe(_ searchText: String?, _ completionHandler: (() -> ())? = nil) {

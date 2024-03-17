@@ -5,8 +5,6 @@ import UIKit
 
 /// Протокол для управления View
 protocol RecipeDetailViewProtocol: AnyObject {
-//    /// Обновление таблицы
-//    func reloadTableView()
     /// Установка картинки для кнопки "В избранное"
     func setBookmarkButtonImage()
     /// Обновление состояния View
@@ -195,7 +193,8 @@ final class RecipeDetailView: UIViewController {
         setuplogoImageViewConstraints()
         setupErrorTitleLabelConstraints()
         setupReloadButtonConstraints()
-        recipeDetailTableView.removeFromSuperview()
+        recipeDetailTableView.isHidden = true
+//        recipeDetailTableView.removeFromSuperview()
     }
 
     private func configureUI() {
@@ -247,10 +246,16 @@ final class RecipeDetailView: UIViewController {
     }
 
     @objc private func reloadButtonPressed() {
+        presenter?.state = .loading
         presenter?.getDetailRecipe()
+        recipeDetailTableView.isHidden = false
+        logoImageView.isHidden = true
+        errorTitleLabel.isHidden = true
+        reloadButton.isHidden = true
     }
 
     @objc private func swipeTableView() {
+        presenter?.state = .loading
         presenter?.getDetailRecipe {
             self.refreshControll.endRefreshing()
         }
@@ -287,7 +292,6 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cells = cellsType[indexPath.section]
-        print(presenter?.state)
         switch presenter?.state {
         case .loading:
             recipeDetailTableView.isScrollEnabled = false
@@ -378,10 +382,6 @@ extension RecipeDetailView: UITableViewDataSource, UITableViewDelegate {
 // MARK: - RecipeDetailView + RecipeDetailViewProtocol
 
 extension RecipeDetailView: RecipeDetailViewProtocol {
-//    func reloadTableView() {
-//        recipeDetailTableView.reloadData()
-//    }
-
     func setBookmarkButtonImage() {
         bookmarkButtonImage.setImage(Constants.bookmarkRedButtonImage, for: .normal)
     }
@@ -393,13 +393,5 @@ extension RecipeDetailView: RecipeDetailViewProtocol {
         case .noData, .error, .none:
             addErrorServiceElements()
         }
-    }
-}
-
-// MARK: - CategoryView + ErrorViewDelegateProtocol
-
-extension RecipeDetailView: ErrorViewDelegateProtocol {
-    func reload() {
-//        presenter?.getDishRecipe(recipeSearchBar.text)
     }
 }

@@ -96,20 +96,20 @@ final class RecipeDetailImageCell: UITableViewCell {
         return label
     }()
 
+    let networkService = NetworkService()
+
     // MARK: - Public Methods
 
     func configureCell(info: RecipeDetailTest?) {
         titleRecipeLabel.text = info?.label
-        NetworkService.downLoadImage(info?.image ?? "", completion: { result in
-            switch result {
-            case let .success(image):
-                DispatchQueue.main.async {
-                    self.photoRecipeImageView.image = image
-                }
-            case .failure:
-                break
+        guard let url = info?.image, let imageURL = URL(string: url) else { return }
+        let proxy = Proxy(service: networkService)
+        proxy.getImageFrom(imageURL) { data, _, error in
+            DispatchQueue.main.async {
+                guard let data = data, error == nil else { return }
+                self.photoRecipeImageView.image = UIImage(data: data)
             }
-        })
+        }
         potCountLabel.text = String(Int(info?.totalWeight ?? 0.0)) + String(Constants.potChar)
         cookingCountLabel.text = "\(Int(info?.totalTime ?? 0)) \(Constants.cookingMinute)"
     }
