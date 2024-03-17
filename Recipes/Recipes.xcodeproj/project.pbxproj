@@ -89,6 +89,8 @@
 		C4D2A3062BA38A8300936B0D /* ShimmerDescriptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */; };
 		C4D2A3082BA38E2C00936B0D /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */; };
 		C4D2A30A2BA3A51000936B0D /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3092BA3A51000936B0D /* ViewState.swift */; };
+		C4D2A3362BA78FE700936B0D /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3352BA78FE700936B0D /* Photo+CoreDataProperties.swift */; };
+		C4D2A3382BA78FFC00936B0D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3372BA78FFC00936B0D /* CoreDataManager.swift */; };
 		EA1A8FEAB6BE7CAF22C41F40 /* Pods_Recipes.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5F4E378ACAC697A5E08297A4 /* Pods_Recipes.framework */; };
 /* End PBXBuildFile section */
 
@@ -179,6 +181,8 @@
 		C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDescriptionViewCell.swift; sourceTree = "<group>"; };
 		C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		C4D2A3092BA3A51000936B0D /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
+		C4D2A3352BA78FE700936B0D /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C4D2A3372BA78FFC00936B0D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		F3ED623D59BC14013D20658D /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Recipes.release.xcconfig"; path = "Target Support Files/Pods-Recipes/Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -282,6 +286,9 @@
 		0E4F2BFD2B8CAB8300EDF359 = {
 			isa = PBXGroup;
 			children = (
+				0E416BF52BA78CC700137613 /* CoreData.xcdatamodeld */,
+				C4D2A3352BA78FE700936B0D /* Photo+CoreDataProperties.swift */,
+				C4D2A3372BA78FFC00936B0D /* CoreDataManager.swift */,
 				0E4F2C082B8CAB8400EDF359 /* Recipes */,
 				0E4F2C072B8CAB8400EDF359 /* Products */,
 				78D6B1502C89E86CB23F8F92 /* Pods */,
@@ -319,7 +326,6 @@
 				0E6FDB7B2B8DE50D005A7D10 /* Colors.xcassets */,
 				0E4F2C142B8CAB8B00EDF359 /* LaunchScreen.storyboard */,
 				0E4F2C172B8CAB8B00EDF359 /* Info.plist */,
-				0E416BF52BA78CC700137613 /* CoreData.xcdatamodeld */,
 			);
 			path = Recipes;
 			sourceTree = "<group>";
@@ -798,6 +804,7 @@
 				0E6B530E2B9924EE00F28B7D /* UsersManager.swift in Sources */,
 				0E4F2C0A2B8CAB8400EDF359 /* AppDelegate.swift in Sources */,
 				0EAC5B892B8E956A000108E2 /* PaddingLabel.swift in Sources */,
+				C4D2A3362BA78FE700936B0D /* Photo+CoreDataProperties.swift in Sources */,
 				0E476ECC2B97C42900516AE8 /* DownloadState.swift in Sources */,
 				0E4F2C392B8CF7AB00EDF359 /* ProfilePresenter.swift in Sources */,
 				C4BDF7A12B9A2791001DC265 /* FileManagerService.swift in Sources */,
@@ -813,6 +820,7 @@
 				C45B61E22B90FC2B00C80F92 /* RecipeCategory.swift in Sources */,
 				0E4F2C352B8CE9AD00EDF359 /* MainModuleBuilder.swift in Sources */,
 				0E6FDB842B8DE918005A7D10 /* FavoritesView.swift in Sources */,
+				C4D2A3382BA78FFC00936B0D /* CoreDataManager.swift in Sources */,
 				0E5FD6CF2B90B8EB00124D9B /* FilterControlView.swift in Sources */,
 				0EAC5B902B908B9D000108E2 /* CategoryView.swift in Sources */,
 				C4D2A3062BA38A8300936B0D /* ShimmerDescriptionViewCell.swift in Sources */,

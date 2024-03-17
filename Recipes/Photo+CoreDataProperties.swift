@@ -4,12 +4,11 @@
 import CoreData
 import Foundation
 
-///
-public extension Photo {
-    @nonobjc class func fetchRequest() -> NSFetchRequest<Photo> {
-        NSFetchRequest<Photo>(entityName: "Photo")
-    }
+@objc(Photo)
+public class Photo: NSManagedObject {}
 
-    @NSManaged var url: String?
+/// Расширение элемент Photo базы данных CoreData
+extension Photo {
     @NSManaged var id: Int16
+    @NSManaged var uri: String?
 }
