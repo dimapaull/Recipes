@@ -2,6 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import KeychainSwift
 
 /// Менеджер хранилища
 final class UsersManager {
@@ -12,7 +13,7 @@ final class UsersManager {
     // MARK: - Constants
 
     private enum Constants {
-        static let currentUser = "currentUser"
+        static let currentUserKey = "currentUser"
     }
 
     // MARK: - Public Properties
@@ -35,7 +36,8 @@ final class UsersManager {
     }
 
     func getCurrentUser() -> User? {
-        guard let data = UserDefaults.standard.data(forKey: Constants.currentUser) else { return nil }
+        guard let data = KeychainSwift().getData(Constants.currentUserKey) else { return nil }
+
         do {
             let decodedUser = try decoder.decode(User.self, from: data)
             return decodedUser
@@ -47,8 +49,7 @@ final class UsersManager {
     func setCurrentUser(_ user: User) {
         do {
             let data = try encoder.encode(user)
-            UserDefaults.standard.set(data, forKey: Constants.currentUser)
-            UserDefaults.standard.synchronize()
+            KeychainSwift().set(data, forKey: Constants.currentUserKey)
         } catch {
             print("Encoding error:", error)
         }
@@ -58,7 +59,7 @@ final class UsersManager {
         if var user = getCurrentUser() {
             user.profileImage = image
             setCurrentUser(user)
-            upadateUsersStore()
+            updateUsersStore()
         }
     }
 
@@ -66,13 +67,13 @@ final class UsersManager {
         if var user = getCurrentUser() {
             user.userName = name
             setCurrentUser(user)
-            upadateUsersStore()
+            updateUsersStore()
         }
     }
 
     // MARK: - Private Methods
 
-    private func upadateUsersStore() {
+    private func updateUsersStore() {
         if let user = getCurrentUser() {
             for (index, storeUser) in users.enumerated() where storeUser.login == user.login {
                 users.remove(at: index)
