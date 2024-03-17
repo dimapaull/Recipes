@@ -2,6 +2,7 @@
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
+import KeychainSwift
 
 /// Моментальное хранилище, которое записывает данные на устройство
 final class RegisteredUsersMemento {
@@ -15,7 +16,8 @@ final class RegisteredUsersMemento {
 
     var users: [User] {
         get {
-            guard let data = UserDefaults.standard.data(forKey: Constants.userMementoKey) else { return [User]() }
+            guard let data = KeychainSwift().getData(Constants.userMementoKey) else { return [User]() }
+
             do {
                 let decodedUsers = try decoder.decode([User].self, from: data)
                 return decodedUsers
@@ -30,8 +32,7 @@ final class RegisteredUsersMemento {
                     return
                 }
                 let data = try encoder.encode(newValue)
-                UserDefaults.standard.set(data, forKey: Constants.userMementoKey)
-                UserDefaults.standard.synchronize()
+                KeychainSwift().set(data, forKey: Constants.userMementoKey)
             } catch {
                 print("Encoding error:", error)
             }
