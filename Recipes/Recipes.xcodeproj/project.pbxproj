@@ -89,6 +89,9 @@
 		C4D2A3062BA38A8300936B0D /* ShimmerDescriptionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */; };
 		C4D2A3082BA38E2C00936B0D /* UIStackView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */; };
 		C4D2A30A2BA3A51000936B0D /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A3092BA3A51000936B0D /* ViewState.swift */; };
+		C4D2A30F2BA72BF300936B0D /* CoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A30D2BA72BF300936B0D /* CoreData.xcdatamodeld */; };
+		C4D2A31E2BA7339500936B0D /* Photo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A31D2BA7339500936B0D /* Photo+CoreDataProperties.swift */; };
+		C4D2A3202BA7602C00936B0D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4D2A31F2BA7602C00936B0D /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -178,6 +181,9 @@
 		C4D2A3052BA38A8300936B0D /* ShimmerDescriptionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerDescriptionViewCell.swift; sourceTree = "<group>"; };
 		C4D2A3072BA38E2C00936B0D /* UIStackView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Extension.swift"; sourceTree = "<group>"; };
 		C4D2A3092BA3A51000936B0D /* ViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewState.swift; sourceTree = "<group>"; };
+		C4D2A30E2BA72BF300936B0D /* CoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreData.xcdatamodel; sourceTree = "<group>"; };
+		C4D2A31D2BA7339500936B0D /* Photo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Photo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C4D2A31F2BA7602C00936B0D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,7 +204,6 @@
 				3AF53F3095DE6E3C6BB72296 /* Pods-Recipes.debug.xcconfig */,
 				256AB136B497AECA6F653693 /* Pods-Recipes.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -290,6 +295,7 @@
 		0E4F2BFD2B8CAB8300EDF359 = {
 			isa = PBXGroup;
 			children = (
+				C4D2A30D2BA72BF300936B0D /* CoreData.xcdatamodeld */,
 				0E4F2C082B8CAB8400EDF359 /* Recipes */,
 				0E4F2C072B8CAB8400EDF359 /* Products */,
 				023299FDFE43B0485275CC4E /* Pods */,
@@ -308,6 +314,7 @@
 		0E4F2C082B8CAB8400EDF359 /* Recipes */ = {
 			isa = PBXGroup;
 			children = (
+				C4D2A31A2BA7335E00936B0D /* CoreData */,
 				0E4F2C092B8CAB8400EDF359 /* AppDelegate.swift */,
 				0E4F2C0B2B8CAB8400EDF359 /* SceneDelegate.swift */,
 				0E4F2C342B8CE9AD00EDF359 /* MainModuleBuilder.swift */,
@@ -515,8 +522,8 @@
 			children = (
 				0E238A042BA126EA009A2FFC /* ValidateUserDataService */,
 				0E238A012BA1262A009A2FFC /* NetworkService */,
-				0E9DF2202B9AF87F00AEA718 /* UsersMemento */,
 				C4BDF79F2B9A2731001DC265 /* FileManagerService */,
+				0E9DF2202B9AF87F00AEA718 /* UsersMemento */,
 			);
 			path = ServiceLayer;
 			sourceTree = "<group>";
@@ -597,6 +604,15 @@
 			path = ShimmerViewCell;
 			sourceTree = "<group>";
 		};
+		C4D2A31A2BA7335E00936B0D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				C4D2A31D2BA7339500936B0D /* Photo+CoreDataProperties.swift */,
+				C4D2A31F2BA7602C00936B0D /* CoreDataManager.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -610,7 +626,6 @@
 				0E4F2C022B8CAB8400EDF359 /* Sources */,
 				0E4F2C032B8CAB8400EDF359 /* Frameworks */,
 				0E4F2C042B8CAB8400EDF359 /* Resources */,
-				1378503CD7E004C01A397C8E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -712,23 +727,6 @@
 			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		1378503CD7E004C01A397C8E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Recipes/Pods-Recipes-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Recipes/Pods-Recipes-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Recipes/Pods-Recipes-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8F1DA0C4DCED6B0505BD1673 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -773,6 +771,7 @@
 				0E6B53102B99259800F28B7D /* CarrierState.swift in Sources */,
 				0E2DE6602B8D5008007D448C /* MainTabBarViewController.swift in Sources */,
 				C45B61DC2B8EA04400C80F92 /* BonusesView.swift in Sources */,
+				C4D2A31E2BA7339500936B0D /* Photo+CoreDataProperties.swift in Sources */,
 				C45B61E82B91003000C80F92 /* UIView+Extension.swift in Sources */,
 				C45B61EC2B9122D700C80F92 /* HeaderRecipeCategoryViewCell.swift in Sources */,
 				C45B61E42B90FCEB00C80F92 /* RecipeCategoryView.swift in Sources */,
@@ -789,6 +788,7 @@
 				C45B61D82B8E55DC00C80F92 /* LogOutTableViewCell.swift in Sources */,
 				C4D2A3042BA38A6000936B0D /* ShimmerCompoundViewCell.swift in Sources */,
 				C45B61EE2B91237400C80F92 /* FooterRecipeCategoryViewCell.swift in Sources */,
+				C4D2A30F2BA72BF300936B0D /* CoreData.xcdatamodeld in Sources */,
 				0E238A032BA1269C009A2FFC /* CategoryRecipeName.swift in Sources */,
 				0EE8634B2BA09E5300DA8582 /* NetworkService.swift in Sources */,
 				0E2DE6522B8D45A9007D448C /* ProfileCoordinator.swift in Sources */,
@@ -827,6 +827,7 @@
 				0E6FDB862B8DE9BD005A7D10 /* FavoritesCoordinator.swift in Sources */,
 				0E6FDB922B8E19C5005A7D10 /* UIFont+Extension.swift in Sources */,
 				0E238A0E2BA1BC7B009A2FFC /* MeasuredGramsDTO.swift in Sources */,
+				C4D2A3202BA7602C00936B0D /* CoreDataManager.swift in Sources */,
 				0E2DE6502B8D4595007D448C /* AuthorizationCoordinator.swift in Sources */,
 				0E238A0A2BA1BC2E009A2FFC /* TotalNutrientsDTO.swift in Sources */,
 				0E238A062BA1BBE2009A2FFC /* RecipeListDTO.swift in Sources */,
@@ -1058,6 +1059,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		C4D2A30D2BA72BF300936B0D /* CoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				C4D2A30E2BA72BF300936B0D /* CoreData.xcdatamodel */,
+			);
+			currentVersion = C4D2A30E2BA72BF300936B0D /* CoreData.xcdatamodel */;
+			path = CoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0E4F2BFE2B8CAB8300EDF359 /* Project object */;
 }

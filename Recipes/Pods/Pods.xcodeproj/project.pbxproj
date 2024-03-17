@@ -7,106 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0E8E368310D3196C7EABB5C87045633C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		1098F8AF5915850E47085F5443937841 /* Pods-Recipes-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 37C3ADAC4DE0C8F47C1192878C17ACD4 /* Pods-Recipes-dummy.m */; };
-		2EEDE89F63DD6CA98FD12004EC07DC0A /* KeychainItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2976052B277BF20B619F2B31262D270 /* KeychainItem.swift */; };
-		3055576253E66BFC791064E0ADEA6EB0 /* KeychainItemClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDB0A77F6536FA8DC3DB3344D4007AE /* KeychainItemClass.swift */; };
-		333015CC4DD91FAA68ED18D9C482C290 /* Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = A91F34AF4ED04A2034F7DF97F11125E6 /* Keychain.swift */; };
-		4BCF7B7EC971948B1CE7735D2E9D4219 /* KeychainItemFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5230C99AB2F539ACB545F93F9BAE2AB /* KeychainItemFactory.swift */; };
-		53EC98C31D152DBCF00CFC006BD78D89 /* Keychain-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = C47DB2FF69BAFB6F26BE1099A9014BDA /* Keychain-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		95EAA68F714337D075EEAD135C6B8738 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		9C6E931CD380E22D9914B780D0897EC5 /* Keychain-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 87F9F5636647235B53008D2C93128D2A /* Keychain-dummy.m */; };
-		C459498C1B96FEDA1F56177AA82C16A3 /* Pods-Recipes-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = A4C64C9E5E3962C10294AB16077AB1A4 /* Pods-Recipes-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F2FCAF89ED23738AF54ECF40327352C8 /* KeychainProtocolType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F998CA5AEF8712358488B83DB5E706B /* KeychainProtocolType.swift */; };
+		756B81BC1A73FB32A94EECCF726DF550 /* Pods-Recipes-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 19040A6DB04ED84BA664DFDA99B8690D /* Pods-Recipes-dummy.m */; };
+		8D048D36F7A2168B637BF6D740D84455 /* Pods-Recipes-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = B669781A3B6838950B7C9FBE0467E45C /* Pods-Recipes-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E7F39A2EE768E1950AF957FAD56254DF /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		344DC6AC6B14882E80E6F71AB0A1CC0E /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = BFDFE7DC352907FC980B868725387E98 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E99A1AAC0FD1584B1C0B398B33671BEF;
-			remoteInfo = Keychain;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		18EC59856D25F4992C68AA6CF9AE492A /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
-		2AA2A9DDA68ABFB8E601A56EC6916F51 /* Pods-Recipes-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Recipes-acknowledgements.markdown"; sourceTree = "<group>"; };
+		19040A6DB04ED84BA664DFDA99B8690D /* Pods-Recipes-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Recipes-dummy.m"; sourceTree = "<group>"; };
 		2E066038FCB99E24128AA393935A1F0A /* Pods-Recipes */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-Recipes"; path = Pods_Recipes.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		37C3ADAC4DE0C8F47C1192878C17ACD4 /* Pods-Recipes-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Recipes-dummy.m"; sourceTree = "<group>"; };
-		457F4CB27A0454AAF2FC10405F21EB50 /* Pods-Recipes-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Recipes-acknowledgements.plist"; sourceTree = "<group>"; };
-		54FB68FFF536AB8FC2ACFBB85891B0F5 /* Keychain-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Keychain-Info.plist"; sourceTree = "<group>"; };
-		60716C90CF91E4035F743523FEE67834 /* Keychain */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Keychain; path = Keychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3CCA11A8FFFB512EB87500AF5770F2B5 /* Pods-Recipes.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Recipes.release.xcconfig"; sourceTree = "<group>"; };
+		3D5341A128A3E119C6A844CF26F3A8B3 /* Pods-Recipes.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Recipes.modulemap"; sourceTree = "<group>"; };
+		5C3E8F1087F4792EAFFED09B54BA0081 /* Pods-Recipes-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Recipes-acknowledgements.markdown"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		77E80BB7C0C749F9CD43891144267127 /* Keychain-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Keychain-prefix.pch"; sourceTree = "<group>"; };
-		80F626E4E52C03D5BF3FB8027BFFFD50 /* Pods-Recipes.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-Recipes.modulemap"; sourceTree = "<group>"; };
-		87F9F5636647235B53008D2C93128D2A /* Keychain-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Keychain-dummy.m"; sourceTree = "<group>"; };
-		8AAE4BD2F3C3C4905D09A9D1A736219F /* Pods-Recipes-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Recipes-frameworks.sh"; sourceTree = "<group>"; };
-		8EDB0A77F6536FA8DC3DB3344D4007AE /* KeychainItemClass.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainItemClass.swift; path = Keychain/Classes/KeychainItemClass.swift; sourceTree = "<group>"; };
+		80DED9D45811C5B8B2875C1CE25CFC1C /* Pods-Recipes-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Recipes-acknowledgements.plist"; sourceTree = "<group>"; };
 		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		9F998CA5AEF8712358488B83DB5E706B /* KeychainProtocolType.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainProtocolType.swift; path = Keychain/Classes/KeychainProtocolType.swift; sourceTree = "<group>"; };
-		A300311F73D3D70AA3958B117ABEF000 /* Keychain.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Keychain.debug.xcconfig; sourceTree = "<group>"; };
-		A4C64C9E5E3962C10294AB16077AB1A4 /* Pods-Recipes-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Recipes-umbrella.h"; sourceTree = "<group>"; };
-		A91F34AF4ED04A2034F7DF97F11125E6 /* Keychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Keychain.swift; path = Keychain/Classes/Keychain.swift; sourceTree = "<group>"; };
-		C47DB2FF69BAFB6F26BE1099A9014BDA /* Keychain-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Keychain-umbrella.h"; sourceTree = "<group>"; };
-		C724242161E71A33DA7FCFD1924C910B /* Keychain.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = Keychain.release.xcconfig; sourceTree = "<group>"; };
-		CBEAE7F2BBE4E8C5365DAF5EED63BE66 /* Pods-Recipes-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Recipes-Info.plist"; sourceTree = "<group>"; };
-		D2976052B277BF20B619F2B31262D270 /* KeychainItem.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainItem.swift; path = Keychain/Classes/KeychainItem.swift; sourceTree = "<group>"; };
-		D65A7281E2518E4B9DAAC0DB02645AA5 /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
-		E5230C99AB2F539ACB545F93F9BAE2AB /* KeychainItemFactory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = KeychainItemFactory.swift; path = Keychain/Classes/KeychainItemFactory.swift; sourceTree = "<group>"; };
-		FDFFA390F6EFB4F9D10171FE7D6177B4 /* Keychain.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = Keychain.modulemap; sourceTree = "<group>"; };
+		A6943085BB905C2A73EA95F5EEFDEFD9 /* Pods-Recipes-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Recipes-Info.plist"; sourceTree = "<group>"; };
+		B669781A3B6838950B7C9FBE0467E45C /* Pods-Recipes-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Recipes-umbrella.h"; sourceTree = "<group>"; };
+		FD68A8F2CD001ED3FDCCE4B8803877FD /* Pods-Recipes.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Recipes.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		52182A598FC0FF3115AFADF9638B51BF /* Frameworks */ = {
+		EDBA38B89F91B6F3929D1FED0339258F /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95EAA68F714337D075EEAD135C6B8738 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C1826AA55784C747A7DCF1AE43F2DE8A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0E8E368310D3196C7EABB5C87045633C /* Foundation.framework in Frameworks */,
+				E7F39A2EE768E1950AF957FAD56254DF /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0CA3EDF52715BE522F61A9D1330EA162 /* Pods-Recipes */ = {
+		5595C968628E4CC2A8960F0D5D7A096B /* Pods-Recipes */ = {
 			isa = PBXGroup;
 			children = (
-				80F626E4E52C03D5BF3FB8027BFFFD50 /* Pods-Recipes.modulemap */,
-				2AA2A9DDA68ABFB8E601A56EC6916F51 /* Pods-Recipes-acknowledgements.markdown */,
-				457F4CB27A0454AAF2FC10405F21EB50 /* Pods-Recipes-acknowledgements.plist */,
-				37C3ADAC4DE0C8F47C1192878C17ACD4 /* Pods-Recipes-dummy.m */,
-				8AAE4BD2F3C3C4905D09A9D1A736219F /* Pods-Recipes-frameworks.sh */,
-				CBEAE7F2BBE4E8C5365DAF5EED63BE66 /* Pods-Recipes-Info.plist */,
-				A4C64C9E5E3962C10294AB16077AB1A4 /* Pods-Recipes-umbrella.h */,
-				D65A7281E2518E4B9DAAC0DB02645AA5 /* Pods-Recipes.debug.xcconfig */,
-				18EC59856D25F4992C68AA6CF9AE492A /* Pods-Recipes.release.xcconfig */,
+				3D5341A128A3E119C6A844CF26F3A8B3 /* Pods-Recipes.modulemap */,
+				5C3E8F1087F4792EAFFED09B54BA0081 /* Pods-Recipes-acknowledgements.markdown */,
+				80DED9D45811C5B8B2875C1CE25CFC1C /* Pods-Recipes-acknowledgements.plist */,
+				19040A6DB04ED84BA664DFDA99B8690D /* Pods-Recipes-dummy.m */,
+				A6943085BB905C2A73EA95F5EEFDEFD9 /* Pods-Recipes-Info.plist */,
+				B669781A3B6838950B7C9FBE0467E45C /* Pods-Recipes-umbrella.h */,
+				FD68A8F2CD001ED3FDCCE4B8803877FD /* Pods-Recipes.debug.xcconfig */,
+				3CCA11A8FFFB512EB87500AF5770F2B5 /* Pods-Recipes.release.xcconfig */,
 			);
 			name = "Pods-Recipes";
 			path = "Target Support Files/Pods-Recipes";
-			sourceTree = "<group>";
-		};
-		4315EF36E3EC962E8A62C1A5E1FD5E1E /* Keychain */ = {
-			isa = PBXGroup;
-			children = (
-				A91F34AF4ED04A2034F7DF97F11125E6 /* Keychain.swift */,
-				D2976052B277BF20B619F2B31262D270 /* KeychainItem.swift */,
-				8EDB0A77F6536FA8DC3DB3344D4007AE /* KeychainItemClass.swift */,
-				E5230C99AB2F539ACB545F93F9BAE2AB /* KeychainItemFactory.swift */,
-				9F998CA5AEF8712358488B83DB5E706B /* KeychainProtocolType.swift */,
-				B1E8312B9679712562EFCE8114EA0D96 /* Support Files */,
-			);
-			name = Keychain;
-			path = Keychain;
 			sourceTree = "<group>";
 		};
 		578452D2E740E91742655AC8F1636D1F /* iOS */ = {
@@ -117,36 +62,20 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		5F94BDD6CA080FB5B4764D6C35FA0895 /* Targets Support Files */ = {
+		5D76EE66EB94D8F45E77CDAA171C3151 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				0CA3EDF52715BE522F61A9D1330EA162 /* Pods-Recipes */,
-			);
-			name = "Targets Support Files";
-			sourceTree = "<group>";
-		};
-		6CF1D419111B48C9CB83B2A013C7A167 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				60716C90CF91E4035F743523FEE67834 /* Keychain */,
 				2E066038FCB99E24128AA393935A1F0A /* Pods-Recipes */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B1E8312B9679712562EFCE8114EA0D96 /* Support Files */ = {
+		A0E06F5380E580197A21FE737597BC57 /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				FDFFA390F6EFB4F9D10171FE7D6177B4 /* Keychain.modulemap */,
-				87F9F5636647235B53008D2C93128D2A /* Keychain-dummy.m */,
-				54FB68FFF536AB8FC2ACFBB85891B0F5 /* Keychain-Info.plist */,
-				77E80BB7C0C749F9CD43891144267127 /* Keychain-prefix.pch */,
-				C47DB2FF69BAFB6F26BE1099A9014BDA /* Keychain-umbrella.h */,
-				A300311F73D3D70AA3958B117ABEF000 /* Keychain.debug.xcconfig */,
-				C724242161E71A33DA7FCFD1924C910B /* Keychain.release.xcconfig */,
+				5595C968628E4CC2A8960F0D5D7A096B /* Pods-Recipes */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/Keychain";
+			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
 		CF1408CF629C7361332E53B88F7BD30C = {
@@ -154,9 +83,8 @@
 			children = (
 				9D940727FF8FB9C785EB98E56350EF41 /* Podfile */,
 				D210D550F4EA176C3123ED886F8F87F5 /* Frameworks */,
-				DD7825DA4EF75A7843159FFFC8DF49FB /* Pods */,
-				6CF1D419111B48C9CB83B2A013C7A167 /* Products */,
-				5F94BDD6CA080FB5B4764D6C35FA0895 /* Targets Support Files */,
+				5D76EE66EB94D8F45E77CDAA171C3151 /* Products */,
+				A0E06F5380E580197A21FE737597BC57 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,67 +96,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		DD7825DA4EF75A7843159FFFC8DF49FB /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				4315EF36E3EC962E8A62C1A5E1FD5E1E /* Keychain */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		1BBE2A9CC44B031E085B838713DD45A5 /* Headers */ = {
+		8570FE3F3514E031911B1EABF0B3F5BB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				53EC98C31D152DBCF00CFC006BD78D89 /* Keychain-umbrella.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F6ADB8B4282EE261E3C7C8DC2BBD496 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C459498C1B96FEDA1F56177AA82C16A3 /* Pods-Recipes-umbrella.h in Headers */,
+				8D048D36F7A2168B637BF6D740D84455 /* Pods-Recipes-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		E99A1AAC0FD1584B1C0B398B33671BEF /* Keychain */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8A4D2E8C69E2E6449BB1774D7974F18D /* Build configuration list for PBXNativeTarget "Keychain" */;
-			buildPhases = (
-				1BBE2A9CC44B031E085B838713DD45A5 /* Headers */,
-				A73CCD7B641052247BB9B8E01163B964 /* Sources */,
-				52182A598FC0FF3115AFADF9638B51BF /* Frameworks */,
-				A20521FDBFDBD70F4EBB536D642B8DC0 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Keychain;
-			productName = Keychain;
-			productReference = 60716C90CF91E4035F743523FEE67834 /* Keychain */;
-			productType = "com.apple.product-type.framework";
-		};
 		F5E660E196F09BB9DB36731C190799F0 /* Pods-Recipes */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E0451DEECBD41D887D7C67CE06584CCF /* Build configuration list for PBXNativeTarget "Pods-Recipes" */;
+			buildConfigurationList = F2A9BAD3F412BC083CE5764989269254 /* Build configuration list for PBXNativeTarget "Pods-Recipes" */;
 			buildPhases = (
-				3F6ADB8B4282EE261E3C7C8DC2BBD496 /* Headers */,
-				7A1D7DB69E732A9153C4D7ED4D3CF77E /* Sources */,
-				C1826AA55784C747A7DCF1AE43F2DE8A /* Frameworks */,
-				472C6C37792C37A1393C1B5BD917A218 /* Resources */,
+				8570FE3F3514E031911B1EABF0B3F5BB /* Headers */,
+				D578F7FECF58BA8B27940962C7F7A8E7 /* Sources */,
+				EDBA38B89F91B6F3929D1FED0339258F /* Frameworks */,
+				FA2546C4B13F7306A35CEFC2038DFDC0 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				1040BA05C9DBDB6F6DAD702F25847C83 /* PBXTargetDependency */,
 			);
 			name = "Pods-Recipes";
 			productName = Pods_Recipes;
@@ -253,25 +146,17 @@
 				en,
 			);
 			mainGroup = CF1408CF629C7361332E53B88F7BD30C;
-			productRefGroup = 6CF1D419111B48C9CB83B2A013C7A167 /* Products */;
+			productRefGroup = 5D76EE66EB94D8F45E77CDAA171C3151 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E99A1AAC0FD1584B1C0B398B33671BEF /* Keychain */,
 				F5E660E196F09BB9DB36731C190799F0 /* Pods-Recipes */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		472C6C37792C37A1393C1B5BD917A218 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A20521FDBFDBD70F4EBB536D642B8DC0 /* Resources */ = {
+		FA2546C4B13F7306A35CEFC2038DFDC0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -281,113 +166,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		7A1D7DB69E732A9153C4D7ED4D3CF77E /* Sources */ = {
+		D578F7FECF58BA8B27940962C7F7A8E7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1098F8AF5915850E47085F5443937841 /* Pods-Recipes-dummy.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A73CCD7B641052247BB9B8E01163B964 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				333015CC4DD91FAA68ED18D9C482C290 /* Keychain.swift in Sources */,
-				9C6E931CD380E22D9914B780D0897EC5 /* Keychain-dummy.m in Sources */,
-				2EEDE89F63DD6CA98FD12004EC07DC0A /* KeychainItem.swift in Sources */,
-				3055576253E66BFC791064E0ADEA6EB0 /* KeychainItemClass.swift in Sources */,
-				4BCF7B7EC971948B1CE7735D2E9D4219 /* KeychainItemFactory.swift in Sources */,
-				F2FCAF89ED23738AF54ECF40327352C8 /* KeychainProtocolType.swift in Sources */,
+				756B81BC1A73FB32A94EECCF726DF550 /* Pods-Recipes-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		1040BA05C9DBDB6F6DAD702F25847C83 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Keychain;
-			target = E99A1AAC0FD1584B1C0B398B33671BEF /* Keychain */;
-			targetProxy = 344DC6AC6B14882E80E6F71AB0A1CC0E /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		0BD363E34C0D4F11FE412857BFD6F2FF /* Debug */ = {
+		03780C2719A62C11296C136F1EF0BB75 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D65A7281E2518E4B9DAAC0DB02645AA5 /* Pods-Recipes.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
-				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = "Target Support Files/Pods-Recipes/Pods-Recipes-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-Recipes/Pods-Recipes.modulemap";
-				OTHER_LDFLAGS = "";
-				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
-				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		3FB60F614D25B8000EAC6A5FFA5DF592 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = A300311F73D3D70AA3958B117ABEF000 /* Keychain.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Keychain/Keychain-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Keychain/Keychain-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				MODULEMAP_FILE = "Target Support Files/Keychain/Keychain.modulemap";
-				PRODUCT_MODULE_NAME = Keychain;
-				PRODUCT_NAME = Keychain;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		40A330CF75071288E6E5EB90D77029CD /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18EC59856D25F4992C68AA6CF9AE492A /* Pods-Recipes.release.xcconfig */;
+			baseConfigurationReference = 3CCA11A8FFFB512EB87500AF5770F2B5 /* Pods-Recipes.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -489,10 +281,12 @@
 			};
 			name = Debug;
 		};
-		C94F473F4731BF1BD31AE2A7EBD1A51C /* Release */ = {
+		8C1DF653534DD202021FA946F4DC98EE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = C724242161E71A33DA7FCFD1924C910B /* Keychain.release.xcconfig */;
+			baseConfigurationReference = FD68A8F2CD001ED3FDCCE4B8803877FD /* Pods-Recipes.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				CLANG_ENABLE_OBJC_WEAK = NO;
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
@@ -501,28 +295,28 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/Keychain/Keychain-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/Keychain/Keychain-Info.plist";
+				INFOPLIST_FILE = "Target Support Files/Pods-Recipes/Pods-Recipes-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MODULEMAP_FILE = "Target Support Files/Keychain/Keychain.modulemap";
-				PRODUCT_MODULE_NAME = Keychain;
-				PRODUCT_NAME = Keychain;
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-Recipes/Pods-Recipes.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
-			name = Release;
+			name = Debug;
 		};
 		E873CA97BD124B21839AF13C9BE1CD18 /* Release */ = {
 			isa = XCBuildConfiguration;
@@ -598,20 +392,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8A4D2E8C69E2E6449BB1774D7974F18D /* Build configuration list for PBXNativeTarget "Keychain" */ = {
+		F2A9BAD3F412BC083CE5764989269254 /* Build configuration list for PBXNativeTarget "Pods-Recipes" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3FB60F614D25B8000EAC6A5FFA5DF592 /* Debug */,
-				C94F473F4731BF1BD31AE2A7EBD1A51C /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E0451DEECBD41D887D7C67CE06584CCF /* Build configuration list for PBXNativeTarget "Pods-Recipes" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				0BD363E34C0D4F11FE412857BFD6F2FF /* Debug */,
-				40A330CF75071288E6E5EB90D77029CD /* Release */,
+				8C1DF653534DD202021FA946F4DC98EE /* Debug */,
+				03780C2719A62C11296C136F1EF0BB75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
