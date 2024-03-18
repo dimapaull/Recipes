@@ -14,8 +14,6 @@ final class StorageService {
         static let coreData = "CoreData"
     }
 
-    // MARK: - initializators
-
     // MARK: - Private properties
 
     private lazy var persistentContainer: NSPersistentContainer = {
@@ -33,32 +31,6 @@ final class StorageService {
     }
 
     // MARK: - Public methods
-
-    func saveContext() {
-        if context.hasChanges {
-            do {
-                try context.save()
-            } catch {
-                context.rollback()
-                print(error.localizedDescription)
-            }
-        }
-    }
-
-//    func createRecipesDetailData(recipeDetails: RecipeDetails, uri: String) {
-//        guard let entityDescription = NSEntityDescription.entity(forEntityName: Constants.detailRecipeData, in:
-//        context)
-//        else { return }
-//        let detailRecipe = DetailRecipeData(entity: entityDescription, insertInto: context)
-//        detailRecipe.calories = Int16(recipeDetails.calories)
-//        detailRecipe.carbohydrates = Int16(recipeDetails.carbohydrates)
-//        detailRecipe.fats = Int16(recipeDetails.fats)
-//        detailRecipe.ingredientLines = recipeDetails.ingredientLines
-//        detailRecipe.proteins = Int16(recipeDetails.proteins)
-//        detailRecipe.weight = Int16(recipeDetails.weight)
-//        detailRecipe.uri = uri
-//        saveContext()
-//    }
 
     func createRecipeData(recipes: [Recipe], category: CategoryRecipeName?) {
         guard let entityDescription = NSEntityDescription.entity(forEntityName: Constants.recipeData, in: context)
@@ -96,6 +68,19 @@ final class StorageService {
                 Recipe(cdRecipe: item)
             }
             return filteredRecipes
+        }
+    }
+    
+    //MARK: - Private Methods
+    
+    private func saveContext() {
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                context.rollback()
+                print(error.localizedDescription)
+            }
         }
     }
 }
