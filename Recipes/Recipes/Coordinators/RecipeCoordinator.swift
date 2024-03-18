@@ -6,6 +6,7 @@ import UIKit
 /// Координатор рецептов
 final class RecipeCoordinator: BaseCoordinator {
     private let networkService = NetworkService()
+    private let coreDataService = StorageService()
 
     // MARK: - Public Properties
 
@@ -31,7 +32,8 @@ final class RecipeCoordinator: BaseCoordinator {
             recipeCoordinator: self,
             downloadRecipe: DownloadRecipe(),
             categoryName: title,
-            networkService: networkService
+            networkService: networkService,
+            coreDataService: coreDataService
         )
         categoryView.presenter = categoryPresenter
         rootController?.pushViewController(categoryView, animated: true)
@@ -44,7 +46,8 @@ final class RecipeCoordinator: BaseCoordinator {
             view: recipeDetailView,
             recipeCoordinator: recipeCoordinator,
             downloadRecipe: DownloadRecipe(),
-            networkService: networkService
+            networkService: networkService,
+            coreDataService: coreDataService
         )
         recipeDetailPresenter.detailURI = uri
         recipeDetailView.presenter = recipeDetailPresenter

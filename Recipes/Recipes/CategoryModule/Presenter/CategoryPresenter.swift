@@ -19,6 +19,7 @@ final class CategoryPresenter {
     private var reseiver: FileManagerServiceProtocol?
     private weak var view: CategoryViewProtocol?
     private weak var recipeCoordinator: RecipeCoordinator?
+    private var coreDataService: StorageService?
 
     // MARK: - Initializers
 
@@ -27,13 +28,15 @@ final class CategoryPresenter {
         recipeCoordinator: RecipeCoordinator,
         downloadRecipe: DownloadRecipeProtocol,
         categoryName: CategoryRecipeName,
-        networkService: NetworkServiceProtocol
+        networkService: NetworkServiceProtocol,
+        coreDataService: StorageService
     ) {
         self.downloadRecipe = downloadRecipe
         self.recipeCoordinator = recipeCoordinator
         self.view = view
         self.categoryName = categoryName
         self.networkService = networkService
+        self.coreDataService = coreDataService
         currentFilterState = .off
         reseiver = FileManagerService.fileManagerService
     }
@@ -68,22 +71,7 @@ final class CategoryPresenter {
     }
 
     func selectionRow(in section: Int) {
-        //        if let recipeUri = downloadRecipes.first?.uri {
-        //            recipeCoordinator?.pushRecipeDetailView(recipe: recipeUri)
-        //        } else {
-        //            return
-        //        }
         recipeCoordinator?.pushRecipeDetailView(uri: currentRecipes[section].uri)
-        //        if let recipeUri = downloadRecipes.first?.uri {
-        //            networkService?.getDetailRecipe(uri: recipeUri) { result in
-        //                switch result {
-        //                case let .success(success):
-        //                    print(success)
-        //                case let .failure(failure):
-        //                    print(failure)
-        //                }
-        //            }
-        //        }
     }
 
     func filtredRecipes(searchText: String) {
@@ -97,22 +85,33 @@ final class CategoryPresenter {
 
     func getDishRecipe(_ searchText: String?, _ completionHandler: (() -> ())? = nil) {
         downloadRecipe?.startFetch()
-        networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: searchText) { result in
-            switch result {
-            case let .success(recipes):
-                self.currentRecipes = recipes
-                self.downloadRecipes = recipes
-                DispatchQueue.main.async {
-                    if recipes.isEmpty {
-                        self.downloadRecipe?.stopFetch(.noData)
-                    } else {
-                        self.downloadRecipe?.stopFetch(.data)
+        guard let coreDataService = coreDataService else { return }
+        if coreDataService.fetchRecipeData(category: categoryName).isEmpty {
+            networkService?.getDishRecipes(categoryName: categoryName, searchSymbol: searchText) { result in
+                switch result {
+                case let .success(recipes):
+                    self.currentRecipes = recipes
+                    self.downloadRecipes = recipes
+                    coreDataService.createRecipeData(recipes: self.downloadRecipes, category: self.categoryName)
+                    DispatchQueue.main.async {
+                        if recipes.isEmpty {
+                            self.downloadRecipe?.stopFetch(.noData)
+                        } else {
+                            self.downloadRecipe?.stopFetch(.data)
+                        }
                     }
+                case .failure:
+                    self.downloadRecipe?.stopFetch(.error)
+                    return
                 }
-            case .failure:
-                self.downloadRecipe?.stopFetch(.error)
-                return
+                DispatchQueue.main.async {
+                    completionHandler?()
+                }
             }
+        } else {
+            currentRecipes = coreDataService.fetchRecipeData(category: categoryName)
+            downloadRecipes = coreDataService.fetchRecipeData(category: categoryName)
+            downloadRecipe?.stopFetch(.data)
             DispatchQueue.main.async {
                 completionHandler?()
             }

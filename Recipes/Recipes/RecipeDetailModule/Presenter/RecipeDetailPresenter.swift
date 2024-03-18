@@ -12,11 +12,12 @@ final class RecipeDetailPresenter {
     private var downloadRecipe: DownloadRecipeProtocol?
     private var reseiver: FileManagerServiceProtocol?
     private let networkService: NetworkServiceProtocol?
+    private let coreDataService: StorageService?
 
     // MARK: - Public Properties
 
-    var downloadDetailRecipe: RecipeDetailTest?
-    var state: ViewState<RecipeDetailTest> = .loading {
+    var downloadDetailRecipe: Recipe?
+    var state: ViewState<Recipe> = .loading {
         didSet {
             view?.updateState()
         }
@@ -30,13 +31,15 @@ final class RecipeDetailPresenter {
         view: RecipeDetailViewProtocol,
         recipeCoordinator: RecipeCoordinator,
         downloadRecipe: DownloadRecipeProtocol,
-        networkService: NetworkServiceProtocol
+        networkService: NetworkServiceProtocol,
+        coreDataService: StorageService
     ) {
         self.view = view
         self.recipeCoordinator = recipeCoordinator
         reseiver = FileManagerService.fileManagerService
         self.downloadRecipe = downloadRecipe
         self.networkService = networkService
+        self.coreDataService = coreDataService
     }
 
     func textTitleSection(titleSection: String) {
@@ -50,20 +53,29 @@ final class RecipeDetailPresenter {
     }
 
     func getDetailRecipe(_ completionHandler: (() -> ())? = nil) {
-        print(detailURI)
-        networkService?.getDetailRecipe(uri: detailURI, completionHandler: { [weak self] result in
-            DispatchQueue.main.async {
+        if let recipe = coreDataService?.fetchRecipeData(uri: detailURI) {
+            downloadDetailRecipe = recipe
+            state = .data(recipe)
+            view?.updateState()
+            completionHandler?()
+        } else {
+            networkService?.getDetailRecipe(uri: detailURI, completionHandler: { [weak self] result in
                 switch result {
-                case let .success(recipeDetailTest):
-                    self?.downloadDetailRecipe = recipeDetailTest
-                    self?.state = .data(recipeDetailTest)
-                    self?.view?.updateState()
+                case let .success(recipe):
+                    self?.downloadDetailRecipe = recipe
+                    self?.coreDataService?.createRecipeData(recipes: [recipe], category: nil)
+                    DispatchQueue.main.async {
+                        self?.state = .data(recipe)
+                        self?.view?.updateState()
+                    }
                     completionHandler?()
                 case let .failure(error):
-                    self?.state = .error(error)
+                    DispatchQueue.main.async {
+                        self?.state = .error(error)
+                    }
                     completionHandler?()
                 }
-            }
-        })
+            })
+        }
     }
 }
