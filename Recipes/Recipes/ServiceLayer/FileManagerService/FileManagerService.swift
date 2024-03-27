@@ -37,16 +37,6 @@ final class FileManagerService {
             return
         }
     }
-
-//    private func getPathForImage(_ name: String) -> URL? {
-//        let testPath = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
-//        print(testPath)
-//        guard let path = FileManager.default.urls(
-//            for: .cachesDirectory,
-//            in: .userDomainMask
-//        ).first?.appendingPathComponent("\(name).jpg") else { return nil }
-//        return path
-//    }
 }
 
 // MARK: - FileManagerService + FileManagerServiceProtocol

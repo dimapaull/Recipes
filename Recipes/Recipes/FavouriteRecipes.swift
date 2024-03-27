@@ -14,11 +14,11 @@ final class FavouriteRecipes {
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
 
-    private(set) var recipes: [RecipeDetailTest] = []
+    private(set) var recipes: [Recipe] = []
 
     private init() {}
 
-    func updateFavouriteRecipe(_ recipe: RecipeDetailTest) {
+    func updateFavouriteRecipe(_ recipe: Recipe) {
         if recipes.isEmpty {
             recipes.append(recipe)
         } else {
@@ -38,11 +38,11 @@ final class FavouriteRecipes {
         }
     }
 
-    func getRecipes() {
-        if let savedRecipesData = UserDefaults.standard.object(forKey: Constants.recipeKey) as? Data {
-            if let savedRecipes = try? decoder.decode([RecipeDetailTest].self, from: savedRecipesData) {
-                recipes = savedRecipes
-            }
-        }
-    }
+//    func getRecipes() {
+//        if let savedRecipesData = UserDefaults.standard.object(forKey: Constants.recipeKey) as? Data {
+//            if let savedRecipes = try? decoder.decode([Recipe].self, from: savedRecipesData) {
+//                recipes = savedRecipes
+//            }
+//        }
+//    }
 }

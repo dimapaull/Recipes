@@ -22,7 +22,7 @@ protocol NetworkServiceProtocol {
     ///  - completionHandler: Замыкание, вызываемое после того, как будет завершен процесс запроса в сеть
     func getDetailRecipe(
         uri: String,
-        completionHandler: @escaping (Result<RecipeDetailTest, Error>) -> ()
+        completionHandler: @escaping (Result<Recipe, Error>) -> ()
     )
 }
 
@@ -71,7 +71,10 @@ final class NetworkService: NetworkServiceProtocol {
             } else if let data = data {
                 do {
                     let recipeListDTO = try JSONDecoder().decode(RecipeListDTO.self, from: data)
-                    let recipes = recipeListDTO.hits.map { Recipe(dto: $0.recipe) }
+                    let recipes = recipeListDTO.hits.map { Recipe(
+                        dto: $0.recipe,
+                        totalNutrientsDTO: $0.recipe.totalNutrients
+                    ) }
                     completionHandler(.success(recipes))
                 } catch {
                     completionHandler(.failure(error))
@@ -80,7 +83,7 @@ final class NetworkService: NetworkServiceProtocol {
         }.resume()
     }
 
-    func getDetailRecipe(uri: String, completionHandler: @escaping (Result<RecipeDetailTest, Error>) -> ()) {
+    func getDetailRecipe(uri: String, completionHandler: @escaping (Result<Recipe, Error>) -> ()) {
         guard let url = makeDetailRecipeUrlComponent(uri).url else { return }
         URLSession.shared.dataTask(with: URLRequest(url: url)) { data, _, error in
             if let error = error {
@@ -90,7 +93,7 @@ final class NetworkService: NetworkServiceProtocol {
                 do {
                     let recipeListDTO = try JSONDecoder().decode(RecipeListDTO.self, from: data)
                     guard let recipe = recipeListDTO.hits.map(\.recipe).first else { return }
-                    completionHandler(.success(RecipeDetailTest(dto: recipe)))
+                    completionHandler(.success(Recipe(dto: recipe, totalNutrientsDTO: recipe.totalNutrients)))
                 } catch {
                     completionHandler(.failure(error))
                 }

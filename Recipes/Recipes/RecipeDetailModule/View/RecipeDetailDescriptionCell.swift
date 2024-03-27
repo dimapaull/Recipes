@@ -41,13 +41,9 @@ final class RecipeDetailDescriptionCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetailTest?) {
+    func configureCell(info: Recipe?) {
         guard let info = info else { return }
-        var label = String()
-        for item in info.ingredientLines {
-            label.append("\(item)\n")
-        }
-        descriptionLabel.text = label
+        descriptionLabel.text = info.ingredientLines
     }
 
     // MARK: - Initializators

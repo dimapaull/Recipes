@@ -100,7 +100,7 @@ final class RecipeDetailImageCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func configureCell(info: RecipeDetailTest?) {
+    func configureCell(info: Recipe?) {
         titleRecipeLabel.text = info?.label
         guard let url = info?.image, let imageURL = URL(string: url) else { return }
         let proxy = Proxy(service: networkService)
