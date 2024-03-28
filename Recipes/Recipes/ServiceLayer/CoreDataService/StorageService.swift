@@ -70,9 +70,9 @@ final class StorageService {
             return filteredRecipes
         }
     }
-    
-    //MARK: - Private Methods
-    
+
+    // MARK: - Private Methods
+
     private func saveContext() {
         if context.hasChanges {
             do {

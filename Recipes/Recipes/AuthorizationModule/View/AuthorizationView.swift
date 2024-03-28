@@ -1,6 +1,7 @@
 // AuthorizationView.swift
 // Copyright © RoadMap. All rights reserved.
 
+import AuthorizationTextLabel
 import Foundation
 import UIKit
 
@@ -109,29 +110,17 @@ final class AuthorizationView: UIViewController {
     }()
 
     private lazy var emailTextField = {
-        let textField = UITextField()
-        textField.leftViewMode = .always
-        textField.rightViewMode = .whileEditing
-        textField.keyboardType = .emailAddress
+        let textField = AuthorizationTextField()
+        textField.configure(Constants.enterEmailText, type: .login)
         textField.delegate = self
-        textField.placeholder = Constants.enterEmailText
-        textField.layer.cornerRadius = 12
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.lightGray.cgColor
         textField.addTarget(self, action: #selector(textDidChangeInMail), for: .editingDidEnd)
         return textField
     }()
 
     private lazy var passwordTextField = {
-        let textField = UITextField()
+        let textField = AuthorizationTextField()
+        textField.configure(Constants.enterPasswordText, type: .password)
         textField.delegate = self
-        textField.isSecureTextEntry = true
-        textField.placeholder = Constants.enterPasswordText
-        textField.layer.cornerRadius = 12
-        textField.layer.borderWidth = 1
-        textField.leftViewMode = .always
-        textField.rightViewMode = .always
-        textField.layer.borderColor = UIColor.lightGray.cgColor
         return textField
     }()
 

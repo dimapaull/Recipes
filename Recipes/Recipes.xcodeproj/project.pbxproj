@@ -59,6 +59,7 @@
 		0EAC5B922B908BB0000108E2 /* CategoryPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC5B912B908BB0000108E2 /* CategoryPresenter.swift */; };
 		0EAC5B942B908BC1000108E2 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EAC5B932B908BC1000108E2 /* Category.swift */; };
 		0ED55CE52B8E4BA800197357 /* ValidateUserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ED55CE42B8E4BA800197357 /* ValidateUserData.swift */; };
+		0EE3087F2BB59C8600576939 /* AuthorizationTextLabel in Frameworks */ = {isa = PBXBuildFile; productRef = 0EE3087E2BB59C8600576939 /* AuthorizationTextLabel */; };
 		0EE8634B2BA09E5300DA8582 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE8634A2BA09E5300DA8582 /* NetworkService.swift */; };
 		0EE8634D2BA0B48900DA8582 /* DishRecipeDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EE8634C2BA0B48900DA8582 /* DishRecipeDTO.swift */; };
 		C45563B32B9DF9DA004AF3AF /* FavouriteRecipes.swift in Sources */ = {isa = PBXBuildFile; fileRef = C45563B22B9DF9DA004AF3AF /* FavouriteRecipes.swift */; };
@@ -193,6 +194,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0EE3087F2BB59C8600576939 /* AuthorizationTextLabel in Frameworks */,
 				EA1A8FEAB6BE7CAF22C41F40 /* Pods_Recipes.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -636,6 +638,9 @@
 			dependencies = (
 			);
 			name = Recipes;
+			packageProductDependencies = (
+				0EE3087E2BB59C8600576939 /* AuthorizationTextLabel */,
+			);
 			productName = Recipes;
 			productReference = 0E4F2C062B8CAB8400EDF359 /* Recipes.app */;
 			productType = "com.apple.product-type.application";
@@ -664,6 +669,9 @@
 				Base,
 			);
 			mainGroup = 0E4F2BFD2B8CAB8300EDF359;
+			packageReferences = (
+				0EE308752BB5413C00576939 /* XCRemoteSwiftPackageReference "AuthorizationTextLabel" */,
+			);
 			productRefGroup = 0E4F2C072B8CAB8400EDF359 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -1081,6 +1089,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		0EE308752BB5413C00576939 /* XCRemoteSwiftPackageReference "AuthorizationTextLabel" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dimapaull/AuthorizationTextLabel.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		0EE3087E2BB59C8600576939 /* AuthorizationTextLabel */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0EE308752BB5413C00576939 /* XCRemoteSwiftPackageReference "AuthorizationTextLabel" */;
+			productName = AuthorizationTextLabel;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		C45B41B82BA84EFB00558EB0 /* CoreData.xcdatamodeld */ = {

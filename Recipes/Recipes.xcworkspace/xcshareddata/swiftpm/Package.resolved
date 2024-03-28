@@ -1,0 +1,14 @@
+{
+  "pins" : [
+    {
+      "identity" : "authorizationtextlabel",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/dimapaull/AuthorizationTextLabel.git",
+      "state" : {
+        "revision" : "10ce3b927c203ae4a39fd186ce39c8a4e10c3f5a",
+        "version" : "3.0.0"
+      }
+    }
+  ],
+  "version" : 2
+}
